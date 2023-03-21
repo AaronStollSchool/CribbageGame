@@ -4,13 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.cribbagegame.GameFramework.GameMainActivity;
+
+import com.example.cribbagegame.GameFramework.LocalGame;
+import com.example.cribbagegame.GameFramework.gameConfiguration.GameConfig;
+import com.example.cribbagegame.GameFramework.infoMessage.GameState;
 import com.example.cribbagegame.R;
 
-public class CribbageMainActivity extends AppCompatActivity {
+public class CribbageMainActivity extends GameMainActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public GameConfig createDefaultConfig() {
+        return null;
+    }
+
+    @Override
+    public LocalGame createLocalGame(GameState gameState) {
+        return null;
     }
 }

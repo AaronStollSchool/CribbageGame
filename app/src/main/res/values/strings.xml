@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">CribbageGame</string>
+    <string name="app_name">GameTest</string>
+    <string name="hello_world">Hello world!</string>
 </resources>

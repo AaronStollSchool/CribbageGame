@@ -12,11 +12,11 @@ import java.util.Arrays;
 import android.content.Context;
 import android.util.Pair;
 
-import edu.up.cs301.game.GameFramework.GameMainActivity;
-import edu.up.cs301.game.GameFramework.players.GamePlayer;
-import edu.up.cs301.game.GameFramework.players.ProxyPlayer;
-import edu.up.cs301.game.GameFramework.utilities.Logger;
-import static edu.up.cs301.game.GameFramework.utilities.EqualityMethods.arrayEquals;
+import com.example.cribbagegame.GameFramework.GameMainActivity;
+import com.example.cribbagegame.GameFramework.players.GamePlayer;
+import com.example.cribbagegame.GameFramework.players.ProxyPlayer;
+import com.example.cribbagegame.GameFramework.utilities.Logger;
+import static com.example.cribbagegame.GameFramework.utilities.EqualityMethods.arrayEquals;
 
 /**
  * GameConfig class
