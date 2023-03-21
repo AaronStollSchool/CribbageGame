@@ -9,7 +9,6 @@ import com.example.cribbagegame.GameFramework.GameMainActivity;
 import com.example.cribbagegame.GameFramework.LocalGame;
 import com.example.cribbagegame.GameFramework.gameConfiguration.GameConfig;
 import com.example.cribbagegame.GameFramework.infoMessage.GameState;
-import com.example.cribbagegame.R;
 
 public class CribbageMainActivity extends GameMainActivity {
 
