@@ -26,15 +26,23 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
-import edu.up.cs301.game.GameFramework.gameConfiguration.GameConfig;
-import edu.up.cs301.game.GameFramework.gameConfiguration.GamePlayerType;
-import edu.up.cs301.game.GameFramework.infoMessage.GameState;
-import edu.up.cs301.game.GameFramework.players.GamePlayer;
-import edu.up.cs301.game.GameFramework.utilities.IPCoder;
-import edu.up.cs301.game.GameFramework.utilities.Logger;
-import edu.up.cs301.game.GameFramework.utilities.MessageBox;
-import edu.up.cs301.game.GameFramework.utilities.Saving;
-import edu.up.cs301.game.R;
+
+import com.example.cribbagegame.GameFramework.gameConfiguration.GameConfig;
+import com.example.cribbagegame.GameFramework.gameConfiguration.GamePlayerType;
+import com.example.cribbagegame.GameFramework.infoMessage.GameState;
+import com.example.cribbagegame.GameFramework.players.GamePlayer;
+import com.example.cribbagegame.GameFramework.utilities.Logger;
+import com.example.cribbagegame.GameFramework.utilities.MessageBox;
+
+import com.example.cribbagegame.GameFramework.gameConfiguration.GameConfig;
+import com.example.cribbagegame.GameFramework.gameConfiguration.GamePlayerType;
+import com.example.cribbagegame.GameFramework.infoMessage.GameState;
+import com.example.cribbagegame.GameFramework.players.GamePlayer;
+import com.example.cribbagegame.GameFramework.utilities.IPCoder;
+import com.example.cribbagegame.GameFramework.utilities.Logger;
+import com.example.cribbagegame.GameFramework.utilities.MessageBox;
+import com.example.cribbagegame.GameFramework.utilities.Saving;
+import com.example.cribbagegame.R;
 
 /**
  * class GameMainActivity

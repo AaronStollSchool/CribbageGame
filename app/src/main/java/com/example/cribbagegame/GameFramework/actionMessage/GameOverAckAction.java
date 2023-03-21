@@ -1,6 +1,6 @@
 package com.example.cribbagegame.GameFramework.actionMessage;
 
-import edu.up.cs301.game.GameFramework.players.GamePlayer;
+import com.example.cribbagegame.GameFramework.players.GamePlayer;
 
 /**
  * An action by which the player acknowledges that the game is over.

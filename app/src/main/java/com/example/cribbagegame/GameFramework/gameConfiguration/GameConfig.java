@@ -1,22 +1,17 @@
 package com.example.cribbagegame.GameFramework.gameConfiguration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import android.content.Context;
 import android.util.Pair;
 
-import edu.up.cs301.game.GameFramework.GameMainActivity;
-import edu.up.cs301.game.GameFramework.players.GamePlayer;
-import edu.up.cs301.game.GameFramework.players.ProxyPlayer;
-import edu.up.cs301.game.GameFramework.utilities.Logger;
-import static edu.up.cs301.game.GameFramework.utilities.EqualityMethods.arrayEquals;
+import com.example.cribbagegame.GameFramework.GameMainActivity;
+import com.example.cribbagegame.GameFramework.players.GamePlayer;
+import com.example.cribbagegame.GameFramework.players.ProxyPlayer;
+import com.example.cribbagegame.GameFramework.utilities.Logger;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 
 /**
  * GameConfig class

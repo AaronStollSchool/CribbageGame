@@ -1,6 +1,6 @@
 package com.example.cribbagegame.GameFramework.gameConfiguration;
 
-import edu.up.cs301.game.GameFramework.players.GamePlayer;
+import com.example.cribbagegame.GameFramework.players.GamePlayer;
 
 /**
  * class GamePlayerType
