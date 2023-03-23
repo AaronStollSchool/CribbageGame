@@ -32,7 +32,6 @@ public class CribbageGameState extends GameState {
     private int playerTurn;
     //player 1 turn: 1
     //player 2 turn: 2
-    //Note: the game framework uses 0 and 1 for turns so we should use that instead and change any current uses
 
     private boolean isPlayer1Dealer;
 
