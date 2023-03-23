@@ -30,6 +30,8 @@ public class CribbageGameState {
     private int playerTurn;
     //player 1 turn: 1
     //player 2 turn: 2
+    //Note: the game framework uses 0 and 1 for turns so we should use that instead and change any current uses
+
     private boolean isPlayer1Dealer;
 
     private int phase;
@@ -85,6 +87,8 @@ public class CribbageGameState {
         //this.crib.addAll(gamestate.crib);
 
         this.faceUpCard = new Card(gamestate.faceUpCard.getCardValue(), gamestate.faceUpCard.getSuit());
+
+        this.playerTurn = gamestate.playerTurn;
 
         this.isHard = gamestate.isHard;
 
@@ -263,6 +267,7 @@ public class CribbageGameState {
         return crib.get(index);
     }
     public Card getFaceUpCard() {return faceUpCard;}
+    public int getPlayerTurn() {return playerTurn;}
 
     @Override
     public String toString() {
