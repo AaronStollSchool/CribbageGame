@@ -13,16 +13,25 @@ import com.example.cribbagegame.R;
 public class CribbageMainActivity extends GameMainActivity {
 
     private static final String TAG = "CribbageMainActivity";
-    public static final int PORT_NUMBER;
+    public static final int PORT_NUMBER = 1;
+
     @Override
     public GameConfig createDefaultConfig() {
-
+        return null;
     }
-    @Override
-    public LocalGame createLocalGame(GameState gamestate){
 
-    }
     @Override
-    public GameState saveGame(String gameName){}
-    @Override GameState loadGame(String gameName){}
+    public LocalGame createLocalGame(GameState gameState) {
+        return null;
+    }
+
+    @Override
+    public GameState saveGame(String gameName){
+        return null;
+    }
+
+    @Override
+    public GameState loadGame(String gameName){
+        return null;
+    }
 }
