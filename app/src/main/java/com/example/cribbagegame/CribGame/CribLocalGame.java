@@ -1,6 +1,7 @@
 package com.example.cribbagegame.CribGame;
 
 import com.example.cribbagegame.GameFramework.LocalGame;
+import com.example.cribbagegame.GameFramework.actionMessage.EndTurnAction;
 import com.example.cribbagegame.GameFramework.actionMessage.GameAction;
 import com.example.cribbagegame.GameFramework.players.GamePlayer;
 
@@ -46,6 +47,33 @@ public class CribLocalGame extends LocalGame {
         //check which player's turn it is
         //execute the given action for the player
         //else, return false
+        int pID = cribGameState.getPlayerTurn(); // Player ID for Action
+
+        if(action instanceof CribDiscardAction){
+            Card[] cards = ((CribDiscardAction) action).getCards();
+            cribGameState.discard(cards[0], pID);
+            cribGameState.discard(cards[1], pID);
+
+            return true;
+        }
+        if(action instanceof CribPlayCardAction){
+            Card playedCard = ((CribPlayCardAction) action).getPlayedCard();
+            cribGameState.playCard(playedCard);
+
+            return true;
+        }
+        if(action instanceof EndTurnAction){
+            cribGameState.endTurn(pID);
+            return true;
+        }
+        if(action instanceof CribDealAction){
+            cribGameState.dealCards();
+            return true;
+        }
+        if(action instanceof CribExitGameAction){
+            cribGameState.exitGame(pID);
+            return true;
+        }
         return false;
     }//makeMove
 

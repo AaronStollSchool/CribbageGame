@@ -123,7 +123,7 @@ public class CribbageGameState extends GameState {
      * for every subsequent call. Dealer will always be opposite of
      * player turn (i.e. if it is player 1's turn, player 2 is dealer).
      */
-    public boolean setPlayerTurn(int p) {
+    public boolean setPlayerTurn(int playerID) {
         if(playerTurn == 0) {
             playerTurn = gen.nextInt(2) + 1;
 
@@ -204,7 +204,7 @@ public class CribbageGameState extends GameState {
         return true;
     }
 
-    public boolean discard(Card c) { //discard TO CRIB
+    public boolean discard(Card c, int playerID) { //discard TO CRIB
         if(playerTurn == 1) {
             if(isPlayable(c) == true) {
                 p1Hand.remove(c);
@@ -235,6 +235,7 @@ public class CribbageGameState extends GameState {
         return hands;
     }
 
+    // GETTERS
     public Card getHandCard(int playerId, int index){
         Card out = null;
         if(playerId == 1){out = p1Hand.get(index);}
