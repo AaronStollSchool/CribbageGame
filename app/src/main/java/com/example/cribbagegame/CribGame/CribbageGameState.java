@@ -2,6 +2,8 @@ package com.example.cribbagegame.CribGame;
 
 import android.util.Log;
 
+import com.example.cribbagegame.GameFramework.infoMessage.GameState;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,7 +11,7 @@ import java.util.Random;
  * @authors Aaron Stoll, Aether Mocker, Kincaid Larson, Sean Murray
  * @version March 2023
  */
-public class CribbageGameState {
+public class CribbageGameState extends GameState {
     // Total Game Score for each player
     private int p1Points;
     private int p2Points;
@@ -104,7 +106,6 @@ public class CribbageGameState {
         this.gen = gamestate.gen;
     }
 
-
     public boolean dealCards() {
         for (int i = 0; i < 6; i++){
             p1Hand.add(cardDeck.nextCard());
@@ -116,8 +117,6 @@ public class CribbageGameState {
         faceUpCard = cardDeck.nextCard();
         return true;
     }
-
-
 
     /*
      * Randomly initializes player turn for first round, and toggles
@@ -260,6 +259,9 @@ public class CribbageGameState {
         if(playerId == 2){out = p2Points;}
         return out;
     }
+    public int getPlayer0Score() { return p1RoundScore; }
+    public int getPlayer1Score() { return p2RoundScore; }
+
     public Card getLastPlayed(){
         return inPlayCards.get(inPlayCards.size()-1);
     }

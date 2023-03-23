@@ -12,7 +12,6 @@ public class Card {
     private int suit;
     // 1-4 diamond, heart, spade, club
 
-
     private boolean isSelected;
 
     public Card(int val, int suit){
