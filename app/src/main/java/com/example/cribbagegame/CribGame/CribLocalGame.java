@@ -4,7 +4,6 @@ import com.example.cribbagegame.GameFramework.LocalGame;
 import com.example.cribbagegame.GameFramework.actionMessage.GameAction;
 import com.example.cribbagegame.GameFramework.players.GamePlayer;
 
-
 /**
  * class CribLocalGame controls the play of the game
  *
@@ -56,7 +55,7 @@ public class CribLocalGame extends LocalGame {
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         CribbageGameState cribGameState1 = new CribbageGameState(cribGameState);
-        //p.sendInfo(cribGameState1);
+        p.sendInfo(cribGameState1);
     }
 
     /**
