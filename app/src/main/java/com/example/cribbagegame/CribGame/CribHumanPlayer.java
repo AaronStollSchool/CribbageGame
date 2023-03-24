@@ -1,6 +1,5 @@
 package com.example.cribbagegame.CribGame;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
@@ -251,9 +250,10 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         activity.setContentView(R.layout.activity_main);
 
         //Initialize the widget reference member variables
-        this.playerScoreTextView = activity.findViewById(R.id.yourScoreView);
-        this.oppScoreTextView = activity.findViewById(R.id.oppScoreView);
-        this.roundTotalScoreView = activity.findViewById(R.id.roundTotalView);
+        this.playerScoreTextView = activity.findViewById(R.id.yourScoreValue);
+        this.oppScoreTextView = activity.findViewById(R.id.yourScoreValue);
+        this.roundTotalScoreView = activity.findViewById(R.id.roundTotalValue);
+
         this.cards.set(0, activity.findViewById(R.id.card1));
         this.cards.set(1, activity.findViewById(R.id.card2));
         this.cards.set(2, activity.findViewById(R.id.card3));
@@ -274,10 +274,12 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     public void onClick(View button) {
         //TO IMPLEMENT: idk how to do this
         if (button instanceof ImageButton) {
-            //find which button you clicked, then find what stage you're in, then PlayCard Action
+
+            //find which cardbutton you clicked, then find what stage you're in, then PlayCard Action
         }
         else if (button instanceof Button) { //there are no buttons created yet
-            //exitGame, endTurn, other things you can do in game
+
+            //exitGame, endTurn, helpButton, maybe others
         }
     }
 }

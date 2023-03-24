@@ -39,7 +39,7 @@ public class CribComputerPlayer extends GameComputerPlayer {
             }
             else {
                 if (rand == 1) {
-                    CribDiscardAction da = new CribDiscardAction(this);
+                    CribDiscardAction da = new CribDiscardAction(this); //this might need a gameState.phase int to specify when appropriate
                     game.sendAction(da);
                 } else if (rand == 2) {
                     CribEndTurnAction eta = new CribEndTurnAction(this);
