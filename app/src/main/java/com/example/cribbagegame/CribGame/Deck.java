@@ -19,7 +19,8 @@ public class Deck {
             for(int j = 2; j <= 14; j++){
                 int val = j;
                 int suit = i;
-                Card holder = new Card(val, suit);
+                int cardID = j + i;
+                Card holder = new Card(val, suit, cardID);
                 gameDeck.add(holder);
             }
         }

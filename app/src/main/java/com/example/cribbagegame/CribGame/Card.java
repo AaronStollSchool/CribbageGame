@@ -12,17 +12,19 @@ public class Card {
     private int suit;
     // 1-4 diamond, heart, spade, club
 
+    private int cardID;
     private boolean isSelected;
 
-    public Card(int val, int suit){
+    public Card(int val, int suit, int cardID){
         cardValue = val;
         this.suit = suit;
         isSelected = false;
-
+        this.cardID = cardID;
     }
 
     public int getCardValue() { return cardValue; }
     public int getSuit() { return suit; }
+    public int getCardID() { return cardID; }
     public boolean isSelected() { return isSelected; }
 
     public void toggleSelected() { isSelected = !(isSelected); }

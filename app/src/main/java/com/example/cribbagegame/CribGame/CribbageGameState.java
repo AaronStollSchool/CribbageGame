@@ -88,7 +88,7 @@ public class CribbageGameState extends GameState {
         this.crib = new ArrayList<Card>();
         //this.crib.addAll(gamestate.crib);
 
-        this.faceUpCard = new Card(gamestate.faceUpCard.getCardValue(), gamestate.faceUpCard.getSuit());
+        this.faceUpCard = new Card(gamestate.faceUpCard.getCardValue(), gamestate.faceUpCard.getSuit(), gamestate.faceUpCard.getCardID());
 
         this.playerTurn = gamestate.playerTurn;
 
