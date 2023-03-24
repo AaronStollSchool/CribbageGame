@@ -257,22 +257,23 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         this.cards.set(4, activity.findViewById(R.id.card5));
         this.cards.set(5, activity.findViewById(R.id.card6));
 
+        this.cards.get(0).setOnClickListener(this);
+        this.cards.get(1).setOnClickListener(this);
+        this.cards.get(2).setOnClickListener(this);
+        this.cards.get(3).setOnClickListener(this);
+        this.cards.get(4).setOnClickListener(this);
+        this.cards.get(5).setOnClickListener(this);
 
-        /*Listen for button presses
-        dieImageButton.setOnClickListener(this);
-        holdButton.setOnClickListener(this);*/
     }
 
     @Override
     public void onClick(View button) {
         //TO IMPLEMENT: idk how to do this
         if (button instanceof ImageButton) {
-            //PigRollAction pra = new PigRollAction(this);
-            //game.sendAction(pra);
+            //find which button you clicked, then find what stage you're in, then PlayCard Action
         }
-        else if (button instanceof Button) {
-            //PigHoldAction pha = new PigHoldAction(this);
-            //game.sendAction(pha);
+        else if (button instanceof Button) { //there are no buttons created yet
+            //exitGame, endTurn, other things you can do in game
         }
     }
 }
