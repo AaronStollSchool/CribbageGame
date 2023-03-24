@@ -14,6 +14,10 @@ import com.example.cribbagegame.R;
 
 import java.util.ArrayList;
 
+/**
+ * @author Aether Mocker
+ * @version March 2023
+ */
 public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
     private TextView playerScoreTextView = null;
     private TextView oppScoreTextView    = null;
