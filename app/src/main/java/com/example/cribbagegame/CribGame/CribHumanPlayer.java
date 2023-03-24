@@ -247,7 +247,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         this.activity = activity;
 
         // Load the layout resource for our GUI
-        activity.setContentView(R.layout.activity_main);
+        activity.setContentView(R.layout.cribbage_main);
 
         //Initialize the widget reference member variables
         this.playerScoreTextView = activity.findViewById(R.id.yourScoreValue);

@@ -39,17 +39,22 @@ public class CribComputerPlayer extends GameComputerPlayer {
             }
             else {
                 if (rand == 1) {
-                    CribDiscardAction da = new CribDiscardAction(this); //this might need a gameState.phase int to specify when appropriate
+                    CribDiscardAction da = new CribDiscardAction(this,
+                            cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))),
+                            cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
+                    //this might need a gameState.phase int to specify when appropriate
                     game.sendAction(da);
+
                 } else if (rand == 2) {
                     CribEndTurnAction eta = new CribEndTurnAction(this);
                     game.sendAction(eta);
+
                 } else if (rand == 3) {
-                    CribPlayCardAction pca = new CribPlayCardAction(this);
+                    CribPlayCardAction pca = new CribPlayCardAction(this,
+                            cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
                     game.sendAction(pca);
                 }
             }
             }
         }
     }
-}
