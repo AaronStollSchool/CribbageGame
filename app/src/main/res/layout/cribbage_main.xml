@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.example.cribbagegame.CribGame.CribbageMainActivity">
+
+    <LinearLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cribbage!"
+            android:textAlignment="center"
+            android:textColor="#FFEB3B"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="60dp"
+                android:layout_weight="1" />
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/yourScoreText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="Your Score:"
+                        android:textColor="#E43232"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/yourScoreValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/oppScoreText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="Their Score:"
+                        android:textColor="#7988D6"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/oppScoreValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/roundTotalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:text="Round Score:"
+                        android:textColor="#369526"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/roundTotalValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <Space
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/faceUpCardView"
+                android:layout_width="120dp"
+                android:layout_height="180dp"
+                android:src="@drawable/black_joker" />
+
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="60dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/card1"
+                        android:layout_width="60dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/red_joker" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/card2"
+                        android:layout_width="60dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/red_joker" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/card3"
+                        android:layout_width="60dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/red_joker" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/card4"
+                        android:layout_width="60dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/red_joker" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/card5"
+                        android:layout_width="60dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/red_joker" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/card6"
+                        android:layout_width="60dp"
+                        android:layout_height="90dp"
+                        android:src="@drawable/red_joker" />
+
+                    <Space
+                        android:layout_width="80dp"
+                        android:layout_height="30dp" />
+
+                    <Button
+                        android:id="@+id/endTurnButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="End Turn"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/helpButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="❔"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/exitGameButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exit Game"
+                    android:textAllCaps="false" />
+
+                <Space
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content" />
+
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

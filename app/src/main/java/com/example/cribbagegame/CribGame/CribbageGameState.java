@@ -33,12 +33,12 @@ public class CribbageGameState extends GameState {
     private boolean isHard;
 
     private int playerTurn;
-    //player 1 turn: 1
-    //player 2 turn: 2
+    //player 1 turn: 0
+    //player 2 turn: 1
 
     private boolean isPlayer1Dealer;
 
-    private int phase;
+    private int phase; //this should be fleshed more out to accom for shuffle/deal/setUp of the game
     // 0 Menu
     // 1 In Round
     // 2 Score Screen
@@ -97,7 +97,7 @@ public class CribbageGameState extends GameState {
         this.crib = new ArrayList<Card>();
         //this.crib.addAll(gamestate.crib);
 
-        this.faceUpCard = new Card(gamestate.faceUpCard.getCardValue(), gamestate.faceUpCard.getSuit());
+        this.faceUpCard = new Card(gamestate.faceUpCard.getCardValue(), gamestate.faceUpCard.getSuit(), gamestate.faceUpCard.getCardID());
 
         this.playerTurn = gamestate.playerTurn;
 
@@ -271,6 +271,8 @@ public class CribbageGameState extends GameState {
     }
     public int getPlayer0Score() { return p1RoundScore; }
     public int getPlayer1Score() { return p2RoundScore; }
+
+    public int getGamePhase() { return phase; }
 
     public Card getLastPlayed(){
         return inPlayCards.get(inPlayCards.size()-1);
