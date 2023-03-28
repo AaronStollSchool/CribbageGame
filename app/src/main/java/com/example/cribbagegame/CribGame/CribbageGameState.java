@@ -12,6 +12,9 @@ import java.util.Random;
  * @version March 2023
  */
 public class CribbageGameState extends GameState {
+    ///////////////////////////////////////////////////
+    // ************** instance variables ************
+    ///////////////////////////////////////////////////
     // Total Game Score for each player
     private int p1Points;
     private int p2Points;
@@ -45,6 +48,9 @@ public class CribbageGameState extends GameState {
     private int roundScore;
     private Random gen;
 
+    /**
+     * Constructor for objects of class CribbageGameState
+     */
     public CribbageGameState(){
         p1Points = 0;
         p2Points = 0;
@@ -71,8 +77,12 @@ public class CribbageGameState extends GameState {
         gen = new Random();
     }
 
-    //copy constructor
-    //takes a given GameState and does a deep copy
+    /**
+     * Copy constructor for class CribbageGameState
+     *
+     * @param gamestate
+     * 		the CribbageGameState object that we want to clone
+     */
     public CribbageGameState(CribbageGameState gamestate) {
         this.p1Points = gamestate.p1Points;
         this.p2Points = gamestate.p2Points;
