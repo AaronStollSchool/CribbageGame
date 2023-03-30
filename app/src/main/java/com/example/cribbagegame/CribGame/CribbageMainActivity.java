@@ -10,6 +10,8 @@ import com.example.cribbagegame.GameFramework.gameConfiguration.GameConfig;
 import com.example.cribbagegame.GameFramework.gameConfiguration.GamePlayerType;
 import com.example.cribbagegame.GameFramework.infoMessage.GameState;
 import com.example.cribbagegame.GameFramework.players.GamePlayer;
+import com.example.cribbagegame.GameFramework.utilities.Logger;
+import com.example.cribbagegame.GameFramework.utilities.Saving;
 import com.example.cribbagegame.R;
 
 import java.util.ArrayList;
@@ -43,18 +45,44 @@ public class CribbageMainActivity extends GameMainActivity {
         return defaultConfig;
     }//createDefaultConfig
 
+    /**
+     * createLocalGame
+     *
+     * Creates a new game that runs on the server tablet,
+     * @param gameState
+     * 				the gameState for this game or null for a new game
+     *
+     * @return a new, game-specific instance of a sub-class of the LocalGame
+     *         class.
+     */
     @Override
     public LocalGame createLocalGame(GameState gameState) {
         return new CribLocalGame();
     }
 
+    /**
+     * saveGame, adds this games prepend to the filename
+     *
+     * @param gameName
+     * 				Desired save name
+     * @return String representation of the save
+     */
     @Override
     public GameState saveGame(String gameName){
-        return null;
+        return super.saveGame(getGameString(gameName));
     }
 
+    /**
+     * loadGame, adds this games prepend to the desire file to open and creates the game specific state
+     * @param gameName
+     * 				The file to open
+     * @return The loaded GameState
+     */
     @Override
     public GameState loadGame(String gameName){
-        return null;
+        String appName = getGameString(gameName);
+        super.loadGame(appName);
+        Logger.log(TAG, "Loading: " + gameName);
+        return (GameState) new CribbageGameState((CribbageGameState) Saving.readFromFile(appName, this.getApplicationContext()));
     }
 }

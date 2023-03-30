@@ -274,6 +274,16 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     public void onClick(View button) {
         //TO IMPLEMENT: idk how to do this
         if (button instanceof ImageButton) {
+            switch(button.getId())
+            {
+                case R.id.card1: // handle button A click;
+                    break;
+                case R.id.card2: // handle button B click;
+
+                    break;
+                default:
+                    throw new RuntimeException("Unknow button ID");
+            }
 
             //find which cardbutton you clicked, then find what stage you're in, then PlayCard Action
         }
