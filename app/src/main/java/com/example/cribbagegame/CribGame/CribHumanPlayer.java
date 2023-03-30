@@ -246,8 +246,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         break;
 
                     default:
-                        cards.get(k).setImageResource(R.drawable.black_joker);
-                        //replace with a solid color to indicate that it's not a valid card
+                        cards.get(k).setImageResource(R.drawable.back_of_card);
                         break;
                 }
             }
