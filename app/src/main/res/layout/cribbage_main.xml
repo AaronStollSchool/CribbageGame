@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/cribbageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cribbage!"
@@ -26,6 +26,11 @@
             android:textColor="#FFEB3B"
             android:textSize="34sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,6 +168,7 @@
 
                     <ImageButton
                         android:id="@+id/card1"
+                        style="@style/Widget.AppCompat.ImageButton"
                         android:layout_width="60dp"
                         android:layout_height="90dp"
                         android:src="@drawable/red_joker" />
@@ -250,23 +256,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/helpButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="❔"
-                    android:textAllCaps="false" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/exitGameButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Exit Game"
-                    android:textAllCaps="false" />
+                    <Button
+                        android:id="@+id/exitGameButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Exit Game"
+                        android:textAllCaps="false" />
 
-                <Space
-                    android:layout_width="5dp"
-                    android:layout_height="wrap_content" />
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/helpButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="❔"
+                        android:textAllCaps="false" />
+                </LinearLayout>
 
             </TableRow>
         </TableLayout>
