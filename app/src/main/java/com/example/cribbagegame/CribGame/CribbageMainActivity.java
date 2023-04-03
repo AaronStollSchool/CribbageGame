@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class CribbageMainActivity extends GameMainActivity {
 
     private static final String TAG = "CribbageMainActivity";
-    public static final int PORT_NUMBER = 1;
+    public static final int PORT_NUMBER = 2279;
 
     @Override
     public GameConfig createDefaultConfig() {
@@ -36,8 +36,8 @@ public class CribbageMainActivity extends GameMainActivity {
             }});
 
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Cribbage", PORT_NUMBER);
-        defaultConfig.addPlayer("Human", 1); //Player 1: a human player
-        defaultConfig.addPlayer("Computer", 2); //Player 2: a computer player
+        defaultConfig.addPlayer("Human", 0); //Player 1: a human player
+        defaultConfig.addPlayer("Computer", 1); //Player 2: a computer player
         defaultConfig.setRemoteData("Remote Human Player", "", 0);
 
         return defaultConfig;

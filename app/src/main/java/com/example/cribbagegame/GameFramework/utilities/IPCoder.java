@@ -1,5 +1,7 @@
 package com.example.cribbagegame.GameFramework.utilities;
 
+import android.util.Log;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -16,6 +18,7 @@ import java.util.Enumeration;
 public class IPCoder {
     //Tag for logging
     private static final String TAG = "IPCoder";
+
     /**
      * gets the IP address of the current device
      *
@@ -41,6 +44,10 @@ public class IPCoder {
         } catch (SocketException ex) {
             //Log.e("IPCoder"/*this.toString()*/, ex.toString());
             Logger.log(TAG, ""+ex.toString(), Logger.ERROR);
+        } catch (NullPointerException npe) {
+            Log.e("IPCoder", "Could not retrieve network interfaces.");
+            Log.e("IPCoder", "This can happen because you are missing the required permission requests in your AndroidManifest.xml file.");
+            Log.e("IPCoder", npe.toString());
         }
         return "Unable to determine IP address";
     }
