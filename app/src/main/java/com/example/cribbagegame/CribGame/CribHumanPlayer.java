@@ -31,6 +31,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     private Button endTurnButton = null;
     private Button exitButton = null;
     private Button helpButton = null;
+    private Button shuffleAndDealButton = null;
 
     private ArrayList<ImageButton> cards = new ArrayList<>();
     private ArrayList<Card> hand = new ArrayList<>();
@@ -71,7 +72,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             //this may change frequently because of the various scoring that happens
             //in different components of each game
             roundTotalScoreView.setText("" + ((CribbageGameState) info).getRoundScore(this.playerNum));
-
 
             //setImageResource for each card in hand, because each is an ImageButton
             for (int k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); ++k) {
@@ -252,7 +252,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             }
             //copy down the card's for later use (onClick)
             for (int i = 0; i < ((CribbageGameState) info).getHandSize(this.playerNum); ++i) {
-                hand.add(((CribbageGameState) info).getHandCard(this.playerNum, i));
+                hand.add(i, ((CribbageGameState) info).getHandCard(this.playerNum, i));
             }
 
             this.gamePhase = ((CribbageGameState) info).getGamePhase();
@@ -279,14 +279,15 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         exitButton = activity.findViewById(R.id.exitGameButton);
         helpButton = activity.findViewById(R.id.helpButton);
         endTurnButton = activity.findViewById(R.id.endTurnButton);
+        shuffleAndDealButton = activity.findViewById(R.id.shuffleAndDeal);
 
         //setting each card object to a card button on the screen
-        this.cards.set(0, activity.findViewById(R.id.card1));
-        this.cards.set(1, activity.findViewById(R.id.card2));
-        this.cards.set(2, activity.findViewById(R.id.card3));
-        this.cards.set(3, activity.findViewById(R.id.card4));
-        this.cards.set(4, activity.findViewById(R.id.card5));
-        this.cards.set(5, activity.findViewById(R.id.card6));
+        this.cards.add(0, activity.findViewById(R.id.card1));
+        this.cards.add(1, activity.findViewById(R.id.card2));
+        this.cards.add(2, activity.findViewById(R.id.card3));
+        this.cards.add(3, activity.findViewById(R.id.card4));
+        this.cards.add(4, activity.findViewById(R.id.card5));
+        this.cards.add(5, activity.findViewById(R.id.card6));
 
         //setOnClickListener for ImageButtons
         this.cards.get(0).setOnClickListener(this);
@@ -300,6 +301,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         exitButton.setOnClickListener(this);
         helpButton.setOnClickListener(this);
         endTurnButton.setOnClickListener(this);
+        shuffleAndDealButton.setOnClickListener(this);
 
     }
 
@@ -347,12 +349,13 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     }
 
                     //if you're not meant to discard, play it
-                    else if ( numClicked == 1) {
+                    else if (numClicked == 1) {
                         CribPlayCardAction pca = new CribPlayCardAction(this, hand.get(i));
                         game.sendAction(pca);
                     }
 
-                } else {
+                }
+                else {
                     flash(Color.RED, 50);
                 }
             }
@@ -364,11 +367,19 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             if (button.equals(endTurnButton)) {
                 CribEndTurnAction eta = new CribEndTurnAction(this);
                 game.sendAction(eta);
-            } else if (button.equals(helpButton)) {
+            }
+            else if (button.equals(helpButton)) {
                 // * for later: may need HelpButtonAction (?)
-            } else if (button.equals(exitButton)) {
+            }
+            else if (button.equals(exitButton)) {
                 CribExitGameAction ega = new CribExitGameAction(this);
                 game.sendAction(ega);
+            }
+            else if (button.equals(shuffleAndDealButton)) {
+                CribShuffleAction sa = new CribShuffleAction(this);
+                game.sendAction(sa);
+                CribDealAction da = new CribDealAction(this);
+                game.sendAction(da);
             }
 
         }

@@ -161,8 +161,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+                    <Button
+                        android:id="@+id/shuffleAndDeal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Shuffle and Deal" />
+
                     <Space
-                        android:layout_width="100dp"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
@@ -171,6 +178,7 @@
                         style="@style/Widget.AppCompat.ImageButton"
                         android:layout_width="60dp"
                         android:layout_height="90dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
                     <Space
@@ -182,6 +190,7 @@
                         android:id="@+id/card2"
                         android:layout_width="60dp"
                         android:layout_height="90dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
                     <Space
@@ -193,6 +202,7 @@
                         android:id="@+id/card3"
                         android:layout_width="60dp"
                         android:layout_height="90dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
                     <Space
@@ -204,6 +214,7 @@
                         android:id="@+id/card4"
                         android:layout_width="60dp"
                         android:layout_height="90dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
                     <Space
@@ -215,6 +226,7 @@
                         android:id="@+id/card5"
                         android:layout_width="60dp"
                         android:layout_height="90dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
                     <Space
@@ -226,6 +238,7 @@
                         android:id="@+id/card6"
                         android:layout_width="60dp"
                         android:layout_height="90dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
                     <Space

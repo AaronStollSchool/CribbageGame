@@ -20,6 +20,7 @@ public class CribLocalGame extends LocalGame {
      */
     public CribLocalGame() {
         cribGameState = new CribbageGameState();
+        state = cribGameState;
     }
 
     /**
