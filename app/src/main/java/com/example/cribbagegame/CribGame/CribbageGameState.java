@@ -64,10 +64,11 @@ public class CribbageGameState extends GameState {
         crib = new ArrayList<Card>();
 
         faceUpCard = cardDeck.nextCard();
+        //this should be changed for when we deal cards!!!
 
         isHard = true;
 
-        playerTurn = 0;
+        playerTurn = 2; // value to show no player turn has been set yet
 
         phase = 0;
         p1RoundScore = 0;
@@ -134,8 +135,8 @@ public class CribbageGameState extends GameState {
      * player turn (i.e. if it is player 1's turn, player 2 is dealer).
      */
     public boolean setPlayerTurn(int playerID) {
-        if(playerTurn == 0) {
-            playerTurn = gen.nextInt(2) + 1;
+        if(playerTurn == 2) {
+            playerTurn = gen.nextInt(2);
 
             if(playerTurn == 1) {
                 isPlayer1Dealer = false;
@@ -143,10 +144,10 @@ public class CribbageGameState extends GameState {
                 isPlayer1Dealer = true;
             }
         } else {
-            if(playerTurn == 1) {
-                playerTurn = 2;
-            } else {
+            if(playerTurn == 0) {
                 playerTurn = 1;
+            } else {
+                playerTurn = 0;
             }
 
             isPlayer1Dealer = !(isPlayer1Dealer);
@@ -184,7 +185,7 @@ public class CribbageGameState extends GameState {
     //playCard just simply removes card from the hand
     // to the table in the inPlayCards arrayList
     public boolean playCard(Card c) {
-        if(playerTurn == 1) {
+        if(playerTurn == 0) {
             if(isPlayable(c) == true) {
                 p1Hand.remove(c);
                 p1Hand.trimToSize();
@@ -192,7 +193,7 @@ public class CribbageGameState extends GameState {
                 return true;
             }
         }
-        else if(playerTurn == 2){
+        else if(playerTurn == 1){
             if(isPlayable(c) == true) {
                 p2Hand.remove(c);
                 p2Hand.trimToSize();
@@ -206,16 +207,16 @@ public class CribbageGameState extends GameState {
     //can be end turn or change turn, not sure if completely needed
     public boolean endTurn(int playerID) {
         if(playerTurn == playerID) { //if it's player 1's turn, make it player 2's.
-            playerTurn = 2;
+            playerTurn = 1;
         }
         else {
-            playerTurn = 1;
+            playerTurn = 0;
         }
         return true;
     }
 
     public boolean discard(Card c, int playerID) { //discard TO CRIB
-        if(playerTurn == 1) {
+        if(playerTurn == 0) {
             if(isPlayable(c) == true) {
                 p1Hand.remove(c);
                 p1Hand.trimToSize();
@@ -223,7 +224,7 @@ public class CribbageGameState extends GameState {
                 return true;
             }
         }
-        else if(playerTurn == 2){
+        else if(playerTurn == 1){
             if(isPlayable(c) == true) {
                 p2Hand.remove(c);
                 p2Hand.trimToSize();
@@ -283,6 +284,7 @@ public class CribbageGameState extends GameState {
     }
     public Card getFaceUpCard() {return faceUpCard;}
     public int getPlayerTurn() {return playerTurn;}
+    public int getCribSize() {return crib.size();}
 
     @Override
     public String toString() {

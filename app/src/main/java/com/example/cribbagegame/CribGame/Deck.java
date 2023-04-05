@@ -28,6 +28,8 @@ public class Deck {
     }
 
     public Card nextCard(){
+        if(deckIndex >= gameDeck.size()){return null;}
+
         Card out = gameDeck.get(deckIndex);
         deckIndex++;
 
