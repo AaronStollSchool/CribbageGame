@@ -74,8 +74,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             roundTotalScoreView.setText("" + ((CribbageGameState) info).getRoundScore(this.playerNum));
 
             //setImageResource for each card in hand, because each is an ImageButton
-            for (int k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); ++k) {
-                switch (((CribbageGameState) info).getHandCard(this.playerNum, k).getCardID()) {
+            for (int k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum+1); k++) {
+                switch (((CribbageGameState) info).getHandCard(this.playerNum+1, k).getCardID()) {
                     case 21:
                         cards.get(k).setImageResource(R.drawable._2_of_diamonds);
                         break;
@@ -376,8 +376,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 game.sendAction(ega);
             }
             else if (button.equals(shuffleAndDealButton)) {
-                CribShuffleAction sa = new CribShuffleAction(this);
-                game.sendAction(sa);
+                /*CribShuffleAction sa = new CribShuffleAction(this);
+                game.sendAction(sa);*/
                 CribDealAction da = new CribDealAction(this);
                 game.sendAction(da);
             }

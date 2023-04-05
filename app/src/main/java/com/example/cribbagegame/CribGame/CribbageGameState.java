@@ -116,6 +116,7 @@ public class CribbageGameState extends GameState {
     }
 
     public boolean dealCards() {
+        cardDeck = new Deck();
         for (int i = 0; i < 6; i++){
             p1Hand.add(cardDeck.nextCard());
             p2Hand.add(cardDeck.nextCard());

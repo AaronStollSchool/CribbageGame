@@ -19,7 +19,7 @@ public class Card {
         cardValue = val;
         this.suit = suit;
         isSelected = false;
-        this.cardID = cardID;
+        this.cardID = suit + 10 * val;
     }
 
     public int getCardValue() { return cardValue; }
