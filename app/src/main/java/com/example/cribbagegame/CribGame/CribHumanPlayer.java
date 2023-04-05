@@ -538,7 +538,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
                     //when discarding card
                     messageView.setText("Please select another card to discard both to the crib.");
-                    if (numClicked == 2) {
+                    /*if (numClicked == 2) {
                         index = i;
                         messageView.setText("");
                         CribDiscardAction da = new CribDiscardAction(this, hand.get(i), hand.get(index));
@@ -549,12 +549,12 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     else if (numClicked == 1) {
                         CribPlayCardAction pca = new CribPlayCardAction(this, hand.get(i));
                         game.sendAction(pca);
-                    }
+                    }*/
 
                 }
-                else {
+                /*else {
                     flash(Color.RED, 50);
-                }
+                }*/
             }
         }
 

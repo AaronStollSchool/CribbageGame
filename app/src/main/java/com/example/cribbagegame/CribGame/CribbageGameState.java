@@ -64,11 +64,10 @@ public class CribbageGameState extends GameState {
         crib = new ArrayList<Card>();
 
         faceUpCard = cardDeck.nextCard();
-        //this should be changed for when we deal cards!!!
 
         isHard = true;
 
-        playerTurn = 2; // value to show no player turn has been set yet
+        playerTurn = 0; // TBI: change value to show no player turn has been set yet
 
         phase = 0;
         p1RoundScore = 0;
