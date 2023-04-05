@@ -67,7 +67,7 @@ public class CribbageGameState extends GameState {
 
         isHard = true;
 
-        playerTurn = 0;
+        playerTurn = 2; // value to show no player turn has been set yet
 
         phase = 0;
         p1RoundScore = 0;
@@ -134,8 +134,8 @@ public class CribbageGameState extends GameState {
      * player turn (i.e. if it is player 1's turn, player 2 is dealer).
      */
     public boolean setPlayerTurn(int playerID) {
-        if(playerTurn == 0) {
-            playerTurn = gen.nextInt(2) + 1;
+        if(playerTurn == 2) {
+            playerTurn = gen.nextInt(2);
 
             if(playerTurn == 1) {
                 isPlayer1Dealer = false;
@@ -143,10 +143,10 @@ public class CribbageGameState extends GameState {
                 isPlayer1Dealer = true;
             }
         } else {
-            if(playerTurn == 1) {
-                playerTurn = 2;
-            } else {
+            if(playerTurn == 0) {
                 playerTurn = 1;
+            } else {
+                playerTurn = 0;
             }
 
             isPlayer1Dealer = !(isPlayer1Dealer);
@@ -184,7 +184,7 @@ public class CribbageGameState extends GameState {
     //playCard just simply removes card from the hand
     // to the table in the inPlayCards arrayList
     public boolean playCard(Card c) {
-        if(playerTurn == 1) {
+        if(playerTurn == 0) {
             if(isPlayable(c) == true) {
                 p1Hand.remove(c);
                 p1Hand.trimToSize();
@@ -192,7 +192,7 @@ public class CribbageGameState extends GameState {
                 return true;
             }
         }
-        else if(playerTurn == 2){
+        else if(playerTurn == 1){
             if(isPlayable(c) == true) {
                 p2Hand.remove(c);
                 p2Hand.trimToSize();
@@ -206,16 +206,16 @@ public class CribbageGameState extends GameState {
     //can be end turn or change turn, not sure if completely needed
     public boolean endTurn(int playerID) {
         if(playerTurn == playerID) { //if it's player 1's turn, make it player 2's.
-            playerTurn = 2;
+            playerTurn = 1;
         }
         else {
-            playerTurn = 1;
+            playerTurn = 0;
         }
         return true;
     }
 
     public boolean discard(Card c, int playerID) { //discard TO CRIB
-        if(playerTurn == 1) {
+        if(playerTurn == 0) {
             if(isPlayable(c) == true) {
                 p1Hand.remove(c);
                 p1Hand.trimToSize();
@@ -223,7 +223,7 @@ public class CribbageGameState extends GameState {
                 return true;
             }
         }
-        else if(playerTurn == 2){
+        else if(playerTurn == 1){
             if(isPlayable(c) == true) {
                 p2Hand.remove(c);
                 p2Hand.trimToSize();
@@ -248,26 +248,26 @@ public class CribbageGameState extends GameState {
     // GETTERS
     public Card getHandCard(int playerId, int index){
         Card out = null;
-        if(playerId == 1){out = p1Hand.get(index);}
-        if(playerId == 2){out = p2Hand.get(index);}
+        if(playerId == 0){out = p1Hand.get(index);}
+        if(playerId == 1){out = p2Hand.get(index);}
         return out;
     }
     public int getHandSize(int playerId){
         int size = 0;
-        if(playerId == 1){size = p1Hand.size();}
-        if(playerId == 2){size = p2Hand.size();}
+        if(playerId == 0){size = p1Hand.size();}
+        if(playerId == 1){size = p2Hand.size();}
         return size;
     }
     public int getRoundScore(int playerId){
         int out= 0;
-        if(playerId == 1){out = p1RoundScore;}
-        if(playerId == 2){out = p2RoundScore;}
+        if(playerId == 0){out = p1RoundScore;}
+        if(playerId == 1){out = p2RoundScore;}
         return out;
     }
     public int getGameScore(int playerId){
         int out = 0;
-        if(playerId == 1){out = p1Points;}
-        if(playerId == 2){out = p2Points;}
+        if(playerId == 0){out = p1Points;}
+        if(playerId == 1){out = p2Points;}
         return out;
     }
     public int getPlayer0Score() { return p1RoundScore; }
