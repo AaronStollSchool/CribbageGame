@@ -30,7 +30,12 @@
         <TextView
             android:id="@+id/messageText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +43,7 @@
             android:orientation="horizontal">
 
             <Space
-                android:layout_width="5dp"
+                android:layout_width="30dp"
                 android:layout_height="60dp"
                 android:layout_weight="1" />
 
@@ -57,7 +62,7 @@
                         android:layout_marginTop="0dp"
                         android:text="Your Score:"
                         android:textColor="#E43232"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -65,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="20sp" />
+                        android:textSize="24sp" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -84,7 +89,7 @@
                         android:layout_marginTop="0dp"
                         android:text="Their Score:"
                         android:textColor="#7988D6"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -92,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="20sp" />
+                        android:textSize="24sp" />
                 </TableRow>
 
                 <TableRow
@@ -106,7 +111,7 @@
                         android:layout_marginTop="0dp"
                         android:text="Round Score:"
                         android:textColor="#369526"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -114,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="20sp" />
+                        android:textSize="24sp" />
                 </TableRow>
 
                 <TableRow
@@ -141,11 +146,15 @@
                 android:src="@drawable/black_joker" />
 
             <Space
-                android:layout_width="5dp"
+                android:layout_width="30dp"
                 android:layout_height="60dp"
                 android:layout_weight="1" />
 
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
         <TableLayout
             android:layout_width="wrap_content"
@@ -161,6 +170,11 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
                     <Button
                         android:id="@+id/shuffleAndDeal"
                         android:layout_width="wrap_content"
@@ -169,15 +183,15 @@
                         android:text="Shuffle and Deal" />
 
                     <Space
-                        android:layout_width="50dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/card1"
                         style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="60dp"
-                        android:layout_height="90dp"
+                        android:layout_width="80dp"
+                        android:layout_height="140dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
@@ -188,8 +202,8 @@
 
                     <ImageButton
                         android:id="@+id/card2"
-                        android:layout_width="60dp"
-                        android:layout_height="90dp"
+                        android:layout_width="80dp"
+                        android:layout_height="140dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
@@ -200,8 +214,8 @@
 
                     <ImageButton
                         android:id="@+id/card3"
-                        android:layout_width="60dp"
-                        android:layout_height="90dp"
+                        android:layout_width="80dp"
+                        android:layout_height="140dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
@@ -212,8 +226,8 @@
 
                     <ImageButton
                         android:id="@+id/card4"
-                        android:layout_width="60dp"
-                        android:layout_height="90dp"
+                        android:layout_width="80dp"
+                        android:layout_height="140dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
@@ -224,8 +238,8 @@
 
                     <ImageButton
                         android:id="@+id/card5"
-                        android:layout_width="60dp"
-                        android:layout_height="90dp"
+                        android:layout_width="80dp"
+                        android:layout_height="140dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
@@ -236,8 +250,8 @@
 
                     <ImageButton
                         android:id="@+id/card6"
-                        android:layout_width="60dp"
-                        android:layout_height="90dp"
+                        android:layout_width="80dp"
+                        android:layout_height="140dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/red_joker" />
 
@@ -252,6 +266,11 @@
                         android:layout_weight="1"
                         android:text="End Turn"
                         android:textAllCaps="false" />
+
+                    <Space
+                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
             </TableRow>
@@ -262,7 +281,7 @@
 
                 <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp" />
+                    android:layout_height="40dp" />
             </TableRow>
 
             <TableRow
@@ -292,6 +311,10 @@
                         android:text="❔"
                         android:textAllCaps="false" />
                 </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp" />
 
             </TableRow>
         </TableLayout>

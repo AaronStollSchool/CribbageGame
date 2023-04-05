@@ -64,6 +64,7 @@ public class CribbageGameState extends GameState {
         crib = new ArrayList<Card>();
 
         faceUpCard = cardDeck.nextCard();
+        //this should be changed for when we deal cards!!!
 
         isHard = true;
 
@@ -283,6 +284,7 @@ public class CribbageGameState extends GameState {
     }
     public Card getFaceUpCard() {return faceUpCard;}
     public int getPlayerTurn() {return playerTurn;}
+    public int getCribSize() {return crib.size();}
 
     @Override
     public String toString() {
