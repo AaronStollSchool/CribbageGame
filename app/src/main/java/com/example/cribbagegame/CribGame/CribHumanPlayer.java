@@ -35,6 +35,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
     private ArrayList<ImageButton> cards = new ArrayList<>();
     private ArrayList<Card> hand = new ArrayList<>();
+    private int roundScore;
     private int gamePhase; //for later
     private int numClicked = 0;
 
@@ -72,10 +73,11 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             //this may change frequently because of the various scoring that happens
             //in different components of each game
             roundTotalScoreView.setText("" + ((CribbageGameState) info).getRoundScore(this.playerNum));
+            roundScore = ((CribbageGameState) info).getRoundScore(this.playerNum);
 
             //setImageResource for each card in hand, because each is an ImageButton
-            for (int k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum+1); k++) {
-                switch (((CribbageGameState) info).getHandCard(this.playerNum+1, k).getCardID()) {
+            for (int k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); k++) {
+                switch (((CribbageGameState) info).getHandCard(this.playerNum, k).getCardID()) {
                     case 21:
                         cards.get(k).setImageResource(R.drawable._2_of_diamonds);
                         break;
@@ -310,7 +312,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     public void initAfterReady() {
         //allPlayerNames can be null so after Ready, we can initialize the now non-null array
         playerScoreTextView.setText(this.name + "'s Score: ");
-        if (this.playerNum == 1) {
+        if (this.playerNum == 0) {
             oppScoreTextView.setText(this.allPlayerNames[0] + "'s Score: ");
         } else {
             oppScoreTextView.setText(this.allPlayerNames[1] + "'s Score: ");
@@ -337,11 +339,20 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 //if button is this thing that you clicked on screen
                 if (button.equals(cards.get(i))) {
                     int index;
-                    numClicked++;
+                    //numClicked++;
+                    hand.get(i).toggleSelected();
+                    if(hand.get(i).isSelected())
+                    {
+                        cards.get(i).setBackgroundColor(Color.BLACK);
+                    }
+                    else
+                    {
+                        cards.get(i).setBackgroundColor(Color.TRANSPARENT);
+                    }
 
                     //when discarding card
                     messageView.setText("Please select another card to discard both to the crib.");
-                    if (numClicked == 2) {
+                    /*if (numClicked == 2) {
                         index = i;
                         messageView.setText("");
                         CribDiscardAction da = new CribDiscardAction(this, hand.get(i), hand.get(index));
@@ -352,12 +363,12 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     else if (numClicked == 1) {
                         CribPlayCardAction pca = new CribPlayCardAction(this, hand.get(i));
                         game.sendAction(pca);
-                    }
+                    }*/
 
                 }
-                else {
+                /*else {
                     flash(Color.RED, 50);
-                }
+                }*/
             }
         }
 
@@ -365,8 +376,64 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         else if (button instanceof Button) {
 
             if (button.equals(endTurnButton)) {
-                CribEndTurnAction eta = new CribEndTurnAction(this);
-                game.sendAction(eta);
+                //check if discard or play
+                if(hand.size() == 6)
+                {
+                    //check if valid discard, get values of relevant cards
+                    int sum = 0;
+                    Card c1 = null;
+                    Card c2 = null;
+
+                    for(int i = 0; i < hand.size(); i++)
+                    {
+                        if(hand.get(i).isSelected())
+                        {
+                            sum++;
+                            if(sum == 1) c1 = hand.get(i);
+                            else if(sum == 2) c2 = hand.get(i);
+                        }
+                    }
+
+                    if(sum == 2)
+                    {
+                        //send discard action
+                        messageView.setText("");
+                        CribDiscardAction da = new CribDiscardAction(this, c1, c2);
+                        game.sendAction(da);
+                    }
+                    else
+                    {
+                        //error message
+                        messageView.setText("Please select exactly 2 cards to discard to the crib.");
+                    }
+                }
+                else
+                {
+                    //check if valid play
+                    int sum = 0;
+                    Card c1 = null;
+
+                    for(int i = 0; i < hand.size(); i++)
+                    {
+                        if(hand.get(i).isSelected())
+                        {
+                            sum++;
+                            if(sum == 1) c1 = hand.get(i);
+                        }
+                    }
+                    if((sum == 1) && (roundScore + c1.getCardValue() <= 31))
+                    {
+                        messageView.setText("");
+                        CribPlayCardAction pa = new CribPlayCardAction(this, c1);
+                        game.sendAction(pa);
+                    }
+                    else
+                    {
+                        messageView.setText("Please select exactly 1 card to play.");
+                    }
+                }
+                //CribEndTurnAction eta = new CribEndTurnAction(this);
+                //game.sendAction(eta);
             }
             else if (button.equals(helpButton)) {
                 // * for later: may need HelpButtonAction (?)

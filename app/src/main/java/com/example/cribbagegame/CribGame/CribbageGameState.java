@@ -248,26 +248,26 @@ public class CribbageGameState extends GameState {
     // GETTERS
     public Card getHandCard(int playerId, int index){
         Card out = null;
-        if(playerId == 1){out = p1Hand.get(index);}
-        if(playerId == 2){out = p2Hand.get(index);}
+        if(playerId == 0){out = p1Hand.get(index);}
+        if(playerId == 1){out = p2Hand.get(index);}
         return out;
     }
     public int getHandSize(int playerId){
         int size = 0;
-        if(playerId == 1){size = p1Hand.size();}
-        if(playerId == 2){size = p2Hand.size();}
+        if(playerId == 0){size = p1Hand.size();}
+        if(playerId == 1){size = p2Hand.size();}
         return size;
     }
     public int getRoundScore(int playerId){
         int out= 0;
-        if(playerId == 1){out = p1RoundScore;}
-        if(playerId == 2){out = p2RoundScore;}
+        if(playerId == 0){out = p1RoundScore;}
+        if(playerId == 1){out = p2RoundScore;}
         return out;
     }
     public int getGameScore(int playerId){
         int out = 0;
-        if(playerId == 1){out = p1Points;}
-        if(playerId == 2){out = p2Points;}
+        if(playerId == 0){out = p1Points;}
+        if(playerId == 1){out = p2Points;}
         return out;
     }
     public int getPlayer0Score() { return p1RoundScore; }
