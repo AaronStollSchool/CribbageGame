@@ -71,13 +71,13 @@ public class CribComputerPlayer extends GameComputerPlayer {
                         CribEndTurnAction eta = new CribEndTurnAction(this);
                         game.sendAction(eta);
                         Log.d("ComputerPlayer", "has played card");
-                        break;
+                        Log.d("ComputerPlayer", "has ended turn");
+                        return;
                     }
-                    CribGoAction ga = new CribGoAction(this);
-                    game.sendAction(ga);
-                    Log.d("ComputerPlayer", "has played card");
                 }
-
+                CribGoAction ga = new CribGoAction(this);
+                game.sendAction(ga);
+                Log.d("ComputerPlayer", "has played card");
             }
         }
         Log.d("ComputerPlayer", "has ended turn");
