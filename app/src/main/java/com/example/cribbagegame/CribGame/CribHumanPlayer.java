@@ -109,6 +109,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             //setImageResource for each card in hand, because each is an ImageButton
             int k;
             for (k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); k++) {
+                cards.get(k).setClickable(true);
 
                 switch (((CribbageGameState) info).getHandCard(this.playerNum, k).getCardID()) {
                     case 11:
@@ -281,6 +282,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
                     default:
                         cards.get(k).setImageResource(R.drawable.back_of_card);
+                        cards.get(k).setClickable(false);
                         break;
                 }
             }
@@ -288,6 +290,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             for(; k < 6; k++)
             {
                 cards.get(k).setImageResource(R.drawable.back_of_card);
+                cards.get(k).setClickable(false);
                 //cards.get(k).setVisibility(View.INVISIBLE);
             }
 
