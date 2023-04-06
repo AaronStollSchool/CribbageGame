@@ -718,8 +718,10 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 game.sendAction(ega);
             }
             else if (button.equals(shuffleAndDealButton)) {
-                CribDealAction da = new CribDealAction(this);
-                game.sendAction(da);
+                if(hand.size() == 0) {
+                    CribDealAction da = new CribDealAction(this);
+                    game.sendAction(da);
+                }
             }
 
         }

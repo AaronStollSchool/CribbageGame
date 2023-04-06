@@ -131,6 +131,15 @@ public class CribbageGameState extends GameState {
         faceUpCard = cardDeck.nextCard();
         return true;
     }
+
+    public boolean removeCards() {
+        p1Hand.clear();
+        p2Hand.clear();
+        crib.clear();
+        inPlayCards.clear();
+        return true;
+    }
+
     public boolean setFaceUpCard() {
         faceUpCard = cardDeck.nextCard();
         return true;
@@ -326,6 +335,7 @@ public class CribbageGameState extends GameState {
         if(playerId == 1){out = p2Points;}
         return out;
     }
+    public void setRoundScore(int score) {roundScore = score;}
     public int getPlayer0Score() { return p1Points; }
     public int getPlayer1Score() { return p2Points; }
 
