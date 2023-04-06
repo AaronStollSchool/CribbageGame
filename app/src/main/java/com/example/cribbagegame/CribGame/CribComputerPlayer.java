@@ -33,7 +33,7 @@ public class CribComputerPlayer extends GameComputerPlayer {
         }
 
         Log.d("ComputerPlayer", "receiving");
-        CribbageGameState cribGameState = (CribbageGameState) info;
+        CribbageGameState cribGameState = (CribbageGameState) this.game.getGameState();//(CribbageGameState) info;
 
         if (cribGameState.getPlayerTurn() != this.playerNum){
             Log.d("ComputerPlayer", "it's not my turn!");

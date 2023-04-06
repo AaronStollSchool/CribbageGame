@@ -174,7 +174,7 @@ public class CribbageGameState extends GameState {
     }
 
     public boolean isPlayable(Card c) {
-        if(c.getCardValue() + roundScore <= 31) {
+        if(c.getCardScore() + roundScore <= 31) {
             return true;
         }
         else {
