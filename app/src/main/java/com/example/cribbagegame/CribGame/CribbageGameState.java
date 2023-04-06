@@ -121,6 +121,7 @@ public class CribbageGameState extends GameState {
             p1Hand.add(cardDeck.nextCard());
             p2Hand.add(cardDeck.nextCard());
         }
+        faceUpCard = cardDeck.nextCard();
         return true;
     }
     public boolean setFaceUpCard() {
@@ -205,11 +206,11 @@ public class CribbageGameState extends GameState {
 
     //can be end turn or change turn, not sure if completely needed
     public boolean endTurn(int playerID) {
-        if(playerTurn == playerID) { //if it's player 1's turn, make it player 2's.
-            playerTurn = 1;
+        if(playerID == 1) {
+            playerTurn = 0;
         }
         else {
-            playerTurn = 0;
+            playerTurn = 1;
         }
         return true;
     }

@@ -1,6 +1,9 @@
 package com.example.cribbagegame.CribGame;
 
+import android.util.Log;
+
 import com.example.cribbagegame.GameFramework.infoMessage.GameInfo;
+import com.example.cribbagegame.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.cribbagegame.GameFramework.players.GameComputerPlayer;
 
 import java.util.Random;
@@ -21,40 +24,47 @@ public class CribComputerPlayer extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
+        if (info instanceof NotYourTurnInfo) {
+            return;
+        }
+
+        Log.d("ComputerPlayer", "receiving");
         CribbageGameState cribGameState = (CribbageGameState) info;
 
         if (cribGameState.getPlayerTurn() != this.playerNum){
+            Log.d("ComputerPlayer", "it's not my turn!");
             return;
         }
         else {
-            sleep(1000);
+            Log.d("ComputerPlayer", "playing" + cribGameState.getHandSize(this.playerNum));
+            sleep(2);
             Random r = new Random();
-            int rand = r.nextInt(4)+1;
-            if(cribGameState.getGamePhase() == 1) { //phase = 1, setUp phase of game
-                CribShuffleAction sa = new CribShuffleAction(this);
-                game.sendAction(sa);
-                sleep(50);
+            if (cribGameState.getHandSize(this.playerNum) == 0) {
                 CribDealAction da = new CribDealAction(this);
                 game.sendAction(da);
+                CribEndTurnAction eta = new CribEndTurnAction(this);
+                game.sendAction(eta);
+                Log.d("ComputerPlayer", "has dealt");
             }
-            else {
-                if (rand == 1) {
-                    CribDiscardAction da = new CribDiscardAction(this,
-                            cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))),
-                            cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
-                    //this might need a gameState.phase int to specify when appropriate
-                    game.sendAction(da);
-
-                } else if (rand == 2) {
-                    CribEndTurnAction eta = new CribEndTurnAction(this);
-                    game.sendAction(eta);
-
-                } else if (rand == 3) {
-                    CribPlayCardAction pca = new CribPlayCardAction(this,
-                            cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
-                    game.sendAction(pca);
+            else if (cribGameState.getHandSize(this.playerNum) == 6) {
+                CribDiscardAction da = new CribDiscardAction(this,
+                        cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))),
+                        cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
+                //this might need a gameState.phase int to specify when appropriate
+                game.sendAction(da);
+                CribEndTurnAction eta = new CribEndTurnAction(this);
+                game.sendAction(eta);
+                Log.d("ComputerPlayer", "has discarded");
+            }
+            else if (cribGameState.getHandSize(this.playerNum) <= 4) {
+                CribPlayCardAction pca = new CribPlayCardAction(this,
+                        cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
+                game.sendAction(pca);
+                CribEndTurnAction eta = new CribEndTurnAction(this);
+                game.sendAction(eta);
+                Log.d("ComputerPlayer", "has played card");
                 }
             }
-            }
+        Log.d("ComputerPlayer", "has ended turn");
         }
     }

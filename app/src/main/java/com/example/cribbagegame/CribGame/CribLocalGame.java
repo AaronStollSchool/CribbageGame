@@ -1,5 +1,7 @@
 package com.example.cribbagegame.CribGame;
 
+import android.util.Log;
+
 import com.example.cribbagegame.GameFramework.LocalGame;
 import com.example.cribbagegame.GameFramework.actionMessage.EndTurnAction;
 import com.example.cribbagegame.GameFramework.actionMessage.GameAction;
@@ -48,6 +50,7 @@ public class CribLocalGame extends LocalGame {
         //execute the given action for the player
         //else, return false
         int pID = cribGameState.getPlayerTurn(); // Player ID for Action
+        Log.d("makeMove", "" + action.getClass().getSimpleName());
 
         if(action instanceof CribDiscardAction){
             Card[] cards = ((CribDiscardAction) action).getCards();
@@ -62,8 +65,9 @@ public class CribLocalGame extends LocalGame {
 
             return true;
         }
-        if(action instanceof EndTurnAction){
+        if(action instanceof CribEndTurnAction){
             cribGameState.endTurn(pID);
+            Log.d("Player turn", "" + cribGameState.getPlayerTurn());
             return true;
         }
         if(action instanceof CribDealAction){

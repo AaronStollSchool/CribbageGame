@@ -1,6 +1,7 @@
 package com.example.cribbagegame.CribGame;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,7 +16,7 @@ import com.example.cribbagegame.R;
 import java.util.ArrayList;
 
 /**
- * @author Aether Mocker
+ * @author Aaron, Aether, Sean, Kincaid
  * @version March 2023
  */
 public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
@@ -24,9 +25,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     private TextView playerScoreTextView = null;
     private TextView oppScoreTextView = null;
     private TextView roundTotalScoreView = null;
-    private ImageView faceUpCard = null;
-
     private TextView messageView = null;
+    private ImageView faceUpCard = null;
 
     private GameMainActivity activity;
 
@@ -72,6 +72,21 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 playerScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer0Score());
                 oppScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer1Score());
             }
+            if (((CribbageGameState) info).getPlayerTurn() != this.playerNum) {
+                messageView.setText("It's Opponent's turn. ");
+                Log.d("Player Turn", "" + ((CribbageGameState) info).getPlayerTurn() );
+
+            }
+            else if (((CribbageGameState) info).getPlayerTurn() == this.playerNum) {
+                messageView.setText("It's My's turn. ");
+                Log.d("Player Turn", "" + ((CribbageGameState) info).getPlayerTurn() );
+            }
+            //to monitor and spy
+            for(int i = 0; i < ((CribbageGameState) info).getHandSize(((CribbageGameState) info).getPlayerTurn()); ++i) {
+                Log.d("Player" + ((CribbageGameState) info).getPlayerTurn(),
+                        " " + ((CribbageGameState) info).getHandCard(((CribbageGameState) info).getPlayerTurn(), i).toString());
+            }
+
 
             //this may change frequently because of the various scoring that happens
             //in different components of each game
@@ -263,7 +278,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 //cards.get(k).setVisibility(View.INVISIBLE);
             }
 
-            //for the faceUpCard -- hopefully this works
+            //setImageResource for the faceUpCard -- hopefully this works
                 switch (((CribbageGameState) info).getFaceUpCard().getCardID()) {
                     case 11:
                         faceUpCard.setImageResource(R.drawable.ace_of_diamonds);
@@ -439,9 +454,13 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         break;
                 }
 
-            //copy down the card's for later use
-            for (int i = 0; i < ((CribbageGameState) info).getHandSize(this.playerNum); ++i) {
-                this.hand.add(i, ((CribbageGameState) info).getHandCard(this.playerNum, i));
+
+
+            //copy down the card's for later use (onClick)
+            if (this.hand == null || this.hand.isEmpty()) {
+                for (int i = 0; i < ((CribbageGameState) info).getHandSize(this.playerNum); ++i) {
+                    this.hand.add(i, ((CribbageGameState) info).getHandCard(this.playerNum, i));
+                }
             }
 
             //more information for later
@@ -451,6 +470,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         }
         else {
             flash(Color.RED, 50);
+            Log.d("receiveInfo", "failed");
         }
     }//receiveInfo
 
@@ -525,7 +545,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 ^^^^^^^^not needed yet
          */
 
-        //PlayCardAction or DiscardAction
+        //if it's an ImageButton... decide PlayCardAction or DiscardAction
         if (button instanceof ImageButton) {
 
             for (int i = 0; i < cards.size(); ++i) {
@@ -544,7 +564,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     }
 
                     //when discarding card
-                    messageView.setText("Please select another card to discard both to the crib.");
+                    //messageView.setText("Please select another card to discard both to the crib.");
                     /*if (numClicked == 2) {
                         index = i;
                         messageView.setText("");
@@ -553,15 +573,15 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     }
 
                     //if you're not meant to discard, play it
-                    else if (numClicked == 1) {
+                    /*else if (numClicked == 1) {
                         CribPlayCardAction pca = new CribPlayCardAction(this, hand.get(i));
                         game.sendAction(pca);
                     }*/
 
                 }
-                /*else {
+                else {
                     flash(Color.RED, 50);
-                }*/
+                }
             }
         }
 
@@ -590,9 +610,11 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     if(sum == 2)
                     {
                         //send discard action
-                        messageView.setText("");
+                        messageView.setText("Cards discarded: " + c1.toString() + " and " + c2.toString());
                         CribDiscardAction da = new CribDiscardAction(this, c1, c2);
                         game.sendAction(da);
+                        CribEndTurnAction eta = new CribEndTurnAction(this);
+                        game.sendAction(eta);
                     }
                     else
                     {
@@ -616,17 +638,17 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     }
                     if((sum == 1) && (roundScore + c1.getCardValue() <= 31))
                     {
-                        messageView.setText("");
+                        messageView.setText("Card played: " + c1.toString());
                         CribPlayCardAction pa = new CribPlayCardAction(this, c1);
                         game.sendAction(pa);
+                        CribEndTurnAction eta = new CribEndTurnAction(this);
+                        game.sendAction(eta);
                     }
                     else
                     {
                         messageView.setText("Please select exactly 1 card to play.");
                     }
                 }
-                //CribEndTurnAction eta = new CribEndTurnAction(this);
-                //game.sendAction(eta);
             }
             else if (button.equals(helpButton)) {
                 // * for later: may need HelpButtonAction (?)
@@ -647,6 +669,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         //may not be needed, helpful to have just in case i miss something
         else {
             flash(Color.RED, 50);
+            Log.d("onClick", "failed");
         }
     }
 }
