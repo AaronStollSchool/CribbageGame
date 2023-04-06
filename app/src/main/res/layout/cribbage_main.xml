@@ -151,6 +151,11 @@
                 android:layout_height="60dp"
                 android:layout_weight="1" />
 
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="60dp"
+                android:layout_weight="1" />
+
         </LinearLayout>
 
         <TableLayout
@@ -169,12 +174,13 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <Space
-                            android:layout_width="30dp"
-                            android:layout_height="60dp"
-                            android:layout_weight="1" />
+                            android:layout_width="50dp"
+                            android:layout_height="25dp"
+                            />
 
                         <TextView
                             android:id="@+id/cribTitle"
@@ -184,14 +190,46 @@
                             android:textColor="#FF8F00"
                             android:textSize="24sp"
                             android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="30dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
                         <Space
                             android:layout_width="40dp"
-                            android:layout_height="60dp"
+                            android:layout_height="25dp"
                             android:layout_weight="1" />
 
                         <ImageView
-                            android:id="@+id/inPlayCard1"
+                            android:id="@+id/cribCard1"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/cribCard2"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/cribCard3"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/cribCard4"
                             style="@style/Widget.AppCompat.ImageButton"
                             android:layout_width="80dp"
                             android:layout_height="140dp"
@@ -208,28 +246,95 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <Space
-                            android:layout_width="30dp"
-                            android:layout_height="60dp"
-                            android:layout_weight="1" />
+                            android:layout_width="50dp"
+                            android:layout_height="25dp"
+                            />
 
                         <TextView
-                            android:id="@+id/inPlayTitle"
+                            android:id="@+id/cribTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="In Play Cards:"
                             android:textColor="#FF8F00"
                             android:textSize="24sp"
                             android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="30dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
                         <Space
                             android:layout_width="40dp"
-                            android:layout_height="60dp"
+                            android:layout_height="25dp"
                             android:layout_weight="1" />
 
+                        <ImageView
+                            android:id="@+id/inPlayCard1"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/inPlayCard2"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/inPlayCard3"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/inPlayCard4"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/inPlayCard5"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/inPlayCard6"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/inPlayCard7"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
+                        <ImageView
+                            android:id="@+id/inPlayCard8"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_width="80dp"
+                            android:layout_height="140dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/back_of_card" />
                     </LinearLayout>
                 </LinearLayout>
 

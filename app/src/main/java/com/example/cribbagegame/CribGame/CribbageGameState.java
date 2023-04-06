@@ -27,6 +27,7 @@ public class CribbageGameState extends GameState {
     // Arraylists for cards on table during play
     private ArrayList<Card> inPlayCards;
     private ArrayList<Card> crib;
+    private int inPlay = 0;
 
     private Card faceUpCard;
 
@@ -94,9 +95,9 @@ public class CribbageGameState extends GameState {
         this.p2Hand.addAll(gamestate.p2Hand);
 
         this.inPlayCards = new ArrayList<Card>();
-        //this.inPlayCards.addAll(gamestate.inPlayCards);
+        this.inPlayCards.addAll(gamestate.inPlayCards);
         this.crib = new ArrayList<Card>();
-        //this.crib.addAll(gamestate.crib);
+        this.crib.addAll(gamestate.crib);
 
         this.faceUpCard = new Card(gamestate.faceUpCard.getCardValue(), gamestate.faceUpCard.getSuit(), gamestate.faceUpCard.getCardID());
 
@@ -131,6 +132,15 @@ public class CribbageGameState extends GameState {
         faceUpCard = cardDeck.nextCard();
         return true;
     }
+
+    public boolean removeCards() {
+        p1Hand.clear();
+        p2Hand.clear();
+        crib.clear();
+        inPlayCards.clear();
+        return true;
+    }
+
     public boolean setFaceUpCard() {
         faceUpCard = cardDeck.nextCard();
         return true;
@@ -197,6 +207,7 @@ public class CribbageGameState extends GameState {
                 p1Hand.remove(c);
                 p1Hand.trimToSize();
                 inPlayCards.add(c);
+                inPlay++;
                 roundScore += c.getCardScore();
                 return true;
             }
@@ -206,6 +217,7 @@ public class CribbageGameState extends GameState {
                 p2Hand.remove(c);
                 p2Hand.trimToSize();
                 inPlayCards.add(c);
+                inPlay++;
                 roundScore += c.getCardScore();
                 return true;
             }
@@ -317,29 +329,25 @@ public class CribbageGameState extends GameState {
         if(playerId == 1){size = p2Hand.size();}
         return size;
     }
-    public int getRoundScore(int playerId){
-        return roundScore;
-    }
+    public int getRoundScore(int playerId){return roundScore;}
     public int getGameScore(int playerId){
         int out = 0;
         if(playerId == 0){out = p1Points;}
         if(playerId == 1){out = p2Points;}
         return out;
     }
+    public void setRoundScore(int score) {roundScore = score;}
     public int getPlayer0Score() { return p1Points; }
     public int getPlayer1Score() { return p2Points; }
 
     public int getGamePhase() { return phase; }
 
-    public Card getLastPlayed(){
-        return inPlayCards.get(inPlayCards.size()-1);
-    }
-    public Card getCribCard(int index){
-        return crib.get(index);
-    }
+    public Card getLastPlayed(){return inPlayCards.get(inPlayCards.size()-1);}
+    public Card getCribCard(int index){return crib.get(index);}
     public Card getFaceUpCard() {return faceUpCard;}
     public int getPlayerTurn() {return playerTurn;}
     public int getCribSize() {return crib.size();}
+    public Card getInPlayCard(int index) {return inPlayCards.get(index);}
 
     //IMPORTANT: method does not return card at index! It returns the card (index) back from the last card.
     public Card getPlayedCard(int index) { return inPlayCards.get(inPlayCards.size()-1-index); }
@@ -430,11 +438,11 @@ public class CribbageGameState extends GameState {
     @Override
     public String toString() {
 
-        String p1Vals = "Player 1 Points: " + String.valueOf(p1Points) +
-                " Player 1 Hand: " + String.valueOf(stringHands(p1Hand)) + " Player 1 Round Score: " + p1RoundScore;
-        String p2Vals = " Player 2 Points: " + String.valueOf(p2Points) +
-                " Player 2 Hand: " +  String.valueOf(stringHands(p2Hand)) + " Player 2 Round Score: " + p2RoundScore +
-                " Round total score: " + roundScore;
+        String p1Vals = "Player 0 Points: " + String.valueOf(p1Points) +
+                " Player 0 Hand: " + String.valueOf(stringHands(p1Hand)) + " Player 0 Round Score: " + p1RoundScore;
+        String p2Vals = " Player 1 Points: " + String.valueOf(p2Points) +
+                " Player 1 Hand: " +  String.valueOf(stringHands(p2Hand)) + " Player 1 Round Score: " + p2RoundScore +
+                " Round total score: " + roundScore + " Cards in play: " + String.valueOf(inPlay);
 
         return p1Vals + p2Vals;
     }

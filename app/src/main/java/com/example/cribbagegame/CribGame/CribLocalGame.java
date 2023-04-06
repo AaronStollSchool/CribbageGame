@@ -62,6 +62,7 @@ public class CribLocalGame extends LocalGame {
         if(action instanceof CribPlayCardAction){
             Card playedCard = ((CribPlayCardAction) action).getPlayedCard();
             cribGameState.playCard(playedCard);
+            Log.d("CribPlayCardAction", "in play size: "+ cribGameState.getInPlaySize());
             return true;
         }
         if(action instanceof CribGoAction){
@@ -74,12 +75,14 @@ public class CribLocalGame extends LocalGame {
             return true;
         }
         if(action instanceof CribDealAction){
+            cribGameState.setRoundScore(0);
             cribGameState.dealCards();
             return true;
         }
         if(action instanceof CribTallyAction){
             cribGameState.returnCards();
             cribGameState.tallyScore();
+            cribGameState.removeCards();
             return true;
         }
         if(action instanceof CribExitGameAction){
