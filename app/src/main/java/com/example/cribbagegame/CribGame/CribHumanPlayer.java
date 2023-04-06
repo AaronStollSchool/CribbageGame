@@ -16,6 +16,10 @@ import com.example.cribbagegame.R;
 import java.util.ArrayList;
 
 /**
+ * CribHumanPlayer -
+ * Updates all TextView's and ImageButtons that can be interacted with on screen,
+ * as well as allow users to interact with all Buttons and ImageButtons available.
+ *
  * @author Aaron, Aether, Sean, Kincaid
  * @version March 2023
  */
@@ -72,15 +76,18 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 playerScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer0Score());
                 oppScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer1Score());
             }
+
+            //logging each player's turn
             if (((CribbageGameState) info).getPlayerTurn() != this.playerNum) {
-                messageView.setText("It's Opponent's turn. ");
+                messageView.setText("It's Opponent's turn. \n");
                 Log.d("Player Turn", "" + ((CribbageGameState) info).getPlayerTurn() );
 
             }
             else if (((CribbageGameState) info).getPlayerTurn() == this.playerNum) {
-                messageView.setText("It's My's turn. ");
+                messageView.setText("It's My's turn. \n");
                 Log.d("Player Turn", "" + ((CribbageGameState) info).getPlayerTurn() );
             }
+
             //to monitor and spy
             for(int i = 0; i < ((CribbageGameState) info).getHandSize(((CribbageGameState) info).getPlayerTurn()); ++i) {
                 Log.d("Player" + ((CribbageGameState) info).getPlayerTurn(),
@@ -672,8 +679,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 game.sendAction(ega);
             }
             else if (button.equals(shuffleAndDealButton)) {
-                /*CribShuffleAction sa = new CribShuffleAction(this);
-                game.sendAction(sa);*/
                 CribDealAction da = new CribDealAction(this);
                 game.sendAction(da);
             }
