@@ -39,6 +39,7 @@ public class Card {
 
     public void toggleSelected() { isSelected = !(isSelected); }
     public int getCardScore() { return cardScore; }
+    public int getPlayerID() { return playerID; }
     public void setPlayerID(int id) { playerID = id; }
 
     public String toString()

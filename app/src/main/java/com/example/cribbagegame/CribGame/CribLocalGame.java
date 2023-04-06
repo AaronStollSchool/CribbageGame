@@ -77,6 +77,11 @@ public class CribLocalGame extends LocalGame {
             cribGameState.dealCards();
             return true;
         }
+        if(action instanceof CribTallyAction){
+            cribGameState.returnCards();
+            cribGameState.tallyScore();
+            return true;
+        }
         if(action instanceof CribExitGameAction){
             cribGameState.exitGame(pID);
             return true;

@@ -241,6 +241,26 @@ public class CribbageGameState extends GameState {
         }
         return false;
     }
+    public boolean returnCards()
+    {
+        for(Card c : inPlayCards)
+        {
+            if(c.getPlayerID() == 0)
+            {
+                p1Hand.add(c);
+            }
+            else if(c.getPlayerID() == 1)
+            {
+                p2Hand.add(c);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        inPlayCards.clear();
+        return true;
+    }
 
     //can be end turn or change turn, not sure if completely needed
     public boolean endTurn(int playerID) {
