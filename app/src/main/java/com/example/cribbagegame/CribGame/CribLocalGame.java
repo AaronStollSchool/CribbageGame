@@ -62,6 +62,7 @@ public class CribLocalGame extends LocalGame {
         if(action instanceof CribPlayCardAction){
             Card playedCard = ((CribPlayCardAction) action).getPlayedCard();
             cribGameState.playCard(playedCard);
+            Log.d("CribPlayCardAction", "in play size: "+ cribGameState.getInPlaySize());
             return true;
         }
         if(action instanceof CribGoAction){
