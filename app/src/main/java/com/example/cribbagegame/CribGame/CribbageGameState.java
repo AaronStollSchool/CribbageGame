@@ -206,6 +206,35 @@ public class CribbageGameState extends GameState {
         return false;
     }
 
+    public boolean go(int playerID)
+    {
+        if(playerTurn == 0) {
+            if(roundScore == 31)
+            {
+                p2Points += 2;
+            }
+            else
+            {
+                p2Points++;
+            }
+            roundScore = 0;
+            return true;
+        }
+        else if(playerTurn == 1){
+            if(roundScore == 31)
+            {
+                p1Points += 2;
+            }
+            else
+            {
+                p1Points++;
+            }
+            roundScore = 0;
+            return true;
+        }
+        return false;
+    }
+
     //can be end turn or change turn, not sure if completely needed
     public boolean endTurn(int playerID) {
         if(playerID == 1) {
@@ -270,8 +299,8 @@ public class CribbageGameState extends GameState {
         if(playerId == 1){out = p2Points;}
         return out;
     }
-    public int getPlayer0Score() { return p1RoundScore; }
-    public int getPlayer1Score() { return p2RoundScore; }
+    public int getPlayer0Score() { return p1Points; }
+    public int getPlayer1Score() { return p2Points; }
 
     public int getGamePhase() { return phase; }
 

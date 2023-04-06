@@ -100,6 +100,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             roundScore = ((CribbageGameState) info).getRoundScore(this.playerNum);
             roundTotalScoreView.setText("" + roundScore);
 
+            //resets highlighted cards
             hand.clear();
             for(int i = 0; i < ((CribbageGameState) info).getHandSize(this.playerNum); i++)
             {
@@ -479,6 +480,29 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             //more information for later
             this.gamePhase = ((CribbageGameState) info).getGamePhase();
             this.inCrib = ((CribbageGameState) info).getCribSize();
+
+            //check if Go action needed
+            if(hand.size() != 0 && hand.size() <= 4 && ((CribbageGameState) info).getPlayerTurn() == this.playerNum)
+            {
+                int sum = 0;
+                for(int i = 0; i < hand.size(); i++)
+                {
+                    if(hand.get(i).getCardScore() + roundScore <= 31)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        sum++;
+                    }
+                }
+                if(sum == hand.size())
+                {
+                    CribGoAction ga = new CribGoAction(this);
+                    game.sendAction(ga);
+
+                }
+            }
 
         }
         else {
