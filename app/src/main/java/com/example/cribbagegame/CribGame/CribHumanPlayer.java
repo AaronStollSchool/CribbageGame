@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cribbagegame.GameFramework.GameMainActivity;
@@ -31,6 +32,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     private TextView roundTotalScoreView = null;
     private TextView messageView = null;
     private ImageView faceUpCard = null;
+
+    private LinearLayout inPlayLayout = null;
 
     private GameMainActivity activity;
 
@@ -717,5 +720,14 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             flash(Color.RED, 50);
             Log.d("onClick", "failed");
         }*/
+    }
+
+    private void addInPlayCardView(Card c){
+        int width = 80;
+        int height = 140;
+
+        //ImageView cardView = new ImageView();
+
+        //inPlayLayout.addView(cardView);
     }
 }
