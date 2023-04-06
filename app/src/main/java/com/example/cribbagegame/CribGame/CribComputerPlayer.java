@@ -57,14 +57,31 @@ public class CribComputerPlayer extends GameComputerPlayer {
                 Log.d("ComputerPlayer", "has discarded");
             }
             else if (cribGameState.getHandSize(this.playerNum) <= 4) {
-                CribPlayCardAction pca = new CribPlayCardAction(this,
-                        cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
-                game.sendAction(pca);
-                CribEndTurnAction eta = new CribEndTurnAction(this);
-                game.sendAction(eta);
-                Log.d("ComputerPlayer", "has played card");
+                for(int i = 0; i < cribGameState.getHandSize(this.playerNum); i++)
+                {
+                    if(cribGameState.isPlayable(cribGameState.getHandCard(this.playerNum, i)))
+                    {
+                        CribPlayCardAction pca = new CribPlayCardAction(this,
+                                cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
+                        game.sendAction(pca);
+                        CribEndTurnAction eta = new CribEndTurnAction(this);
+                        game.sendAction(eta);
+                        Log.d("ComputerPlayer", "has played card");
+                        break;
+                    }
+                    CribGoAction ga = new CribGoAction(this);
+                    game.sendAction(ga);
+                    Log.d("ComputerPlayer", "has played card");
                 }
+
             }
-        Log.d("ComputerPlayer", "has ended turn");
         }
+        Log.d("ComputerPlayer", "has ended turn");
     }
+}
+
+/*
+ * To be implemented:
+ * - add functonality for ending player phase when no cards left (for if cpu = dealer)
+ * -
+ */
