@@ -83,6 +83,18 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             for (k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); k++) {
 
                 switch (((CribbageGameState) info).getHandCard(this.playerNum, k).getCardID()) {
+                    case 11:
+                        cards.get(k).setImageResource(R.drawable.ace_of_diamonds);
+                        break;
+                    case 12:
+                        cards.get(k).setImageResource(R.drawable.ace_of_hearts);
+                        break;
+                    case 13:
+                        cards.get(k).setImageResource(R.drawable.ace_of_spades);
+                        break;
+                    case 14:
+                        cards.get(k).setImageResource(R.drawable.ace_of_clubs);
+                        break;
                     case 21:
                         cards.get(k).setImageResource(R.drawable._2_of_diamonds);
                         break;
@@ -239,19 +251,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         cards.get(k).setImageResource(R.drawable.king_of_clubs);
                         break;
 
-                    case 141:
-                        cards.get(k).setImageResource(R.drawable.ace_of_diamonds);
-                        break;
-                    case 142:
-                        cards.get(k).setImageResource(R.drawable.ace_of_hearts);
-                        break;
-                    case 143:
-                        cards.get(k).setImageResource(R.drawable.ace_of_spades);
-                        break;
-                    case 144:
-                        cards.get(k).setImageResource(R.drawable.ace_of_clubs);
-                        break;
-
                     default:
                         cards.get(k).setImageResource(R.drawable.back_of_card);
                         break;
@@ -266,6 +265,19 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
             //for the faceUpCard -- hopefully this works
                 switch (((CribbageGameState) info).getFaceUpCard().getCardID()) {
+                    case 11:
+                        faceUpCard.setImageResource(R.drawable.ace_of_diamonds);
+                        break;
+                    case 12:
+                        faceUpCard.setImageResource(R.drawable.ace_of_hearts);
+                        break;
+                    case 13:
+                        faceUpCard.setImageResource(R.drawable.ace_of_spades);
+                        break;
+                    case 14:
+                        faceUpCard.setImageResource(R.drawable.ace_of_clubs);
+                        break;
+
                     case 21:
                         faceUpCard.setImageResource(R.drawable._2_of_diamonds);
                         break;
@@ -420,19 +432,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         break;
                     case 134:
                         faceUpCard.setImageResource(R.drawable.king_of_clubs);
-                        break;
-
-                    case 141:
-                        faceUpCard.setImageResource(R.drawable.ace_of_diamonds);
-                        break;
-                    case 142:
-                        faceUpCard.setImageResource(R.drawable.ace_of_hearts);
-                        break;
-                    case 143:
-                        faceUpCard.setImageResource(R.drawable.ace_of_spades);
-                        break;
-                    case 144:
-                        faceUpCard.setImageResource(R.drawable.ace_of_clubs);
                         break;
 
                     default:

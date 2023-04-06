@@ -16,10 +16,10 @@ public class Deck {
         deckIndex = 0;
 
         for (int i = 1; i <= 4; i++){
-            for(int j = 2; j <= 14; j++){
+            for(int j = 1; j <= 13; j++){
                 int val = j;
                 int suit = i;
-                int cardID = j + i;
+                int cardID = 10*j + i;
                 Card holder = new Card(val, suit, cardID);
                 gameDeck.add(holder);
             }

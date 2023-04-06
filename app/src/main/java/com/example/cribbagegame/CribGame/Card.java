@@ -7,8 +7,8 @@ package com.example.cribbagegame.CribGame;
 public class Card {
 
     private int cardValue;
-    // 2-10 regular cards
-    // 11-14 Jack, Queen, King, Ace
+    // 1-10 Ace, regular cards
+    // 11-13 Jack, Queen, King
     private int suit;
     // 1-4 diamond, heart, spade, club
 
@@ -44,7 +44,7 @@ public class Card {
             case 13:
                 s1 = "King";
                 break;
-            case 14:
+            case 1:
                 s1 = "Ace";
                 break;
             default:
