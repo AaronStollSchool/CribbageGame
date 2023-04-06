@@ -95,4 +95,67 @@ public class CribLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         return null;
     }
+    /*protected int scoreRunsInPlay() {
+
+        int[] vals = new int[13];
+        int k = 0;
+        boolean isRun = true;
+
+        //checks if double is possible given number of cards in play
+        if(cribGameState.getInPlaySize() < 3) return 0;
+
+
+        for(int i = 0; i < 3; i++)
+        {
+
+        }
+
+
+        while(isRun)
+        {
+            //checks if double is possible given number of cards in play
+            if(cribGameState.getInPlaySize() < 3 + k) return sum;
+            //checks for double
+            if(cribGameState.getPlayedCard(k).getCardValue() == cribGameState.getPlayedCard(k+1).getCardValue())
+            {
+                k++;
+                //allocates points for double (2*1 = 2), triple (2*(1+2) = 6), and quad (2*(1+2+3) = 12)
+                sum += 2*k;
+            }
+            else
+            {
+                //breaks if no double
+                isRun = false;
+            }
+        }
+        return sum;
+    }
+    }
+    protected int scoreDoublesInPlay() {
+
+        int sum = 0;
+        int k = 0;
+        boolean isDouble = true;
+
+
+        while(isDouble)
+        {
+            //checks if double is possible given number of cards in play
+            if(cribGameState.getInPlaySize() < 2 + k) return sum;
+            //checks for double
+            if(cribGameState.getPlayedCard(k).getCardValue() == cribGameState.getPlayedCard(k+1).getCardValue())
+            {
+                k++;
+                //allocates points for double (2*1 = 2), triple (2*(1+2) = 6), and quad (2*(1+2+3) = 12)
+                sum += 2*k;
+            }
+            else
+            {
+                //breaks if no double
+                isDouble = false;
+            }
+        }
+        return sum;
+    }*/
 }
+

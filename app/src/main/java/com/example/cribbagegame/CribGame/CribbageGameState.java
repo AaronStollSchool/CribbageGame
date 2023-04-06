@@ -217,17 +217,17 @@ public class CribbageGameState extends GameState {
     public boolean discard(Card c, int playerID) { //discard TO CRIB
         if(playerTurn == 0) {
             if(isPlayable(c) == true) {
+                crib.add(c);
                 p1Hand.remove(c);
                 p1Hand.trimToSize();
-                crib.add(c);
                 return true;
             }
         }
         else if(playerTurn == 1){
             if(isPlayable(c) == true) {
+                crib.add(c);
                 p2Hand.remove(c);
                 p2Hand.trimToSize();
-                crib.add(c);
                 return true;
             }
         }
@@ -284,6 +284,10 @@ public class CribbageGameState extends GameState {
     public Card getFaceUpCard() {return faceUpCard;}
     public int getPlayerTurn() {return playerTurn;}
     public int getCribSize() {return crib.size();}
+
+    //IMPORTANT: method does not return card at index! It returns the card (index) back from the last card.
+    public Card getPlayedCard(int index) { return inPlayCards.get(inPlayCards.size()-1-index); }
+    public int getInPlaySize() { return inPlayCards.size(); }
 
     @Override
     public String toString() {

@@ -79,7 +79,9 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             roundScore = ((CribbageGameState) info).getRoundScore(this.playerNum);
 
             //setImageResource for each card in hand, because each is an ImageButton
-            for (int k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); k++) {
+            int k;
+            for (k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); k++) {
+
                 switch (((CribbageGameState) info).getHandCard(this.playerNum, k).getCardID()) {
                     case 21:
                         cards.get(k).setImageResource(R.drawable._2_of_diamonds);
@@ -254,6 +256,12 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         cards.get(k).setImageResource(R.drawable.back_of_card);
                         break;
                 }
+            }
+            //set any unused cards to be gone
+            for(; k < 6; k++)
+            {
+                cards.get(k).setImageResource(R.drawable.back_of_card);
+                //cards.get(k).setVisibility(View.INVISIBLE);
             }
 
             //for the faceUpCard -- hopefully this works
