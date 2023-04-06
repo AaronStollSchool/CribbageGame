@@ -66,7 +66,7 @@ public class CribComputerPlayer extends GameComputerPlayer {
                     if(cribGameState.isPlayable(cribGameState.getHandCard(this.playerNum, i)))
                     {
                         CribPlayCardAction pca = new CribPlayCardAction(this,
-                                cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
+                                cribGameState.getHandCard(this.playerNum, i));
                         game.sendAction(pca);
                         CribEndTurnAction eta = new CribEndTurnAction(this);
                         game.sendAction(eta);
