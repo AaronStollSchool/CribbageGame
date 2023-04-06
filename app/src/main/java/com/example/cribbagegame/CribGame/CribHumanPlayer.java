@@ -487,6 +487,15 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             this.gamePhase = ((CribbageGameState) info).getGamePhase();
             this.inCrib = ((CribbageGameState) info).getCribSize();
 
+            //check if round is over
+            if(((CribbageGameState) info).getHandSize(0) == 0 && ((CribbageGameState) info).getHandSize(1) == 0
+                && ((CribbageGameState) this.game.getGameState()).getCribSize() != 0)
+            {
+                Log.d("Player", "Tally action initiated");
+                CribTallyAction ta = new CribTallyAction(this);
+                game.sendAction(ta);
+            }
+
             //check if Go action needed
             if(hand.size() != 0 && hand.size() <= 4 && ((CribbageGameState) info).getPlayerTurn() == this.playerNum)
             {

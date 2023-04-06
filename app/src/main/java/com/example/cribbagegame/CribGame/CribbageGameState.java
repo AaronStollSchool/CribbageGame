@@ -68,6 +68,7 @@ public class CribbageGameState extends GameState {
         isHard = true;
 
         playerTurn = 0; // TBI: change value to show no player turn has been set yet
+        isPlayer1Dealer = true;
 
         phase = 0;
         p1RoundScore = 0;
@@ -117,9 +118,15 @@ public class CribbageGameState extends GameState {
 
     public boolean dealCards() {
         cardDeck = new Deck();
+        Card c = null;
         for (int i = 0; i < 6; i++){
-            p1Hand.add(cardDeck.nextCard());
-            p2Hand.add(cardDeck.nextCard());
+            c = cardDeck.nextCard();
+            c.setPlayerID(0);
+            p1Hand.add(c);
+
+            c = cardDeck.nextCard();
+            c.setPlayerID(1);
+            p2Hand.add(c);
         }
         faceUpCard = cardDeck.nextCard();
         return true;
@@ -174,7 +181,7 @@ public class CribbageGameState extends GameState {
     }
 
     public boolean isPlayable(Card c) {
-        if(c.getCardValue() + roundScore <= 31) {
+        if(c.getCardScore() + roundScore <= 31) {
             return true;
         }
         else {
@@ -233,6 +240,26 @@ public class CribbageGameState extends GameState {
             return true;
         }
         return false;
+    }
+    public boolean returnCards()
+    {
+        for(Card c : inPlayCards)
+        {
+            if(c.getPlayerID() == 0)
+            {
+                p1Hand.add(c);
+            }
+            else if(c.getPlayerID() == 1)
+            {
+                p2Hand.add(c);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        inPlayCards.clear();
+        return true;
     }
 
     //can be end turn or change turn, not sure if completely needed
@@ -317,6 +344,88 @@ public class CribbageGameState extends GameState {
     //IMPORTANT: method does not return card at index! It returns the card (index) back from the last card.
     public Card getPlayedCard(int index) { return inPlayCards.get(inPlayCards.size()-1-index); }
     public int getInPlaySize() { return inPlayCards.size(); }
+    public int tallyRuns(ArrayList<Card> hand)
+    {
+        return 0;
+    }
+    public int tallyDoubles(ArrayList<Card> hand)
+    {
+        //add all card values to an array
+        int arr[] = new int[13];
+        for(Card c : hand)
+        {
+            arr[c.getCardValue()-1]++;
+        }
+
+        //loop through array checking for values greater than 1
+        int sum = 0;
+        for(int i = 0; i < 13; i++)
+        {
+            switch (arr[i])
+            {
+                case 2:
+                    sum += 2;
+                    break;
+                case 3:
+                    sum += 6;
+                    break;
+                case 4:
+                    sum += 12;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return sum;
+    }
+    public int tally15s(ArrayList<Card> hand)
+    {
+        return 0;
+    }
+    public int tallyFlush(ArrayList<Card> hand)
+    {
+        return 0;
+    }
+    public int tallyHeels(ArrayList<Card> hand)
+    {
+        return 0;
+    }
+    public void tallyScore()
+    {
+        ArrayList<Card> h;
+        int sum;
+
+        for(int i = 0; i < 3; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    h = p1Hand;
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    p1Points += sum;
+                    break;
+                case 1:
+                    h = p2Hand;
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    p2Points += sum;
+                    break;
+                case 2:
+                    h = crib;
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    if(isPlayer1Dealer)
+                    {
+                        p1Points += sum;
+                    }
+                    else
+                    {
+                        p2Points += sum;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     @Override
     public String toString() {

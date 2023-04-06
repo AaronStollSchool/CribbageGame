@@ -15,6 +15,7 @@ public class Card {
     private int cardID;
     private boolean isSelected;
     private int cardScore;
+    private int playerID;
 
     public Card(int val, int suit, int cardID){
         cardValue = val;
@@ -38,6 +39,8 @@ public class Card {
 
     public void toggleSelected() { isSelected = !(isSelected); }
     public int getCardScore() { return cardScore; }
+    public int getPlayerID() { return playerID; }
+    public void setPlayerID(int id) { playerID = id; }
 
     public String toString()
     {
