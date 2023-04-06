@@ -97,8 +97,15 @@ public class CribLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
+        if (cribGameState.getPlayer0Score() >= 61) {
+            return "Game Over! " + this.playerNames[0] + " won!";
+        }
+        else if (cribGameState.getPlayer1Score() >= 61) {
+            return "Game Over! " + this.playerNames[1] + " won!";
+        }
         return null;
     }
+
     /*protected int scoreRunsInPlay() {
 
         int[] vals = new int[13];
