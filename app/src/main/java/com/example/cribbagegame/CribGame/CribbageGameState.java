@@ -190,6 +190,7 @@ public class CribbageGameState extends GameState {
                 p1Hand.remove(c);
                 p1Hand.trimToSize();
                 inPlayCards.add(c);
+                roundScore += c.getCardScore();
                 return true;
             }
         }
@@ -198,6 +199,7 @@ public class CribbageGameState extends GameState {
                 p2Hand.remove(c);
                 p2Hand.trimToSize();
                 inPlayCards.add(c);
+                roundScore += c.getCardScore();
                 return true;
             }
         }
@@ -260,10 +262,7 @@ public class CribbageGameState extends GameState {
         return size;
     }
     public int getRoundScore(int playerId){
-        int out= 0;
-        if(playerId == 0){out = p1RoundScore;}
-        if(playerId == 1){out = p2RoundScore;}
-        return out;
+        return roundScore;
     }
     public int getGameScore(int playerId){
         int out = 0;

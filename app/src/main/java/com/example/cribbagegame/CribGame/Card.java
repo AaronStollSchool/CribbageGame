@@ -14,12 +14,21 @@ public class Card {
 
     private int cardID;
     private boolean isSelected;
+    private int cardScore;
 
     public Card(int val, int suit, int cardID){
         cardValue = val;
         this.suit = suit;
         isSelected = false;
         this.cardID = suit + 10 * val;
+        if(cardValue > 10)
+        {
+            cardScore = 10;
+        }
+        else
+        {
+            cardScore = cardValue;
+        }
     }
 
     public int getCardValue() { return cardValue; }
@@ -28,6 +37,7 @@ public class Card {
     public boolean isSelected() { return isSelected; }
 
     public void toggleSelected() { isSelected = !(isSelected); }
+    public int getCardScore() { return cardScore; }
 
     public String toString()
     {

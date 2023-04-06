@@ -90,8 +90,14 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
             //this may change frequently because of the various scoring that happens
             //in different components of each game
-            roundTotalScoreView.setText("" + ((CribbageGameState) info).getRoundScore(this.playerNum));
             roundScore = ((CribbageGameState) info).getRoundScore(this.playerNum);
+            roundTotalScoreView.setText("" + roundScore);
+
+            hand.clear();
+            for(int i = 0; i < ((CribbageGameState) info).getHandSize(this.playerNum); i++)
+            {
+                hand.add( ((CribbageGameState) info).getHandCard(this.playerNum, i) );
+            }
 
             //setImageResource for each card in hand, because each is an ImageButton
             int k;
@@ -579,9 +585,9 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     }*/
 
                 }
-                else {
+                /*else {
                     flash(Color.RED, 50);
-                }
+                }*/
             }
         }
 
@@ -613,6 +619,10 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         messageView.setText("Cards discarded: " + c1.toString() + " and " + c2.toString());
                         CribDiscardAction da = new CribDiscardAction(this, c1, c2);
                         game.sendAction(da);
+                        for(int i = 0; i < cards.size(); i++)
+                        {
+                            cards.get(i).setBackgroundColor(Color.TRANSPARENT);
+                        }
                         CribEndTurnAction eta = new CribEndTurnAction(this);
                         game.sendAction(eta);
                     }
@@ -641,6 +651,10 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         messageView.setText("Card played: " + c1.toString());
                         CribPlayCardAction pa = new CribPlayCardAction(this, c1);
                         game.sendAction(pa);
+                        for(int i = 0; i < cards.size(); i++)
+                        {
+                            cards.get(i).setBackgroundColor(Color.TRANSPARENT);
+                        }
                         CribEndTurnAction eta = new CribEndTurnAction(this);
                         game.sendAction(eta);
                     }
@@ -667,9 +681,9 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         }
 
         //may not be needed, helpful to have just in case i miss something
-        else {
+        /*else {
             flash(Color.RED, 50);
             Log.d("onClick", "failed");
-        }
+        }*/
     }
 }
