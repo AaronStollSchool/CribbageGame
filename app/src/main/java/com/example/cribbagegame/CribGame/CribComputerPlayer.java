@@ -9,6 +9,10 @@ import com.example.cribbagegame.GameFramework.players.GameComputerPlayer;
 import java.util.Random;
 
 /**
+ * CribComputerPlayer -
+ * This is the 'dumb' computer player. It will deal, discard,
+ * and play random cards from their hand with no scoring strategy.
+ *
  * @author Aether Mocker
  * @version March 2023
  */
