@@ -354,6 +354,13 @@ public class CribbageGameState extends GameState {
     public int getInPlaySize() { return inPlayCards.size(); }
     public int tallyRuns(ArrayList<Card> hand)
     {
+        //add all card values to an array
+        int arr[] = new int[13];
+        for(Card c : hand)
+        {
+            arr[c.getCardValue()-1]++;
+        }
+
         return 0;
     }
     public int tallyDoubles(ArrayList<Card> hand)
@@ -398,6 +405,28 @@ public class CribbageGameState extends GameState {
     {
         return 0;
     }
+
+    /* TO DO
+        - tallyRuns for end of play
+            - loop through all card values and find each possible run, score points based on length of runs
+        - ScoreRuns for during play
+            - must be sequential? loop through inPlayCards?
+        - ScoreDoubles for during play
+            - if card played is the same rank as the previous card played, score 2 points
+            - if card played is the same rank as the previous 2 cards played, score 6 points
+            - if card played is the same rank as the previous 3 cards played, score 12 points
+        - tally15s for end of play
+            - check for every single possible combination of 15 using the cards in hand
+        - Score15s for during play
+            - if card played makes the current running total 15, score 2 points
+            - if card played makes the current running total 31, score 2 points
+        - tallyFlush (only at end of play)
+            - loop through hand and check if all cards are the same suit, score 4 points
+            - ()
+        - tallyHeels
+            - if hand/crib contains a jack of the same suit as the faceUpCard, score 1 point
+     */
+
     public void tallyScore()
     {
         ArrayList<Card> h;
