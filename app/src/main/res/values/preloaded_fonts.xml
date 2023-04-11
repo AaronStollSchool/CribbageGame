@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="true">
+        <item>@font/bebas_neue</item>
+        <item>@font/fascinate</item>
+        <item>@font/fascinate_inline</item>
+        <item>@font/oi</item>
+    </array>
+</resources>

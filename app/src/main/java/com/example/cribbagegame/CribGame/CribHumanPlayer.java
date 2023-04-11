@@ -66,6 +66,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
     @Override
     public void receiveInfo(GameInfo info) {
+
         if (info instanceof CribbageGameState) {
 
             //display each player's names and their points as game goes on
@@ -1105,6 +1106,14 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 game.sendAction(ega);
             }
             else if (button.equals(shuffleAndDealButton)) {
+
+                for(int i = 0; i < inCrib; ++i) {
+                    inCribCards.get(i).setImageResource(R.drawable.back_of_card);
+                }
+                for(int i = 0; i < inPlay; ++i) {
+                    inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
+                }
+
                 if(hand.size() == 0) {
                     CribDealAction da = new CribDealAction(this);
                     game.sendAction(da);
