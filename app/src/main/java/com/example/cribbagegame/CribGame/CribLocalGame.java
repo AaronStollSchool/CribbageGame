@@ -75,6 +75,7 @@ public class CribLocalGame extends LocalGame {
             return true;
         }
         if(action instanceof CribDealAction){
+            cribGameState.tallyScore();
             cribGameState.setRoundScore(0);
             cribGameState.dealCards();
             return true;
@@ -108,10 +109,10 @@ public class CribLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        if (cribGameState.getPlayer0Score() >= 61) {
+        if (cribGameState.getPlayer0Score() >= 31) {
             return "Game Over! " + this.playerNames[0] + " won!";
         }
-        else if (cribGameState.getPlayer1Score() >= 61) {
+        else if (cribGameState.getPlayer1Score() >= 31) {
             return "Game Over! " + this.playerNames[1] + " won!";
         }
         return null;
