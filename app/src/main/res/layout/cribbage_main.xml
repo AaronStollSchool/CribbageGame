@@ -21,16 +21,20 @@
             android:id="@+id/cribbageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fascinate_inline"
+            android:shadowColor="#FF9800"
+            android:shadowRadius="30"
             android:text="Cribbage!"
             android:textAlignment="center"
             android:textColor="#FFEB3B"
-            android:textSize="34sp"
+            android:textSize="80sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/messageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fascinate"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
@@ -61,17 +65,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
+                        android:fontFamily="@font/bebas_neue"
                         android:text="Your Score:"
                         android:textColor="#E43232"
-                        android:textSize="24sp"
+                        android:textSize="34sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/yourScoreValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas_neue"
                         android:text="0"
-                        android:textSize="24sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="34sp" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -88,17 +95,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
+                        android:fontFamily="@font/bebas_neue"
                         android:text="Their Score:"
                         android:textColor="#7988D6"
-                        android:textSize="24sp"
+                        android:textSize="34sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/oppScoreValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas_neue"
                         android:text="0"
-                        android:textSize="24sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="34sp" />
                 </TableRow>
 
                 <TableRow
@@ -110,17 +120,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
+                        android:fontFamily="@font/bebas_neue"
                         android:text="Round Score:"
                         android:textColor="#369526"
-                        android:textSize="24sp"
+                        android:textSize="34sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/roundTotalValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas_neue"
                         android:text="0"
-                        android:textSize="24sp" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="34sp" />
                 </TableRow>
 
                 <TableRow
@@ -186,9 +199,10 @@
                             android:id="@+id/cribTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/bebas_neue"
                             android:text="Crib:"
                             android:textColor="#FF8F00"
-                            android:textSize="24sp"
+                            android:textSize="34sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -255,12 +269,13 @@
                             />
 
                         <TextView
-                            android:id="@+id/cribTitle"
+                            android:id="@+id/inPlayTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/bebas_neue"
                             android:text="In Play Cards:"
                             android:textColor="#FF8F00"
-                            android:textSize="24sp"
+                            android:textSize="34sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -371,7 +386,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Shuffle and Deal" />
+                        android:fontFamily="@font/bebas_neue"
+                        android:text="Shuffle and Deal"
+                        android:textSize="24sp" />
 
                     <Space
                         android:layout_width="80dp"
@@ -455,8 +472,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/bebas_neue"
                         android:text="End Turn"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        android:textSize="24sp" />
 
                     <Space
                         android:layout_width="20dp"
@@ -488,8 +507,10 @@
                         android:id="@+id/exitGameButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/bebas_neue"
                         android:text="Exit Game"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        android:textSize="24sp" />
 
                     <Space
                         android:layout_width="10dp"
@@ -499,7 +520,9 @@
                         android:id="@+id/helpButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="❓" />
+                        android:fontFamily="@font/bebas_neue"
+                        android:text="❓"
+                        android:textSize="24sp" />
                 </LinearLayout>
 
                 <Space
