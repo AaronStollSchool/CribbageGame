@@ -1107,10 +1107,10 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             }
             else if (button.equals(shuffleAndDealButton)) {
 
-                for(int i = 0; i < inCrib; ++i) {
+                for(int i = 0; i < inCribCards.size(); ++i) {
                     inCribCards.get(i).setImageResource(R.drawable.back_of_card);
                 }
-                for(int i = 0; i < inPlay; ++i) {
+                for(int i = 0; i < inPlayCards.size(); ++i) {
                     inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
                 }
 
