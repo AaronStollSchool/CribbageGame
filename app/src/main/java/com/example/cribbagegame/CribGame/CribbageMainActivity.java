@@ -36,6 +36,10 @@ public class CribbageMainActivity extends GameMainActivity {
             public GamePlayer createPlayer(String name) {
                 return new CribComputerPlayer(name);
             }});
+        playerTypes.add(new GamePlayerType("Smart Computer Player") {
+            public GamePlayer createPlayer(String name) {
+                return new CribSmartComputerPlayer(name);
+            }});
 
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Cribbage", PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); //Player 1: a human player
