@@ -356,13 +356,77 @@ public class CribbageGameState extends GameState {
     {
         //add all card values to an array
         int arr[] = new int[13];
-        for(Card c : hand)
-        {
+        for(Card c : hand) {
             arr[c.getCardValue()-1]++;
         }
 
+        arr[faceUpCard.getCardValue()]++;
+
+        //int sum = 0;
+        for (int i = 4; i < 13; i++) {
+            //check for a run of 5
+            if (arr[i] >= 1 && arr[i-1] >= 1 && arr[i-2] >= 1 && arr[i-3] >= 1 && arr[i-4] >= 1) {
+                return 5;
+            }
+        }
+
+        for (int j = 3; j < 13; j++) {
+            //check for a run of 4
+            if (arr[j] >= 1 && arr[j-1] >= 1 && arr[j-2] >= 1 && arr[j-3] >= 1) {
+                //if there are 2 identical cards, count 2 separate runs of 4
+                if (arr[j] >= 2 || arr[j-1] >= 2 || arr[j-2] >= 2 || arr[j-3] >= 2) {
+                    return 4+4;
+                }
+                return 4;
+            }
+        }
+
+        for (int k = 2; k < 13; k++) {
+            //check for a run of 3
+            if (arr[k] >= 1 && arr[k-1] >= 1 && arr[k-2] >= 1) {
+                //if there are 3 identical cards of a value, count 3 separate runs of 3
+                if (arr[k] >= 3 || arr[k-1] >= 3 || arr[k-2] >= 3) {
+                    return 3+3+3;
+                }
+                //if there are 2 identical cards of a value, count 2 separate runs of 3
+                else if (arr[k] >= 2 || arr[k-1] >= 2 || arr[k-2] >= 2) {
+                    return 3+3;
+                }
+                return 3;
+            }
+        }
+
+
+        //4, 6, 7, 7, 8 - ideally should count 2 runs (of length 4)
+        /*
+         * arr[3] = 1
+         * arr[5] = 1
+         * arr[6] = 2
+         * arr[7] = 1
+         */
+
+        //1, 2, 2, 2, 3 - ideally should count 3 runs (of length 3)
+        /*
+         * arr[0] = 1
+         * arr[1] = 3
+         * arr[2] = 1
+         */
+
+        //3, 4, 4, 5, 6 - ideally should count 2 runs (of length 4)
+        /*
+         * arr[2] = 1
+         * arr[3] = 2
+         * arr[4] = 1
+         * arr[5] = 1
+         */
+
+        //1, 2, 3, 5, 6 - no matter what, there can only be 1 valid run per hand if theres no duplicates
+
+        //1, 2, 3, 4, 7 - should only count 1 run (of length 4), cannot split into 2 runs
+
         return 0;
     }
+
     public int tallyDoubles(ArrayList<Card> hand)
     {
         //add all card values to an array
