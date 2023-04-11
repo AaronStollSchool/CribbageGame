@@ -18,15 +18,11 @@
             android:fontFamily="@font/fascinate"
             android:shadowColor="#FF9800"
             android:shadowRadius="30"
-            android:text="Rules"
+            android:text="Cribbage Rules"
             android:textAlignment="center"
             android:textColor="#FFEB3B"
             android:textSize="80sp"
             android:textStyle="bold" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
 
         <TextView
             android:id="@+id/textView3"
@@ -39,10 +35,6 @@
             android:textColor="#FFC107"
             android:textSize="48sp"
             android:textStyle="bold" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="70dp" />
 
         <TextView
             android:id="@+id/phaseOneTitle"
@@ -58,16 +50,14 @@
             android:id="@+id/phaseOneText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dealer (switches off) deals 6 cards to each player.
-            Dealer then cuts deck, and non-dealer flips over top card.
-            (One point goes to the non-dealer if the card flipped over is a Jack.)
-            Each player discards two cards from their hand to the 'crib'. "
+            android:text="@string/discard"
             android:textColor="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="15dp" />
 
         <TextView
             android:id="@+id/phaseTwoTitle"
@@ -83,13 +73,14 @@
             android:id="@+id/phaseTwoText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/duel"
             android:textColor="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="15dp" />
 
         <TextView
             android:id="@+id/phaseThreeTitle"
@@ -105,33 +96,22 @@
             android:id="@+id/phaseThreeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/count"
             android:textColor="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="5dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Main Menu"
-                android:textSize="24sp" />
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Exit"
+            android:textSize="24sp" />
 
     </LinearLayout>
 

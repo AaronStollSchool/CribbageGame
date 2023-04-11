@@ -39,6 +39,16 @@
             android:text="@string/debug_logging"/>
 
         <Button
+            android:id="@+id/rulesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rules"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/onScreenLogging"
+            android:layout_marginRight="20dp"
+            />
+
+        <Button
             android:id="@+id/playGameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
