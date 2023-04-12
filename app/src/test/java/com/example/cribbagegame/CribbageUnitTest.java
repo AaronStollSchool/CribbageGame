@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.cribbagegame.CribGame.CribbageGameState;
+
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -17,19 +20,23 @@ public class CribbageUnitTest {
 
     // Aaron
     @Test
-    public void endTurn(){}
+    public void endTurn() throws Exception{
+        CribbageGameState state = new CribbageGameState();
+
+
+    }
 
     // Aaron
     @Test
-    public void removeCards(){}
+    public void removeCards() throws Exception{}
 
     // Aaron
     @Test
-    public void dealCards(){}
+    public void dealCards() throws Exception{}
 
     // Aaron
     @Test
-    public void returnCards(){}
+    public void returnCards() throws Exception{}
 
     //Aether
     @Test
