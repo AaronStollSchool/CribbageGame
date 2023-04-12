@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cribbagegame.GameFramework.GameMainActivity;
+import com.example.cribbagegame.GameFramework.actionMessage.GameOverAckAction;
 import com.example.cribbagegame.GameFramework.infoMessage.GameInfo;
 import com.example.cribbagegame.GameFramework.players.GameHumanPlayer;
 import com.example.cribbagegame.R;
@@ -39,6 +40,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     private Button exitButton = null;
     private Button helpButton = null;
     private Button shuffleAndDealButton = null;
+    private Button exitScreen = null;
 
     private ArrayList<ImageButton> cards = new ArrayList<>();
     private ArrayList<Card> hand = new ArrayList<>();
@@ -1099,11 +1101,30 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 }
             }
             else if (button.equals(helpButton)) {
-                // * for later: may need HelpButtonAction (?)
+                activity.setContentView(R.layout.cribbage_rules1);
+                exitScreen = activity.findViewById(R.id.exitButton);
+                exitScreen.setOnClickListener(this);
+
+
+                //THIS NEEDS HELP::::
+                //find some way to set the config to allow the screen to be exited
+                //setContentView only changes the visual on top of wherever you were last
+
+                //same with exitButton vvvv
+
             }
             else if (button.equals(exitButton)) {
+                //activity.setContentView(R.layout.game_config_main);
+                activity.setGameOver(true);
+
+
+
+                //this isn't very useful, just kinda restarts game
                 CribExitGameAction ega = new CribExitGameAction(this);
                 game.sendAction(ega);
+
+                GameOverAckAction oaa = new GameOverAckAction(this);
+                game.sendAction(oaa);
             }
             else if (button.equals(shuffleAndDealButton)) {
 

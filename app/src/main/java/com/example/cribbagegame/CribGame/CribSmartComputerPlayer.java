@@ -36,6 +36,6 @@ public class CribSmartComputerPlayer extends GameComputerPlayer {
             return;
         }
 
-        /* todo - implement actual functionality */
+        /* TO DO - implement actual functionality */
     }
 }

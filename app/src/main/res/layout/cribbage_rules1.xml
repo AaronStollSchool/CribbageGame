@@ -109,7 +109,11 @@
             android:id="@+id/exitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/config_horiz_margin"
             android:layout_weight="1"
+            android:clickable="true"
+            android:fontFamily="@font/bebas_neue"
             android:text="Exit"
             android:textSize="24sp" />
 
