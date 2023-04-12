@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.cribbagegame.GameFramework.LocalGame;
 import com.example.cribbagegame.GameFramework.actionMessage.EndTurnAction;
 import com.example.cribbagegame.GameFramework.actionMessage.GameAction;
+import com.example.cribbagegame.GameFramework.actionMessage.GameOverAckAction;
 import com.example.cribbagegame.GameFramework.players.GamePlayer;
 
 /**
@@ -86,7 +87,7 @@ public class CribLocalGame extends LocalGame {
             cribGameState.removeCards();
             return true;
         }
-        if(action instanceof CribExitGameAction){
+        if(action instanceof CribExitGameAction || action instanceof GameOverAckAction){
             cribGameState.exitGame(pID);
             return true;
         }

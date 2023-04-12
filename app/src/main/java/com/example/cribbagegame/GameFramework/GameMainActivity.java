@@ -268,7 +268,7 @@ public abstract class GameMainActivity extends Activity implements
         // Perform superclass configuration changes
         super.onConfigurationChanged(newConfig);
 
-        // if still on the configuration screen, continue showing it;
+        // if still on the curation screen, continue showing it;
         // otherwise, set the new GUI (which may have changed) for the
         // human player
         if (!doingConfiguration) {
@@ -512,6 +512,9 @@ public abstract class GameMainActivity extends Activity implements
         v.setOnClickListener(this);
         v = findViewById(R.id.debugLogging);
         v.setOnClickListener(this);
+        //my addition: rules button
+        v = findViewById((R.id.rulesButton));
+        v.setOnClickListener(this);
 
 
         String ipCode = IPCoder.encodeLocalIP();
@@ -631,6 +634,12 @@ public abstract class GameMainActivity extends Activity implements
                 Logger.setDebugValue(false);
             }
         }
+
+        //Rules Screen
+        else if(button.getId() == R.id.rulesButton) {
+            setContentView(R.layout.cribbage_rules1);
+        }
+
 
     }// onClick
 
