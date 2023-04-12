@@ -3,7 +3,7 @@ package com.example.cribbagegame.CribGame;
 import com.example.cribbagegame.R;
 
 public class CardImageRes {
-    private int[][] resources;
+    private int[][] resources = new int[5][14];
     // [suit] [value]
 
     public CardImageRes(){

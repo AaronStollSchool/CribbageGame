@@ -110,16 +110,17 @@
             android:layout_height="50dp" />
 
         <Button
-            android:id="@+id/exitButton"
+            android:id="@+id/exitRules"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/config_horiz_margin"
             android:layout_marginBottom="@dimen/config_horiz_margin"
-            android:layout_weight="@dimen/del_player_button_size"
+            android:layout_weight="1"
             android:fontFamily="@font/bebas_neue"
+            android:text="Exit"
             android:textColor="#FFFFFF"
-            android:text="Exit" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
