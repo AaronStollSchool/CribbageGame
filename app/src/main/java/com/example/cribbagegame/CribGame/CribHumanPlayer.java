@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cribbagegame.GameFramework.GameMainActivity;
@@ -319,11 +318,16 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             }
 
 
+
             /**
              * FOR FACE UP CARD
              *
              * setImageResource for the faceUpCard -- hopefully this works
              */
+            if(((CribbageGameState) info).getHandSize(0) != 4 || ((CribbageGameState) info).getHandSize(1) != 4) {
+                faceUpCard.setImageResource(R.drawable.back_of_card);
+            }
+            else {
                 switch (((CribbageGameState) info).getFaceUpCard().getCardID()) {
                     case 11:
                         faceUpCard.setImageResource(R.drawable.ace_of_diamonds);
@@ -498,185 +502,194 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         faceUpCard.setImageResource(R.drawable.back_of_card);
                         break;
                 }
+            }
 
 
             /**
              * FOR CRIB CARDS
              */
-            for(int i = 0; i < inCrib; ++i) {
-                switch (((CribbageGameState) info).getCribCard(i).getCardID()) {
-                    case 11:
-                        inCribCards.get(i).setImageResource(R.drawable.ace_of_diamonds);
-                        break;
-                    case 12:
-                        inCribCards.get(i).setImageResource(R.drawable.ace_of_hearts);
-                        break;
-                    case 13:
-                        inCribCards.get(i).setImageResource(R.drawable.ace_of_spades);
-                        break;
-                    case 14:
-                        inCribCards.get(i).setImageResource(R.drawable.ace_of_clubs);
-                        break;
+            //testing: so that it can soon recognize when the crib can be revealed
+            if(((CribbageGameState) info).getInPlaySize() != 8) {
+                for(int i = 0; i < inCrib; ++i) {
+                    inCribCards.get(i).setImageResource(R.drawable.back_of_card);
+                }
+            }
+            else {
+                for (int i = 0; i < inCrib; ++i) {
+                    switch (((CribbageGameState) info).getCribCard(i).getCardID()) {
+                        case 11:
+                            inCribCards.get(i).setImageResource(R.drawable.ace_of_diamonds);
+                            break;
+                        case 12:
+                            inCribCards.get(i).setImageResource(R.drawable.ace_of_hearts);
+                            break;
+                        case 13:
+                            inCribCards.get(i).setImageResource(R.drawable.ace_of_spades);
+                            break;
+                        case 14:
+                            inCribCards.get(i).setImageResource(R.drawable.ace_of_clubs);
+                            break;
 
-                    case 21:
-                        inCribCards.get(i).setImageResource(R.drawable._2_of_diamonds);
-                        break;
-                    case 22:
-                        inCribCards.get(i).setImageResource(R.drawable._2_of_hearts);
-                        break;
-                    case 23:
-                        inCribCards.get(i).setImageResource(R.drawable._2_of_spades);
-                        break;
-                    case 24:
-                        inCribCards.get(i).setImageResource(R.drawable._2_of_clubs);
-                        break;
+                        case 21:
+                            inCribCards.get(i).setImageResource(R.drawable._2_of_diamonds);
+                            break;
+                        case 22:
+                            inCribCards.get(i).setImageResource(R.drawable._2_of_hearts);
+                            break;
+                        case 23:
+                            inCribCards.get(i).setImageResource(R.drawable._2_of_spades);
+                            break;
+                        case 24:
+                            inCribCards.get(i).setImageResource(R.drawable._2_of_clubs);
+                            break;
 
-                    case 31:
-                        inCribCards.get(i).setImageResource(R.drawable._3_of_diamonds);
-                        break;
-                    case 32:
-                        inCribCards.get(i).setImageResource(R.drawable._3_of_hearts);
-                        break;
-                    case 33:
-                        inCribCards.get(i).setImageResource(R.drawable._3_of_spades);
-                        break;
-                    case 34:
-                        inCribCards.get(i).setImageResource(R.drawable._3_of_clubs);
-                        break;
+                        case 31:
+                            inCribCards.get(i).setImageResource(R.drawable._3_of_diamonds);
+                            break;
+                        case 32:
+                            inCribCards.get(i).setImageResource(R.drawable._3_of_hearts);
+                            break;
+                        case 33:
+                            inCribCards.get(i).setImageResource(R.drawable._3_of_spades);
+                            break;
+                        case 34:
+                            inCribCards.get(i).setImageResource(R.drawable._3_of_clubs);
+                            break;
 
-                    case 41:
-                        inCribCards.get(i).setImageResource(R.drawable._4_of_diamonds);
-                        break;
-                    case 42:
-                        inCribCards.get(i).setImageResource(R.drawable._4_of_hearts);
-                        break;
-                    case 43:
-                        inCribCards.get(i).setImageResource(R.drawable._4_of_spades);
-                        break;
-                    case 44:
-                        inCribCards.get(i).setImageResource(R.drawable._4_of_clubs);
-                        break;
+                        case 41:
+                            inCribCards.get(i).setImageResource(R.drawable._4_of_diamonds);
+                            break;
+                        case 42:
+                            inCribCards.get(i).setImageResource(R.drawable._4_of_hearts);
+                            break;
+                        case 43:
+                            inCribCards.get(i).setImageResource(R.drawable._4_of_spades);
+                            break;
+                        case 44:
+                            inCribCards.get(i).setImageResource(R.drawable._4_of_clubs);
+                            break;
 
-                    case 51:
-                        inCribCards.get(i).setImageResource(R.drawable._5_of_diamonds);
-                        break;
-                    case 52:
-                        inCribCards.get(i).setImageResource(R.drawable._5_of_hearts);
-                        break;
-                    case 53:
-                        inCribCards.get(i).setImageResource(R.drawable._5_of_spades);
-                        break;
-                    case 54:
-                        inCribCards.get(i).setImageResource(R.drawable._5_of_clubs);
-                        break;
+                        case 51:
+                            inCribCards.get(i).setImageResource(R.drawable._5_of_diamonds);
+                            break;
+                        case 52:
+                            inCribCards.get(i).setImageResource(R.drawable._5_of_hearts);
+                            break;
+                        case 53:
+                            inCribCards.get(i).setImageResource(R.drawable._5_of_spades);
+                            break;
+                        case 54:
+                            inCribCards.get(i).setImageResource(R.drawable._5_of_clubs);
+                            break;
 
-                    case 61:
-                        inCribCards.get(i).setImageResource(R.drawable._6_of_diamonds);
-                        break;
-                    case 62:
-                        inCribCards.get(i).setImageResource(R.drawable._6_of_hearts);
-                        break;
-                    case 63:
-                        inCribCards.get(i).setImageResource(R.drawable._6_of_spades);
-                        break;
-                    case 64:
-                        inCribCards.get(i).setImageResource(R.drawable._6_of_clubs);
-                        break;
+                        case 61:
+                            inCribCards.get(i).setImageResource(R.drawable._6_of_diamonds);
+                            break;
+                        case 62:
+                            inCribCards.get(i).setImageResource(R.drawable._6_of_hearts);
+                            break;
+                        case 63:
+                            inCribCards.get(i).setImageResource(R.drawable._6_of_spades);
+                            break;
+                        case 64:
+                            inCribCards.get(i).setImageResource(R.drawable._6_of_clubs);
+                            break;
 
-                    case 71:
-                        inCribCards.get(i).setImageResource(R.drawable._7_of_diamonds);
-                        break;
-                    case 72:
-                        inCribCards.get(i).setImageResource(R.drawable._7_of_hearts);
-                        break;
-                    case 73:
-                        inCribCards.get(i).setImageResource(R.drawable._7_of_spades);
-                        break;
-                    case 74:
-                        inCribCards.get(i).setImageResource(R.drawable._7_of_clubs);
-                        break;
+                        case 71:
+                            inCribCards.get(i).setImageResource(R.drawable._7_of_diamonds);
+                            break;
+                        case 72:
+                            inCribCards.get(i).setImageResource(R.drawable._7_of_hearts);
+                            break;
+                        case 73:
+                            inCribCards.get(i).setImageResource(R.drawable._7_of_spades);
+                            break;
+                        case 74:
+                            inCribCards.get(i).setImageResource(R.drawable._7_of_clubs);
+                            break;
 
-                    case 81:
-                        inCribCards.get(i).setImageResource(R.drawable._8_of_diamonds);
-                        break;
-                    case 82:
-                        inCribCards.get(i).setImageResource(R.drawable._8_of_hearts);
-                        break;
-                    case 83:
-                        inCribCards.get(i).setImageResource(R.drawable._8_of_spades);
-                        break;
-                    case 84:
-                        inCribCards.get(i).setImageResource(R.drawable._8_of_clubs);
-                        break;
+                        case 81:
+                            inCribCards.get(i).setImageResource(R.drawable._8_of_diamonds);
+                            break;
+                        case 82:
+                            inCribCards.get(i).setImageResource(R.drawable._8_of_hearts);
+                            break;
+                        case 83:
+                            inCribCards.get(i).setImageResource(R.drawable._8_of_spades);
+                            break;
+                        case 84:
+                            inCribCards.get(i).setImageResource(R.drawable._8_of_clubs);
+                            break;
 
-                    case 91:
-                        inCribCards.get(i).setImageResource(R.drawable._9_of_diamonds);
-                        break;
-                    case 92:
-                        inCribCards.get(i).setImageResource(R.drawable._9_of_hearts);
-                        break;
-                    case 93:
-                        inCribCards.get(i).setImageResource(R.drawable._9_of_spades);
-                        break;
-                    case 94:
-                        inCribCards.get(i).setImageResource(R.drawable._9_of_clubs);
-                        break;
+                        case 91:
+                            inCribCards.get(i).setImageResource(R.drawable._9_of_diamonds);
+                            break;
+                        case 92:
+                            inCribCards.get(i).setImageResource(R.drawable._9_of_hearts);
+                            break;
+                        case 93:
+                            inCribCards.get(i).setImageResource(R.drawable._9_of_spades);
+                            break;
+                        case 94:
+                            inCribCards.get(i).setImageResource(R.drawable._9_of_clubs);
+                            break;
 
-                    case 101:
-                        inCribCards.get(i).setImageResource(R.drawable._10_of_diamonds);
-                        break;
-                    case 102:
-                        inCribCards.get(i).setImageResource(R.drawable._10_of_hearts);
-                        break;
-                    case 103:
-                        inCribCards.get(i).setImageResource(R.drawable._10_of_spades);
-                        break;
-                    case 104:
-                        inCribCards.get(i).setImageResource(R.drawable._10_of_clubs);
-                        break;
+                        case 101:
+                            inCribCards.get(i).setImageResource(R.drawable._10_of_diamonds);
+                            break;
+                        case 102:
+                            inCribCards.get(i).setImageResource(R.drawable._10_of_hearts);
+                            break;
+                        case 103:
+                            inCribCards.get(i).setImageResource(R.drawable._10_of_spades);
+                            break;
+                        case 104:
+                            inCribCards.get(i).setImageResource(R.drawable._10_of_clubs);
+                            break;
 
-                    case 111:
-                        inCribCards.get(i).setImageResource(R.drawable.jack_of_diamonds);
-                        break;
-                    case 112:
-                        inCribCards.get(i).setImageResource(R.drawable.jack_of_hearts);
-                        break;
-                    case 113:
-                        inCribCards.get(i).setImageResource(R.drawable.jack_of_spades);
-                        break;
-                    case 114:
-                        inCribCards.get(i).setImageResource(R.drawable.jack_of_clubs);
-                        break;
+                        case 111:
+                            inCribCards.get(i).setImageResource(R.drawable.jack_of_diamonds);
+                            break;
+                        case 112:
+                            inCribCards.get(i).setImageResource(R.drawable.jack_of_hearts);
+                            break;
+                        case 113:
+                            inCribCards.get(i).setImageResource(R.drawable.jack_of_spades);
+                            break;
+                        case 114:
+                            inCribCards.get(i).setImageResource(R.drawable.jack_of_clubs);
+                            break;
 
-                    case 121:
-                        inCribCards.get(i).setImageResource(R.drawable.queen_of_diamonds);
-                        break;
-                    case 122:
-                        inCribCards.get(i).setImageResource(R.drawable.queen_of_hearts);
-                        break;
-                    case 123:
-                        inCribCards.get(i).setImageResource(R.drawable.queen_of_spades);
-                        break;
-                    case 124:
-                        inCribCards.get(i).setImageResource(R.drawable.queen_of_clubs);
-                        break;
+                        case 121:
+                            inCribCards.get(i).setImageResource(R.drawable.queen_of_diamonds);
+                            break;
+                        case 122:
+                            inCribCards.get(i).setImageResource(R.drawable.queen_of_hearts);
+                            break;
+                        case 123:
+                            inCribCards.get(i).setImageResource(R.drawable.queen_of_spades);
+                            break;
+                        case 124:
+                            inCribCards.get(i).setImageResource(R.drawable.queen_of_clubs);
+                            break;
 
-                    case 131:
-                        inCribCards.get(i).setImageResource(R.drawable.king_of_diamonds);
-                        break;
-                    case 132:
-                        inCribCards.get(i).setImageResource(R.drawable.king_of_hearts);
-                        break;
-                    case 133:
-                        inCribCards.get(i).setImageResource(R.drawable.king_of_spades);
-                        break;
-                    case 134:
-                        inCribCards.get(i).setImageResource(R.drawable.king_of_clubs);
-                        break;
+                        case 131:
+                            inCribCards.get(i).setImageResource(R.drawable.king_of_diamonds);
+                            break;
+                        case 132:
+                            inCribCards.get(i).setImageResource(R.drawable.king_of_hearts);
+                            break;
+                        case 133:
+                            inCribCards.get(i).setImageResource(R.drawable.king_of_spades);
+                            break;
+                        case 134:
+                            inCribCards.get(i).setImageResource(R.drawable.king_of_clubs);
+                            break;
 
-                    default:
-                        inCribCards.get(i).setImageResource(R.drawable.back_of_card);
-                        break;
+                        default:
+                            inCribCards.get(i).setImageResource(R.drawable.back_of_card);
+                            break;
+                    }
                 }
             }
 
@@ -1101,7 +1114,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 }
             }
             else if (button.equals(helpButton)) {
-                activity.setContentView(R.layout.cribbage_rules1);
+                activity.setContentView(R.layout.cribbage_rules);
 
                 // this doesn't work.
                 exitScreen = activity.findViewById(R.id.exitButton);

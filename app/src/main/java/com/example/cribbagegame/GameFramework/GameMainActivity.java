@@ -34,13 +34,7 @@ import com.example.cribbagegame.GameFramework.players.GamePlayer;
 import com.example.cribbagegame.GameFramework.utilities.Logger;
 import com.example.cribbagegame.GameFramework.utilities.MessageBox;
 
-import com.example.cribbagegame.GameFramework.gameConfiguration.GameConfig;
-import com.example.cribbagegame.GameFramework.gameConfiguration.GamePlayerType;
-import com.example.cribbagegame.GameFramework.infoMessage.GameState;
-import com.example.cribbagegame.GameFramework.players.GamePlayer;
 import com.example.cribbagegame.GameFramework.utilities.IPCoder;
-import com.example.cribbagegame.GameFramework.utilities.Logger;
-import com.example.cribbagegame.GameFramework.utilities.MessageBox;
 import com.example.cribbagegame.GameFramework.utilities.Saving;
 import com.example.cribbagegame.R;
 
@@ -637,7 +631,8 @@ public abstract class GameMainActivity extends Activity implements
 
         //Rules Screen
         else if(button.getId() == R.id.rulesButton) {
-            setContentView(R.layout.cribbage_rules1);
+            setContentView(R.layout.cribbage_rules);
+
         }
 
 

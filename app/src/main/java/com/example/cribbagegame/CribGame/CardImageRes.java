@@ -64,7 +64,7 @@ public class CardImageRes {
         resources[4][13] = R.drawable.king_of_clubs;
     }
 
-    private int getCardResID(int suit, int value){
+    public int getCardResID(int suit, int value){
         return resources[suit][value];
     }
 }

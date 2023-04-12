@@ -9,13 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/rulesTitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/fascinate"
+            android:fontFamily="@font/fascinate_inline0"
             android:shadowColor="#FF9800"
             android:shadowRadius="30"
             android:text="Cribbage Rules"
@@ -57,7 +61,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/phaseTwoTitle"
@@ -80,7 +84,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/phaseThreeTitle"
@@ -110,12 +114,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/config_horiz_margin"
             android:layout_marginBottom="@dimen/config_horiz_margin"
-            android:layout_weight="1"
-            android:clickable="true"
+            android:layout_weight="@dimen/del_player_button_size"
             android:fontFamily="@font/bebas_neue"
-            android:text="Exit"
-            android:textSize="24sp" />
+            android:textColor="#FFFFFF"
+            android:text="Exit" />
 
     </LinearLayout>
 
