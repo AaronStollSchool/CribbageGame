@@ -48,6 +48,7 @@ public class CribbageGameState extends GameState {
     private int p2RoundScore;
     private int roundScore;
     private Random gen;
+    private int tally;
 
     /**
      * Constructor for objects of class CribbageGameState
@@ -274,7 +275,7 @@ public class CribbageGameState extends GameState {
         return true;
     }
 
-    //can be end turn or change turn, not sure if completely needed
+    //can be turn or change turn, not sure if completely needed
     public boolean endTurn(int playerID) {
         if(playerID == 1) {
             playerTurn = 0;
@@ -386,9 +387,32 @@ public class CribbageGameState extends GameState {
         }
         return sum;
     }
-    public int tally15s(ArrayList<Card> hand)
-    {
-        return 0;
+    //https://stackoverflow.com/questions/4632322/finding-all-possible-combinations-of-numbers-to-reach-a-given-sum
+    public int tally15s(ArrayList<Card> hand) {
+        tally = 0;
+        int target = 15;
+        ArrayList<Integer> partial = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        for (int i = 0; i < hand.size(); i++){
+            numbers.add(hand.get(i).getCardValue());
+        }
+        tally15Recur(numbers,target,partial);
+        return tally;
+    }
+    public void tally15Recur(ArrayList<Integer> N, int target, ArrayList<Integer> partial){
+        int sum = 0;
+        for (int x:partial){ sum+=x;}
+        if(sum == target){ tally+=1;}
+        if(sum > target){ return;}
+        for(int i = 0; i < N.size(); i++){
+            ArrayList<Integer> remaining = new ArrayList<Integer>();
+            int n = N.get(i);
+            for(int j = i+1; j < N.size(); j++){ remaining.add(N.get(i));}
+
+            ArrayList<Integer> partialrec = new ArrayList<Integer>(partial);
+            partialrec.add(n);
+            tally15Recur(remaining, target, partial);
+        }
     }
     public int tallyFlush(ArrayList<Card> hand)
     {
