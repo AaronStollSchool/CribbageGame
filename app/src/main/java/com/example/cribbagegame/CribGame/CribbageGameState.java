@@ -147,6 +147,11 @@ public class CribbageGameState extends GameState {
         return true;
     }
 
+    public boolean setFaceUpCard(Card c) {
+        faceUpCard = c;
+        return true;
+    }
+
     /*
      * Randomly initializes player turn for first round, and toggles
      * for every subsequent call. Dealer will always be opposite of
@@ -254,6 +259,7 @@ public class CribbageGameState extends GameState {
         }
         return false;
     }
+
     public boolean returnCards()
     {
         for(Card c : inPlayCards)
@@ -361,7 +367,7 @@ public class CribbageGameState extends GameState {
             arr[c.getCardValue()-1]++;
         }
 
-        arr[faceUpCard.getCardValue()]++;
+        arr[faceUpCard.getCardValue()-1]++;
 
         //int sum = 0;
         for (int i = 4; i < 13; i++) {
@@ -396,7 +402,6 @@ public class CribbageGameState extends GameState {
                 return 3;
             }
         }
-
 
         //4, 6, 7, 7, 8 - ideally should count 2 runs (of length 4)
         /*
