@@ -76,7 +76,7 @@ public class CribLocalGame extends LocalGame {
             return true;
         }
         if(action instanceof CribDealAction){
-            cribGameState.tallyScore();
+            //cribGameState.tallyScore();
             cribGameState.setRoundScore(0);
             cribGameState.dealCards();
             return true;
