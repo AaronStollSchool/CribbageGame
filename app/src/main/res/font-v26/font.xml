@@ -7,9 +7,9 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/oi" />
+        android:font="@font/fascinate" />
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/fascinate" />
+        android:font="@font/fascinate_inline0" />
 </font-family>

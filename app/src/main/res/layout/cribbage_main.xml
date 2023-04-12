@@ -21,7 +21,7 @@
             android:id="@+id/cribbageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/fascinate_inline"
+            android:fontFamily="@font/fascinate_inline0"
             android:shadowColor="#FF9800"
             android:shadowRadius="30"
             android:text="Cribbage!"

@@ -1102,6 +1102,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             }
             else if (button.equals(helpButton)) {
                 activity.setContentView(R.layout.cribbage_rules1);
+
+                // this doesn't work.
                 exitScreen = activity.findViewById(R.id.exitButton);
                 exitScreen.setOnClickListener(this);
 
@@ -1114,12 +1116,14 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
             }
             else if (button.equals(exitButton)) {
-                //activity.setContentView(R.layout.game_config_main);
+                messageView.setText("Game is over.");
+                gameIsOver("Player " + this.playerNum + " has exited the game. Game is over.");
+
+                activity.setContentView(R.layout.game_config_main);
                 activity.setGameOver(true);
 
 
-
-                //this isn't very useful, just kinda restarts game
+                //this isn't very useful, just kinda restarts gameState but not /The Game/
                 CribExitGameAction ega = new CribExitGameAction(this);
                 game.sendAction(ega);
 
@@ -1128,6 +1132,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             }
             else if (button.equals(shuffleAndDealButton)) {
 
+                //reset all cards so they disappear
                 for(int i = 0; i < inCribCards.size(); ++i) {
                     inCribCards.get(i).setImageResource(R.drawable.back_of_card);
                 }

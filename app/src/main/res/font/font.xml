@@ -7,13 +7,13 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/oi" />
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="400"
         android:font="@font/fascinate" />
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/fascinate_inline" />
+        android:font="@font/fascinate_inline0" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/notable"/>
 </font-family>

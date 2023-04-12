@@ -89,6 +89,7 @@ public class CribLocalGame extends LocalGame {
         }
         if(action instanceof CribExitGameAction || action instanceof GameOverAckAction){
             cribGameState.exitGame(pID);
+            sendUpdatedStateTo(action.getPlayer());
             return true;
         }
         return false;
