@@ -116,17 +116,90 @@ public class CribbageUnitTest {
 
     }
 
+    // Aether
+    @Test
+    public void discard(){
+        CribbageGameState game = new CribbageGameState();
+        game.setUpBoard();
+
+        Card p0_1 = game.getHandCard(game.getPlayerTurn(),0);
+        Card p0_2 = game.getHandCard(game.getPlayerTurn(),1);
+
+        assertEquals(p0_1, game.getHandCard(game.getPlayerTurn(),0));
+        assertEquals(p0_2, game.getHandCard(game.getPlayerTurn(),1));
+
+        game.discard(p0_1, game.getPlayerTurn());
+        game.discard(p0_2, game.getPlayerTurn());
+
+        assertEquals(p0_1, game.getCribCard(0));
+        assertEquals(p0_2, game.getCribCard(1));
+
+        game.setPlayerTurn(1);
+
+        Card p1_1 = game.getHandCard(game.getPlayerTurn(),0);
+        Card p1_2 = game.getHandCard(game.getPlayerTurn(),1);
+
+        assertEquals(p1_1, game.getHandCard(game.getPlayerTurn(),0));
+        assertEquals(p1_2, game.getHandCard(game.getPlayerTurn(),1));
+
+        game.discard(p1_1, game.getPlayerTurn());
+        game.discard(p1_2, game.getPlayerTurn());
+
+        assertEquals(p1_1, game.getCribCard(2));
+        assertEquals(p1_2, game.getCribCard(3));
+    }
+
     //Aether
     @Test
-    public void isPlayable(){}
+    public void isPlayable(){
+        CribbageGameState game = new CribbageGameState();
+        game.setUpBoard();
+
+        Card p0_1 = game.getHandCard(game.getPlayerTurn(),0);
+        Card p0_2 = game.getHandCard(game.getPlayerTurn(),1);
+
+        assertEquals(p0_1, game.getHandCard(game.getPlayerTurn(),0));
+        assertEquals(p0_2, game.getHandCard(game.getPlayerTurn(),1));
+
+        game.discard(p0_1, game.getPlayerTurn());
+        game.discard(p0_2, game.getPlayerTurn());
+        game.setPlayerTurn(1);
+
+        Card p1_1 = game.getHandCard(game.getPlayerTurn(),0);
+        Card p1_2 = game.getHandCard(game.getPlayerTurn(),1);
+
+        assertEquals(p1_1, game.getHandCard(game.getPlayerTurn(),0));
+        assertEquals(p1_2, game.getHandCard(game.getPlayerTurn(),1));
+
+        game.discard(game.getHandCard(game.getPlayerTurn(),0), game.getPlayerTurn());
+        game.discard(game.getHandCard(game.getPlayerTurn(),1), game.getPlayerTurn());
+        game.setPlayerTurn(0);
+
+        game.playCard(game.getHandCard(game.getPlayerTurn(), 0));
+
+        assertEquals(true, game.isPlayable(game.getHandCard(game.getPlayerTurn(), 0)));
+
+        game.setPlayerTurn(0);
+
+        game.playCard(game.getHandCard(game.getPlayerTurn(), 0));
+
+        assertEquals(true, game.isPlayable(game.getHandCard(game.getPlayerTurn(), 0)));
+
+    }
 
     // Aether
     @Test
-    public void discard(){}
+    public void setPlayerTurn(){
+        CribbageGameState game = new CribbageGameState();
+        game.setUpBoard();
 
-    // Aether
-    @Test
-    public void setPlayerTurn(){}
+        assertEquals(0, game.getPlayerTurn());
+
+        game.setPlayerTurn(1);
+
+        assertEquals(1, game.getPlayerTurn());
+    }
+
 
     // Kincaid
     @Test

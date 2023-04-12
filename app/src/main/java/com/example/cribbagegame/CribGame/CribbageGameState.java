@@ -153,29 +153,42 @@ public class CribbageGameState extends GameState {
     }
 
     /*
-     * Randomly initializes player turn for first round, and toggles
-     * for every subsequent call. Dealer will always be opposite of
-     * player turn (i.e. if it is player 1's turn, player 2 is dealer).
+     * NOT RANDOM ANYMORE
+     *
+     * whatever playerID is inputted becomes playerTurn
+     * playerID can only be 1 or 0 as per playerID's should be
+     *
      */
     public boolean setPlayerTurn(int playerID) {
-        if(playerTurn == 2) {
-            playerTurn = gen.nextInt(2);
-
-            if(playerTurn == 1) {
-                isPlayer1Dealer = false;
-            } else {
-                isPlayer1Dealer = true;
-            }
-        } else {
-            if(playerTurn == 0) {
+        if(playerID == 1 || playerID == 0) {
+            if (playerID == 1) {
                 playerTurn = 1;
             } else {
                 playerTurn = 0;
             }
-
-            isPlayer1Dealer = !(isPlayer1Dealer);
+            return true;
         }
-        return true;
+        else {
+            return false;
+        }
+    }
+
+    // for later: for when dealer switches between rounds
+    // different from playerTurn bc playerTurns change a lot,
+    // but dealer doesn't
+    public boolean setDealer(int playerID) {
+        if(playerID == 1 || playerID == 0) {
+            if (playerID == 1) {
+                isPlayer1Dealer = true;
+            }
+            else if (playerID == 0) {
+                isPlayer1Dealer = false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public boolean exitGame(int playerID){
