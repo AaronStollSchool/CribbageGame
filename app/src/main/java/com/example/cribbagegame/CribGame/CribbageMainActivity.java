@@ -16,6 +16,25 @@ import com.example.cribbagegame.R;
 
 import java.util.ArrayList;
 
+/*
+ * Current status of the game:
+ * Very buggy, all scoring methods weren't implemented, and CribSmartComputerPlayer is only
+ * partially implemented.
+ *
+ * Most of us were busy with other things during easter weekend, so that left us really only Tuesday
+ * and Wednesday to make most of the changes needed for the beta release. This lead to us doing a lot of
+ * major changes that lead to a lot of bugs with not much time to resolve them. This could have probably
+ * been prevented with better planning and scheduling.
+ *
+ * Theres issues with the computer player sometimes freezing up, the game flashing red and staying red,
+ * the computer player trying to infinitely switch dealers at the end of play, among other issues.
+ * Most of these likely have to do with the player turn being switched unnecessarily at some point,
+ * or the go action.
+ *
+ * Scoring wasn't finished cause of a lack of time. Mostly a fault on our end.
+ * CribSmartComputerPlayer couldn't be finished without the scoring methods.
+ */
+
 public class CribbageMainActivity extends GameMainActivity {
 
     private static final String TAG = "CribbageMainActivity";
