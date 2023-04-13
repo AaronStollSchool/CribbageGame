@@ -493,16 +493,15 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 CribExitGameAction ega = new CribExitGameAction(this);
                 game.sendAction(ega);
             } else if (button.equals(shuffleAndDealButton)) {
-
-                //reset all cards so they disappear
-                for(int i = 0; i < inCribCards.size(); ++i) {
-                    inCribCards.get(i).setImageResource(R.drawable.back_of_card);
-                }
-                for(int i = 0; i < inPlayCards.size(); ++i) {
-                    inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
-                }
-
                 if(hand.size() == 0) {
+                    //reset all cards so they disappear
+                    for(int i = 0; i < inCribCards.size(); ++i) {
+                        inCribCards.get(i).setImageResource(R.drawable.back_of_card);
+                    }
+                    for(int i = 0; i < inPlayCards.size(); ++i) {
+                        inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
+                    }
+
                     CribDealAction da = new CribDealAction(this);
                     game.sendAction(da);
                 }
