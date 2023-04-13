@@ -372,6 +372,59 @@ public class CribbageGameState extends GameState {
     //IMPORTANT: method does not return card at index! It returns the card (index) back from the last card.
     public Card getPlayedCard(int index) { return inPlayCards.get(inPlayCards.size()-1-index); }
     public int getInPlaySize() { return inPlayCards.size(); }
+    public int scoreRuns()
+    {
+        if(inPlayCards.size()<3) return 0;
+        int arr[] = new int[13];
+        //populates array with values from inPlayCards
+        for(int i = 0; i < 3; i++)
+        {
+            //increment arr at index of the "ith card from last"'s card value (minus 1 to shift values from 1-13 to 0-12)
+            arr[inPlayCards.get(inPlayCards.size()-1-i).getCardValue()-1]++;
+        }
+
+        int runCount = 0;
+        int tal = 0;
+        //checks for run of 3
+        for(int i = 0; i < 13; i++)
+        {
+            if(arr[i] > 0) runCount++;
+            if(runCount == 3) tal += scoreRunsRecur(arr, 3); //checks for run of 4 if necessary
+        }
+
+        return tal;
+    }
+    public int scoreRunsRecur(int[] arr, int count)
+    {
+        if(inPlayCards.size()<=count) return count;
+        //increment arr at index of the "count'th card from last"'s card value (minus 1 to shift values from 1-13 to 0-12)
+        arr[inPlayCards.get(inPlayCards.size()-1-count).getCardValue()-1]++;
+
+        int runCount = 0;
+        for(int i = 0; i < 13; i++)
+        {
+            if(arr[i] > 0) runCount++;
+            if(runCount == count+1) return scoreRunsRecur(arr, count+1);
+        }
+
+        return count;
+    }
+    public int scoreDoubles()
+    {
+        //continue to check for consec doubles until no more cards remain
+        for(int i = 0; i<(inPlayCards.size()-1); i++)
+        {
+            if(inPlayCards.get(inPlayCards.size()-1-i).getCardValue() != inPlayCards.get(inPlayCards.size()-1-(i+1)).getCardValue())
+            {
+                //first non pair found ends loop (i=0 means no pairs, i=1 means pair, i=2 means triple,
+                //i=3 means quad)
+                return i * (i+1);
+            }
+        }
+        //runs if loop ends before finding a non pair (i.e. either size is 1 with no pairs (1*0=0), 2 with
+        //pair (2*1=2), 3 with triple (3*2=6), or 4 with quad (4*3=12))
+        return inPlayCards.size() * (inPlayCards.size()-1);
+    }
     public int tallyRuns(ArrayList<Card> hand)
     {
         //add all card values to an array
