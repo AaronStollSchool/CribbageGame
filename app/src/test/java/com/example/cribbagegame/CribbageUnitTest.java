@@ -10,11 +10,8 @@ import com.example.cribbagegame.GameFramework.infoMessage.GameState;
 
 import java.util.ArrayList;
 
-
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Unit Test for the Cribbage game.
  */
 public class CribbageUnitTest {
     @Test
@@ -31,14 +28,13 @@ public class CribbageUnitTest {
         state.endTurn(turn);
 
         assertNotEquals(turn, state.getPlayerTurn());
-
     }
 
     // Aaron
     @Test
     public void removeCards() throws Exception{
         CribbageGameState state = new CribbageGameState();
-        state.dealCards();
+        state.dealCards(state.getPlayerTurn());
 
         state.discard(state.getHandCard(state.getPlayerTurn(), 0),state.getPlayerTurn());
         state.discard(state.getHandCard(state.getPlayerTurn(), 0),state.getPlayerTurn());
@@ -70,7 +66,7 @@ public class CribbageUnitTest {
     @Test
     public void dealCards() throws Exception{
         CribbageGameState state = new CribbageGameState();
-        state.dealCards();
+        state.dealCards(state.getPlayerTurn());
 
         assertEquals(state.getHandSize(0), 6);
         assertEquals(state.getHandSize(1), 6);
@@ -85,7 +81,7 @@ public class CribbageUnitTest {
     @Test
     public void returnCards() throws Exception{
         CribbageGameState state = new CribbageGameState();
-        state.dealCards(); // setup
+        state.dealCards(state.getPlayerTurn()); // setup
 
         state.discard(state.getHandCard(state.getPlayerTurn(), 0),state.getPlayerTurn()); // discards 2 cards
         state.discard(state.getHandCard(state.getPlayerTurn(), 0),state.getPlayerTurn());
@@ -110,10 +106,6 @@ public class CribbageUnitTest {
         assertEquals(0, state.getInPlaySize());
         assertEquals(p1HandsizeA+1, state.getHandSize(0));
         assertEquals(p2HandsizeA+1, state.getHandSize(1));
-
-
-
-
     }
 
     // Aether
@@ -306,5 +298,34 @@ public class CribbageUnitTest {
         hand4.add(new Card(4, 1, 0));
         //test that 2 pairs returns 4
         assertEquals(4, cgs.tallyDoubles(hand4));
+    }
+
+    @Test
+    public void tally15s(){
+        CribbageGameState cgs = new CribbageGameState();
+
+        ArrayList<Card> hand1 = new ArrayList<>();
+        hand1.add(new Card(7, 1, 0));
+        hand1.add(new Card(8, 1, 0));
+        hand1.add(new Card(4, 1, 0));
+        hand1.add(new Card(11, 1, 0));
+
+        assertEquals(2, cgs.tally15s(hand1));
+
+        ArrayList<Card> hand2 = new ArrayList<>();
+        hand2.add(new Card(1, 1, 0));
+        hand2.add(new Card(4, 1, 0));
+        hand2.add(new Card(10, 1, 0));
+        hand2.add(new Card(11, 1, 0));
+
+        assertEquals(2, cgs.tally15s(hand2));
+
+        ArrayList<Card> hand3 = new ArrayList<>();
+        hand3.add(new Card(5, 1, 0));
+        hand3.add(new Card(5, 1, 0));
+        hand3.add(new Card(5, 1, 0));
+        hand3.add(new Card(10, 1, 0));
+
+        assertEquals(4, cgs.tally15s(hand3));
     }
 }

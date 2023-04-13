@@ -70,7 +70,7 @@ public class CribbageGameState extends GameState {
         isHard = true;
 
         playerTurn = 0; // TBI: change value to show no player turn has been set yet
-        isPlayer1Dealer = true;
+        isPlayer1Dealer = false;
 
         phase = 0;
         p1RoundScore = 0;
@@ -118,7 +118,7 @@ public class CribbageGameState extends GameState {
         this.gen = gamestate.gen;
     }
 
-    public boolean dealCards() {
+    public boolean dealCards(int playerID) {
         cardDeck = new Deck();
         Card c = null;
         for (int i = 0; i < 6; i++){
@@ -131,6 +131,14 @@ public class CribbageGameState extends GameState {
             p2Hand.add(c);
         }
         faceUpCard = cardDeck.nextCard();
+        if (faceUpCard.getCardScore() == 11) {
+            if (playerID == 1) {
+                p2Points += 2;
+            }
+            else if (playerID == 0) {
+                p1Points += 2;
+            }
+        }
         return true;
     }
 
@@ -176,19 +184,14 @@ public class CribbageGameState extends GameState {
     // for later: for when dealer switches between rounds
     // different from playerTurn bc playerTurns change a lot,
     // but dealer doesn't
-    public boolean setDealer(int playerID) {
-        if(playerID == 1 || playerID == 0) {
-            if (playerID == 1) {
-                isPlayer1Dealer = true;
-            }
-            else if (playerID == 0) {
-                isPlayer1Dealer = false;
-            }
-            return true;
+    public boolean switchDealer() {
+        if(isPlayer1Dealer) {
+            isPlayer1Dealer = false;
         }
         else {
-            return false;
+            isPlayer1Dealer = true;
         }
+        return true;
     }
 
     public boolean exitGame(int playerID){
@@ -203,7 +206,7 @@ public class CribbageGameState extends GameState {
     }
 
     public boolean setUpBoard() {
-        dealCards();
+        dealCards(playerTurn);
         setFaceUpCard();
         setPlayerTurn(playerTurn);
         return true;
@@ -211,6 +214,25 @@ public class CribbageGameState extends GameState {
 
     public boolean isPlayable(Card c) {
         if(c.getCardScore() + roundScore <= 31) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    //not to be confused with getDealer() -- for different things
+    public boolean isDealer(int playerID) {
+        if(playerID == 0 && isPlayer1Dealer == false) {
+            return true;
+        }
+        else if (playerID == 1 && isPlayer1Dealer == false) {
+            return false;
+        }
+        else if (playerID == 0 && isPlayer1Dealer == true) {
+            return false;
+        }
+        else if (playerID == 1 && isPlayer1Dealer == true) {
             return true;
         }
         else {
@@ -343,6 +365,16 @@ public class CribbageGameState extends GameState {
         if(playerId == 1){out = p2Hand.get(index);}
         return out;
     }
+    public ArrayList<Card> getHand(int pID){
+        ArrayList<Card> hand;
+        if(pID == 0){
+            hand = p1Hand;
+        }
+        else{
+            hand = p2Hand;
+        }
+        return hand;
+    }
     public int getHandSize(int playerId){
         int size = 0;
         if(playerId == 0){size = p1Hand.size();}
@@ -359,15 +391,25 @@ public class CribbageGameState extends GameState {
     public void setRoundScore(int score) {roundScore = score;}
     public int getPlayer0Score() { return p1Points; }
     public int getPlayer1Score() { return p2Points; }
-
     public int getGamePhase() { return phase; }
-
+    public boolean getDealer() { return isPlayer1Dealer; }
     public Card getLastPlayed(){return inPlayCards.get(inPlayCards.size()-1);}
     public Card getCribCard(int index){return crib.get(index);}
     public Card getFaceUpCard() {return faceUpCard;}
     public int getPlayerTurn() {return playerTurn;}
     public int getCribSize() {return crib.size();}
     public Card getInPlayCard(int index) {return inPlayCards.get(index);}
+    public boolean getDealer(int pID){
+        if(pID == 0 && isPlayer1Dealer){ // Player1 passed in & Player1 is Dealer  ---> TRUE
+            return true;
+        }
+        else if(pID == 1 && !isPlayer1Dealer){ // Player2 passed in & Player2 is Dealer ---> TRUE
+            return true;
+        }
+        else{
+            return false; // Else ---> FALSE
+        }
+    }
 
     //IMPORTANT: method does not return card at index! It returns the card (index) back from the last card.
     public Card getPlayedCard(int index) { return inPlayCards.get(inPlayCards.size()-1-index); }
@@ -543,19 +585,20 @@ public class CribbageGameState extends GameState {
     }
     public void tally15Recur(ArrayList<Integer> N, int target, ArrayList<Integer> partial){
         int sum = 0;
-        for (int x:partial){ sum+=x;}
-        if(sum == target){ tally+=1;}
-        if(sum > target){ return;}
+        for (int x:partial){sum += x;}
+        if(sum == target){tally += 1;}
+        if(sum > target){return;}
         for(int i = 0; i < N.size(); i++){
             ArrayList<Integer> remaining = new ArrayList<Integer>();
             int n = N.get(i);
-            for(int j = i+1; j < N.size(); j++){ remaining.add(N.get(i));}
+            for(int j = i+1; j < N.size(); j++){remaining.add(N.get(j));}
 
             ArrayList<Integer> partialrec = new ArrayList<Integer>(partial);
             partialrec.add(n);
-            tally15Recur(remaining, target, partial);
+            tally15Recur(remaining, target, partialrec);
         }
     }
+
     public int tallyFlush(ArrayList<Card> hand)
     {
         return 0;
@@ -566,23 +609,18 @@ public class CribbageGameState extends GameState {
     }
 
     /* TO DO
-        - tallyRuns for end of play
-            - loop through all card values and find each possible run, score points based on length of runs
         - ScoreRuns for during play
             - must be sequential? loop through inPlayCards?
         - ScoreDoubles for during play
             - if card played is the same rank as the previous card played, score 2 points
             - if card played is the same rank as the previous 2 cards played, score 6 points
             - if card played is the same rank as the previous 3 cards played, score 12 points
-        - tally15s for end of play
-            - check for every single possible combination of 15 using the cards in hand
         - Score15s for during play
             - if card played makes the current running total 15, score 2 points
             - if card played makes the current running total 31, score 2 points
         - tallyFlush (only at end of play)
             - loop through hand and check if all cards are the same suit, score 4 points
-            - ()
-        - tallyHeels
+        - tallyHeels (otherwise known as nob)
             - if hand/crib contains a jack of the same suit as the faceUpCard, score 1 point
      */
 

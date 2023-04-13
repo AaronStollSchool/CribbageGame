@@ -51,7 +51,7 @@ public class CribLocalGame extends LocalGame {
         //execute the given action for the player
         //else, return false
         int pID = cribGameState.getPlayerTurn(); // Player ID for Action
-        Log.d("makeMove", "" + action.getClass().getSimpleName());
+        Log.wtf("makeMove", "" + action.getClass().getSimpleName() + " by Player " + pID);
 
         if(action instanceof CribDiscardAction){
             Card[] cards = ((CribDiscardAction) action).getCards();
@@ -68,6 +68,7 @@ public class CribLocalGame extends LocalGame {
         }
         if(action instanceof CribGoAction){
             cribGameState.go(pID);
+            cribGameState.setRoundScore(0);
             return true;
         }
         if(action instanceof CribEndTurnAction){
@@ -75,10 +76,14 @@ public class CribLocalGame extends LocalGame {
             Log.d("Player turn", "" + cribGameState.getPlayerTurn());
             return true;
         }
+        if(action instanceof CribSwitchDealerAction) {
+            cribGameState.switchDealer();
+            return true;
+        }
         if(action instanceof CribDealAction){
             //cribGameState.tallyScore();
             cribGameState.setRoundScore(0);
-            cribGameState.dealCards();
+            cribGameState.dealCards(pID);
             return true;
         }
         if(action instanceof CribTallyAction){
@@ -87,9 +92,8 @@ public class CribLocalGame extends LocalGame {
             cribGameState.removeCards();
             return true;
         }
-        if(action instanceof CribExitGameAction || action instanceof GameOverAckAction){
+        if(action instanceof CribExitGameAction){
             cribGameState.exitGame(pID);
-            sendUpdatedStateTo(action.getPlayer());
             return true;
         }
         return false;
