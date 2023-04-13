@@ -129,10 +129,10 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
              * FOR PLAYABLE CARDS IN HAND
              * setImageResource for each card in hand
              */
+            CardImageRes x = new CardImageRes();
             int k;
             for (k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); k++) {
                 cards.get(k).setClickable(true);
-                CardImageRes x = new CardImageRes();
                 cards.get(k).setImageResource(x.getCardResID(hand.get(k).getSuit(), hand.get(k).getCardValue()));
             }
 
@@ -153,7 +153,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 faceUpCard.setImageResource(R.drawable.back_of_card);
             }
             else {
-                CardImageRes x = new CardImageRes();
                 faceUpCard.setImageResource(x.getCardResID( ((CribbageGameState) info).getFaceUpCard().getSuit(),
                         ((CribbageGameState) info).getFaceUpCard().getCardValue()) );
             }
@@ -170,7 +169,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             }
             else {
                 for (int i = 0; i < inCrib; ++i) {
-                    CardImageRes x = new CardImageRes();
                     inCribCards.get(i).setImageResource(x.getCardResID( ((CribbageGameState) info).getCribCard(i).getSuit(),
                             ((CribbageGameState) info).getCribCard(i).getSuit()) );
                     }
@@ -181,9 +179,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
              */
             for(int i = 0; i < inPlay; ++i) {
                 Log.d("inPlayCards", "drawing");
-                CardImageRes x = new CardImageRes();
                 inPlayCards.get(i).setImageResource(x.getCardResID( ((CribbageGameState) info).getInPlayCard(i).getSuit(),
-                        ((CribbageGameState) info).getInPlayCard(i).getSuit()) );
+                        ((CribbageGameState) info).getInPlayCard(i).getCardValue()) );
             }
 
             //check if round is over
