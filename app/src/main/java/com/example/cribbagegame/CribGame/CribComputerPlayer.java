@@ -32,7 +32,6 @@ public class CribComputerPlayer extends GameComputerPlayer {
             return;
         }
 
-        Log.d("ComputerPlayer", "receiving");
         CribbageGameState cribGameState = (CribbageGameState) this.game.getGameState();//(CribbageGameState) info;
 
         if (cribGameState.getPlayerTurn() != this.playerNum){
@@ -40,27 +39,66 @@ public class CribComputerPlayer extends GameComputerPlayer {
             return;
         }
         else {
-            Log.d("ComputerPlayer", "playing" + cribGameState.getHandSize(this.playerNum));
+            Log.d("ComputerPlayer", "playing... " + cribGameState.getHandSize(this.playerNum));
             sleep(2);
             Random r = new Random();
-            if (cribGameState.getHandSize(this.playerNum) == 0) {
-                CribDealAction da = new CribDealAction(this);
-                game.sendAction(da);
+
+            /*if both hands are empty, if computer is dealer, if it is computer's turn,
+            AND if both points arent empty (it's not the beginning of the game)
+            otherwise,, if round is over and computer is dealer*/
+            if (((CribbageGameState) info).getHandSize(0) == 0
+                    && ((CribbageGameState) info).getHandSize(1) == 0
+                    && ((CribbageGameState) info).isDealer(this.playerNum)
+                    && ((CribbageGameState) info).getPlayerTurn() == this.playerNum
+                    && ((CribbageGameState) info).getPlayer1Score() != 0
+                    && ((CribbageGameState) info).getPlayer0Score() != 0) {
+
+                CribSwitchDealerAction sda = new CribSwitchDealerAction(this);
+                game.sendAction(sda);
+                Log.d("ComputerPlayer", "CribSwitchAction");
+
                 CribEndTurnAction eta = new CribEndTurnAction(this);
                 game.sendAction(eta);
-                Log.d("ComputerPlayer", "has dealt");
+                Log.d("ComputerPlayer", "ended turn and waiting for Human to deal.");
+                Log.d("Dealer", "Player is " + ((CribbageGameState) info).getPlayerTurn());
             }
+
+            //if computer's hand is empty, and computer is dealer
+            else if (cribGameState.getHandSize(this.playerNum) == 0 && ((CribbageGameState) info).isDealer(this.playerNum)) {
+
+                CribDealAction da = new CribDealAction(this);
+                game.sendAction(da);
+
+                CribDiscardAction cda = new CribDiscardAction(this,
+                        cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))),
+                        cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
+                //this might need a gameState.phase int to specify when appropriate
+                game.sendAction(cda);
+
+                CribEndTurnAction eta = new CribEndTurnAction(this);
+                game.sendAction(eta);
+                Log.d("ComputerPlayer", "has dealt, discarded, and ended turn.");
+            }
+
+            //if computer's hand is 6 (human dealt)
             else if (cribGameState.getHandSize(this.playerNum) == 6) {
+
                 CribDiscardAction da = new CribDiscardAction(this,
                         cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))),
                         cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
                 //this might need a gameState.phase int to specify when appropriate
                 game.sendAction(da);
+
                 CribEndTurnAction eta = new CribEndTurnAction(this);
                 game.sendAction(eta);
-                Log.d("ComputerPlayer", "has discarded");
+
+                Log.d("ComputerPlayer", "has discarded and ended turn.");
+                return;
             }
+
+            //if computer's hand is 4 (both distributed to the crib and it's computer's turn)
             else if (cribGameState.getHandSize(this.playerNum) <= 4) {
+                //plays the first card in their hand at all times
                 for(int i = 0; i < cribGameState.getHandSize(this.playerNum); i++)
                 {
                     if(cribGameState.isPlayable(cribGameState.getHandCard(this.playerNum, i)))
@@ -68,19 +106,50 @@ public class CribComputerPlayer extends GameComputerPlayer {
                         CribPlayCardAction pca = new CribPlayCardAction(this,
                                 cribGameState.getHandCard(this.playerNum, i));
                         game.sendAction(pca);
+
                         CribEndTurnAction eta = new CribEndTurnAction(this);
                         game.sendAction(eta);
-                        Log.d("ComputerPlayer", "has played card");
-                        Log.d("ComputerPlayer", "has ended turn");
+                        Log.d("ComputerPlayer", "has played card and ended turn.");
                         return;
                     }
                 }
+
+
+                //tally action may not be needed here but idk where else
+                /*CribTallyAction ta = new CribTallyAction(this);
+                game.sendAction(ta);
+                Log.d("ComputerPlayer", "CribTallyAction");*/
+
                 CribGoAction ga = new CribGoAction(this);
                 game.sendAction(ga);
-                Log.d("ComputerPlayer", "has played card");
+                Log.d("ComputerPlayer", "says \"GO\". ");
+
+                //if computer needed to go, check if round is over again
+                if(((CribbageGameState) info).getHandSize(0) == 0
+                        && ((CribbageGameState) info).getHandSize(1) == 0
+                        && !((CribbageGameState) info).isDealer(this.playerNum)
+                        && ((CribbageGameState) info).getPlayerTurn() == this.playerNum
+                        && ((CribbageGameState) info).getPlayer1Score() != 0
+                        && ((CribbageGameState) info).getPlayer0Score() != 0) {
+
+                    CribSwitchDealerAction sda = new CribSwitchDealerAction(this);
+                    game.sendAction(sda);
+
+                    CribDealAction da = new CribDealAction(this);
+                    game.sendAction(da);
+
+                    CribDiscardAction cda = new CribDiscardAction(this,
+                            cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))),
+                            cribGameState.getHandCard(this.playerNum, r.nextInt(cribGameState.getHandSize(this.playerNum))));
+                    //this might need a gameState.phase int to specify when appropriate
+                    game.sendAction(cda);
+                }
+
+                CribEndTurnAction eta = new CribEndTurnAction(this);
+                game.sendAction(eta);
+                Log.d("ComputerPlayer", "has ended turn completely.");
             }
         }
-        Log.d("ComputerPlayer", "has ended turn");
     }
 }
 
