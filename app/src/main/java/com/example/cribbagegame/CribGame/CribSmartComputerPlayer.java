@@ -77,7 +77,7 @@ public class CribSmartComputerPlayer extends GameComputerPlayer {
         double max = 0.0;
         double min = 10.0;
         double[][] cribValue = new double[6][6];
-        double[][] cribValueStats = { // Array of average crib values for given discard pair [val1][val2]
+        double[][] cribStatsYour = { // Array of average crib values for given discard pair [val1][val2]
                 //http://www.cribbageforum.com/YourCrib.htm     **** reference for values ****
                 {5.51,4.35,4.69,5.42,5.38,3.98,4.05,3.77,3.49,3.51,3.57,3.50,3.36},
                 {4.35,5.82,7.14,4.64,5.54,4.15,3.78,3.82,3.91,3.71,4.05,3.86,3.57},
@@ -93,11 +93,13 @@ public class CribSmartComputerPlayer extends GameComputerPlayer {
                 {3.50,3.85,3.64,3.63,6.59,3.73,3.38,3.19,2.99,3.16,4.82,4.93,3.48},
                 {3.36,3.56,3.89,3.61,6.72,3.20,3.46,3.04,3.07,2.83,3.92,3.48,4.30}
                 };
+        double[][] cribStatsOpp = {}; // implement in future
+        //http://www.cribbageforum.com/OppCrib.htm
         for(int i = 0; i < hand.size(); i++){ // assign proper values for each card combo in hand
             for(int j = 0; j < hand.size(); j++){
                 if(i==j){cribValue[i][j] = 0.0;}
                 else {
-                    cribValue[i][j] = cribValueStats
+                    cribValue[i][j] = cribStatsYour
                             [hand.get(i).getCardValue()-1]
                             [hand.get(j).getCardValue()-1];
                     if(cribValue[i][j] < max){
