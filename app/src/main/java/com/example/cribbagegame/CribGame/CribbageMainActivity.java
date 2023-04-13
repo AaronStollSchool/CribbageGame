@@ -51,7 +51,7 @@ public class CribbageMainActivity extends GameMainActivity {
             public GamePlayer createPlayer(String name) {
                 return new CribHumanPlayer(name);
             }});
-        playerTypes.add(new GamePlayerType("Dumb Computer Player") {
+        playerTypes.add(new GamePlayerType("Computer Player") {
             public GamePlayer createPlayer(String name) {
                 return new CribComputerPlayer(name);
             }});
