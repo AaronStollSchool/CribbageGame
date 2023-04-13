@@ -490,19 +490,20 @@ public class CribbageGameState extends GameState {
     }
     public void tally15Recur(ArrayList<Integer> N, int target, ArrayList<Integer> partial){
         int sum = 0;
-        for (int x:partial){ sum+=x;}
-        if(sum == target){ tally+=1;}
-        if(sum > target){ return;}
+        for (int x:partial){sum += x;}
+        if(sum == target){tally += 1;}
+        if(sum > target){return;}
         for(int i = 0; i < N.size(); i++){
             ArrayList<Integer> remaining = new ArrayList<Integer>();
             int n = N.get(i);
-            for(int j = i+1; j < N.size(); j++){ remaining.add(N.get(i));}
+            for(int j = i+1; j < N.size(); j++){remaining.add(N.get(j));}
 
             ArrayList<Integer> partialrec = new ArrayList<Integer>(partial);
             partialrec.add(n);
-            tally15Recur(remaining, target, partial);
+            tally15Recur(remaining, target, partialrec);
         }
     }
+
     public int tallyFlush(ArrayList<Card> hand)
     {
         return 0;
@@ -513,23 +514,18 @@ public class CribbageGameState extends GameState {
     }
 
     /* TO DO
-        - tallyRuns for end of play
-            - loop through all card values and find each possible run, score points based on length of runs
         - ScoreRuns for during play
             - must be sequential? loop through inPlayCards?
         - ScoreDoubles for during play
             - if card played is the same rank as the previous card played, score 2 points
             - if card played is the same rank as the previous 2 cards played, score 6 points
             - if card played is the same rank as the previous 3 cards played, score 12 points
-        - tally15s for end of play
-            - check for every single possible combination of 15 using the cards in hand
         - Score15s for during play
             - if card played makes the current running total 15, score 2 points
             - if card played makes the current running total 31, score 2 points
         - tallyFlush (only at end of play)
             - loop through hand and check if all cards are the same suit, score 4 points
-            - ()
-        - tallyHeels
+        - tallyHeels (otherwise known as nob)
             - if hand/crib contains a jack of the same suit as the faceUpCard, score 1 point
      */
 
