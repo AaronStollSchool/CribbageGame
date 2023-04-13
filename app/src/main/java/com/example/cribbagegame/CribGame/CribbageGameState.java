@@ -70,7 +70,7 @@ public class CribbageGameState extends GameState {
         isHard = true;
 
         playerTurn = 0; // TBI: change value to show no player turn has been set yet
-        isPlayer1Dealer = true;
+        isPlayer1Dealer = false;
 
         phase = 0;
         p1RoundScore = 0;
@@ -118,7 +118,7 @@ public class CribbageGameState extends GameState {
         this.gen = gamestate.gen;
     }
 
-    public boolean dealCards() {
+    public boolean dealCards(int playerID) {
         cardDeck = new Deck();
         Card c = null;
         for (int i = 0; i < 6; i++){
@@ -131,6 +131,14 @@ public class CribbageGameState extends GameState {
             p2Hand.add(c);
         }
         faceUpCard = cardDeck.nextCard();
+        if (faceUpCard.getCardScore() == 11) {
+            if (playerID == 1) {
+                p2Points += 2;
+            }
+            else if (playerID == 0) {
+                p1Points += 2;
+            }
+        }
         return true;
     }
 
@@ -176,19 +184,14 @@ public class CribbageGameState extends GameState {
     // for later: for when dealer switches between rounds
     // different from playerTurn bc playerTurns change a lot,
     // but dealer doesn't
-    public boolean setDealer(int playerID) {
-        if(playerID == 1 || playerID == 0) {
-            if (playerID == 1) {
-                isPlayer1Dealer = true;
-            }
-            else if (playerID == 0) {
-                isPlayer1Dealer = false;
-            }
-            return true;
+    public boolean switchDealer() {
+        if(isPlayer1Dealer) {
+            isPlayer1Dealer = false;
         }
         else {
-            return false;
+            isPlayer1Dealer = true;
         }
+        return true;
     }
 
     public boolean exitGame(int playerID){
@@ -203,7 +206,7 @@ public class CribbageGameState extends GameState {
     }
 
     public boolean setUpBoard() {
-        dealCards();
+        dealCards(playerTurn);
         setFaceUpCard();
         setPlayerTurn(playerTurn);
         return true;
@@ -211,6 +214,25 @@ public class CribbageGameState extends GameState {
 
     public boolean isPlayable(Card c) {
         if(c.getCardScore() + roundScore <= 31) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    //not to be confused with getDealer() -- for different things
+    public boolean isDealer(int playerID) {
+        if(playerID == 0 && isPlayer1Dealer == false) {
+            return true;
+        }
+        else if (playerID == 1 && isPlayer1Dealer == false) {
+            return false;
+        }
+        else if (playerID == 0 && isPlayer1Dealer == true) {
+            return false;
+        }
+        else if (playerID == 1 && isPlayer1Dealer == true) {
             return true;
         }
         else {
@@ -359,9 +381,8 @@ public class CribbageGameState extends GameState {
     public void setRoundScore(int score) {roundScore = score;}
     public int getPlayer0Score() { return p1Points; }
     public int getPlayer1Score() { return p2Points; }
-
     public int getGamePhase() { return phase; }
-
+    public boolean getDealer() { return isPlayer1Dealer; }
     public Card getLastPlayed(){return inPlayCards.get(inPlayCards.size()-1);}
     public Card getCribCard(int index){return crib.get(index);}
     public Card getFaceUpCard() {return faceUpCard;}

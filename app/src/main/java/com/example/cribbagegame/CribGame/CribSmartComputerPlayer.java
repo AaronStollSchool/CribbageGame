@@ -6,6 +6,8 @@ import com.example.cribbagegame.GameFramework.infoMessage.GameInfo;
 import com.example.cribbagegame.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.cribbagegame.GameFramework.players.GameComputerPlayer;
 
+import java.util.Random;
+
 /**
  * CribSmartComputerPlayer -
  * This is the 'smart' computer player.
@@ -31,7 +33,7 @@ public class CribSmartComputerPlayer extends GameComputerPlayer {
         Log.d("SmartComputerPlayer", "receiving");
         CribbageGameState cribGameState = (CribbageGameState) this.game.getGameState();//(CribbageGameState) info;
 
-        if (cribGameState.getPlayerTurn() != this.playerNum){
+        if (cribGameState.getPlayerTurn() != this.playerNum) {
             Log.d("SmartComputerPlayer", "it's not my turn!");
             return;
         }
