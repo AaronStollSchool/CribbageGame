@@ -87,8 +87,20 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             //logging each player's turn
             if (((CribbageGameState) info).getPlayerTurn() != this.playerNum) {
                 messageView.setText("It's Opponent's turn. ");
+                if (((CribbageGameState) info).isDealer(this.playerNum)) {
+                    messageView.append("You are the dealer.");
+                }
+                else {
+                    messageView.append("Opponent is the dealer.");
+                }
             } else if (((CribbageGameState) info).getPlayerTurn() == this.playerNum) {
-                messageView.setText("It's My's turn. ");
+                messageView.setText("It's My turn. ");
+                if (((CribbageGameState) info).isDealer(this.playerNum)) {
+                    messageView.append("You are the dealer.");
+                }
+                else {
+                    messageView.append("Opponent is the dealer.");
+                }
             }
             Log.d("Player Turn", "" + ((CribbageGameState) info).getPlayerTurn() );
 
