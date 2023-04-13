@@ -343,6 +343,16 @@ public class CribbageGameState extends GameState {
         if(playerId == 1){out = p2Hand.get(index);}
         return out;
     }
+    public ArrayList<Card> getHand(int pID){
+        ArrayList<Card> hand;
+        if(pID == 0){
+            hand = p1Hand;
+        }
+        else{
+            hand = p2Hand;
+        }
+        return hand;
+    }
     public int getHandSize(int playerId){
         int size = 0;
         if(playerId == 0){size = p1Hand.size();}
@@ -368,6 +378,17 @@ public class CribbageGameState extends GameState {
     public int getPlayerTurn() {return playerTurn;}
     public int getCribSize() {return crib.size();}
     public Card getInPlayCard(int index) {return inPlayCards.get(index);}
+    public boolean getDealer(int pID){
+        if(pID == 0 && isPlayer1Dealer){ // Player1 passed in & Player1 is Dealer  ---> TRUE
+            return true;
+        }
+        else if(pID == 1 && !isPlayer1Dealer){ // Player2 passed in & Player2 is Dealer ---> TRUE
+            return true;
+        }
+        else{
+            return false; // Else ---> FALSE
+        }
+    }
 
     //IMPORTANT: method does not return card at index! It returns the card (index) back from the last card.
     public Card getPlayedCard(int index) { return inPlayCards.get(inPlayCards.size()-1-index); }
