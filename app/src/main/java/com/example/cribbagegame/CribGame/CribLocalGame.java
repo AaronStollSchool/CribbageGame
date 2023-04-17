@@ -67,8 +67,14 @@ public class CribLocalGame extends LocalGame {
             return true;
         }
         if(action instanceof CribGoAction){
-            cribGameState.go(pID);
-            cribGameState.setRoundScore(0);
+            Log.d("CribLocalGame", "Player " + pID + " said \"GO\" saidGoFirst = " + cribGameState.getPlayerSaidGoFirst());
+            if(cribGameState.getPlayerSaidGoFirst() == -1) {
+                cribGameState.setPlayerSaidGoFirst(pID);
+            }
+            else if(cribGameState.getPlayerSaidGoFirst() != pID) {
+                cribGameState.go(1-cribGameState.getPlayerSaidGoFirst());
+                cribGameState.setPlayerSaidGoFirst(-1);
+            }
             return true;
         }
         if(action instanceof CribEndTurnAction){

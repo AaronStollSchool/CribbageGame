@@ -22,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/fascinate_inline0"
-            android:shadowColor="#FF9800"
+            android:shadowColor="#FFD500"
             android:shadowRadius="30"
             android:text="Cribbage!"
             android:textAlignment="center"
-            android:textColor="#FFEB3B"
+            android:textColor="@color/yellow"
             android:textSize="80sp"
             android:textStyle="bold" />
 
@@ -34,382 +34,151 @@
             android:id="@+id/messageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/fascinate"
+            android:fontFamily="@font/baloo_bhaina"
             android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/secondaryMessageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo_bhaina"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="60dp"
-                android:layout_weight="1" />
-
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/yourScoreText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="Your Score:"
-                        android:textColor="#E43232"
-                        android:textSize="34sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/yourScoreValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="34sp" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/oppScoreText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="Their Score:"
-                        android:textColor="#7988D6"
-                        android:textSize="34sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/oppScoreValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="34sp" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/roundTotalText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="Round Score:"
-                        android:textColor="#369526"
-                        android:textSize="34sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/roundTotalValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="0"
-                        android:textColor="#FFFFFF"
-                        android:textSize="34sp" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp" />
-
-                </TableRow>
-
-            </TableLayout>
-
-            <Space
-                android:layout_width="400dp"
-                android:layout_height="60dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/faceUpCardView"
-                android:layout_width="120dp"
-                android:layout_height="180dp"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@drawable/back_of_card" />
-
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="60dp"
-                android:layout_weight="1" />
-
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="60dp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <Space
-                            android:layout_width="50dp"
-                            android:layout_height="25dp" />
-
-                        <TextView
-                            android:id="@+id/cribTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/bebas_neue"
-                            android:text="Crib:"
-                            android:textColor="#FF8F00"
-                            android:textSize="34sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <Space
-                        android:layout_width="30dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="1" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <Space
-                            android:layout_width="40dp"
-                            android:layout_height="25dp"
-                            android:layout_weight="1" />
-
-                        <ImageView
-                            android:id="@+id/cribCard1"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/cribCard2"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/cribCard3"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/cribCard4"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <Space
-                            android:layout_width="50dp"
-                            android:layout_height="25dp" />
-
-                        <TextView
-                            android:id="@+id/inPlayTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/bebas_neue"
-                            android:text="In Play Cards:"
-                            android:textColor="#FF8F00"
-                            android:textSize="34sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <Space
-                        android:layout_width="30dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="1" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <Space
-                            android:layout_width="40dp"
-                            android:layout_height="25dp"
-                            android:layout_weight="1" />
-
-                        <ImageView
-                            android:id="@+id/inPlayCard1"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="140dp"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/inPlayCard2"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/inPlayCard3"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/inPlayCard4"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/inPlayCard5"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/inPlayCard6"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/inPlayCard7"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-
-                        <ImageView
-                            android:id="@+id/inPlayCard8"
-                            style="@style/Widget.AppCompat.ImageButton"
-                            android:layout_width="@dimen/card_width"
-                            android:layout_height="@dimen/card_height"
-                            android:backgroundTint="#00FFFFFF"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/back_of_card" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </TableRow>
-
-        </TableLayout>
-
-        <Space
-            android:layout_width="5dp"
-            android:layout_height="30dp"
-            android:layout_weight="1" />
+            android:layout_height="5dp" />
 
         <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <SurfaceView
+                    android:id="@+id/pegBoardView"
+                    android:layout_width="870dp"
+                    android:layout_height="225dp"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/pegboard" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Space
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <Button
-                        android:id="@+id/shuffleAndDeal"
+                    <TableLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="Shuffle and Deal"
-                        android:textSize="24sp" />
+                        android:layout_height="wrap_content">
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <Space
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/yourScoreText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/bebas_neue"
+                                android:text="Your Score:"
+                                android:textColor="#E43232"
+                                android:textSize="34sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/yourScoreValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebas_neue"
+                                android:text="0"
+                                android:textColor="#FFFFFF"
+                                android:textSize="34sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <Space
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/oppScoreText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/bebas_neue"
+                                android:text="Their Score:"
+                                android:textColor="#7988D6"
+                                android:textSize="34sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/oppScoreValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebas_neue"
+                                android:text="0"
+                                android:textColor="#FFFFFF"
+                                android:textSize="34sp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <Space
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/roundTotalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/bebas_neue"
+                                android:text="Round Score:"
+                                android:textColor="#369526"
+                                android:textSize="34sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/roundTotalValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebas_neue"
+                                android:text="0"
+                                android:textColor="#FFFFFF"
+                                android:textSize="34sp" />
+                        </TableRow>
+
+                    </TableLayout>
 
                     <Space
                         android:layout_width="80dp"
@@ -486,38 +255,275 @@
 
                     <Space
                         android:layout_width="80dp"
-                        android:layout_height="30dp" />
+                        android:layout_height="0dp" />
 
-                    <Button
-                        android:id="@+id/endTurnButton"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="End Turn"
-                        android:textAllCaps="false"
-                        android:textSize="24sp" />
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/shuffleAndDeal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bebas_neue"
+                            android:text="Shuffle and Deal"
+                            android:textSize="26sp" />
+
+                        <Button
+                            android:id="@+id/endTurnButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bebas_neue"
+                            android:text="End Turn"
+                            android:textAllCaps="false"
+                            android:textSize="26sp" />
+                    </LinearLayout>
 
                     <Space
                         android:layout_width="20dp"
                         android:layout_height="30dp"
                         android:layout_weight="1" />
+
                 </LinearLayout>
 
             </TableRow>
 
             <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
                 <Space
-                    android:layout_width="500dp"
-                    android:layout_height="40dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="20dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/faceUpCardView"
+                        android:layout_width="120dp"
+                        android:layout_height="180dp"
+                        android:backgroundTint="#00FFFFFF"
+                        android:src="@drawable/back_of_card" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryLight"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="25dp" />
+
+                            <TextView
+                                android:id="@+id/cribTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebas_neue"
+                                android:text="Crib:"
+                                android:textColor="@color/orange"
+                                android:textSize="34sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="25dp"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:id="@+id/cribCard1"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/cribCard2"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/cribCard3"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/cribCard4"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="25dp" />
+
+                            <TextView
+                                android:id="@+id/inPlayTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bebas_neue"
+                                android:text="In Play Cards:"
+                                android:textColor="@color/orange"
+                                android:textSize="34sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="25dp"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:id="@+id/inPlayCard1"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="140dp"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/inPlayCard2"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/inPlayCard3"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/inPlayCard4"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/inPlayCard5"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/inPlayCard6"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/inPlayCard7"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+
+                            <ImageView
+                                android:id="@+id/inPlayCard8"
+                                style="@style/Widget.AppCompat.ImageButton"
+                                android:layout_width="@dimen/card_width"
+                                android:layout_height="@dimen/card_height"
+                                android:backgroundTint="#00FFFFFF"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/back_of_card" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -550,24 +556,15 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
-                        android:id="@+id/boardButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/bebas_neue"
-                        android:text="Go to Board"
-                        android:textAllCaps="false"
-                        android:textSize="24sp" />
-
                 </LinearLayout>
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp" />
 
             </TableRow>
         </TableLayout>
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

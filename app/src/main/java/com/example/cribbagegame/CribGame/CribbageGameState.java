@@ -28,7 +28,6 @@ public class CribbageGameState extends GameState {
     private ArrayList<Card> inPlayCards;
     private ArrayList<Card> crib;
     private int inPlay = 0;
-
     private Card faceUpCard;
 
     private boolean isHard;
@@ -36,6 +35,8 @@ public class CribbageGameState extends GameState {
     private int playerTurn;
     //player 1 turn: 0
     //player 2 turn: 1
+
+    private int playerSaidGoFirst = -1; //for GoAction -- starts -1 bc no one said go yet.
 
     private boolean isPlayer1Dealer;
 
@@ -266,21 +267,10 @@ public class CribbageGameState extends GameState {
         return false;
     }
 
+    //NOTICE!!! whoever calls go is the one who gets the points
     public boolean go(int playerID)
     {
-        if(playerTurn == 0) {
-            if(roundScore == 31)
-            {
-                p2Points += 2;
-            }
-            else
-            {
-                p2Points++;
-            }
-            roundScore = 0;
-            return true;
-        }
-        else if(playerTurn == 1){
+        if(playerID == 0) {
             if(roundScore == 31)
             {
                 p1Points += 2;
@@ -292,7 +282,38 @@ public class CribbageGameState extends GameState {
             roundScore = 0;
             return true;
         }
+        else if(playerID == 1){
+            if(roundScore == 31)
+            {
+                p2Points += 2;
+            }
+            else
+            {
+                p2Points++;
+            }
+            roundScore = 0;
+            return true;
+        }
         return false;
+    }
+
+    public boolean hasAnyPlayableCard(int playerID) {
+        boolean hasPlayable = false;
+        if(playerID == 0) {
+            for(int i = 0; i < p1Hand.size(); ++i) {
+                if(isPlayable(p1Hand.get(i))) {
+                    hasPlayable = true;
+                }
+            }
+        }
+        if(playerID == 1) {
+            for(int i = 0; i < p2Hand.size(); ++i) {
+                if(isPlayable(p2Hand.get(i))) {
+                    hasPlayable = true;
+                }
+            }
+        }
+        return hasPlayable;
     }
 
     public boolean returnCards()
@@ -389,6 +410,8 @@ public class CribbageGameState extends GameState {
         return out;
     }
     public void setRoundScore(int score) {roundScore = score;}
+    public void setPlayerSaidGoFirst(int playerNum) { this.playerSaidGoFirst = playerNum; }
+    public int getPlayerSaidGoFirst() { return playerSaidGoFirst; }
     public int getPlayer0Score() { return p1Points; }
     public int getPlayer1Score() { return p2Points; }
     public int getGamePhase() { return phase; }
