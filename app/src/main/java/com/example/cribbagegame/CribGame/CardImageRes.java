@@ -7,6 +7,8 @@ public class CardImageRes {
     // [suit] [value]
 
     public CardImageRes(){
+        resources[0][0] = R.drawable.back_of_card;
+
         resources[1][1] = R.drawable.ace_of_diamonds;
         resources[1][2] = R.drawable._2_of_diamonds;
         resources[1][3] = R.drawable._3_of_diamonds;

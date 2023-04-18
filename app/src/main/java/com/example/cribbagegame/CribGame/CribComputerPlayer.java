@@ -43,20 +43,19 @@ public class CribComputerPlayer extends GameComputerPlayer {
             sleep(2);
             Random r = new Random();
 
-            /*if both hands are empty, if computer is NOT dealer, if it is computer's turn,
-            AND if both points arent empty (it's not the beginning of the game)*/
+            /*if both hands are empty, if computer is NOT dealer, if both the crib and inPlay size is full,
+            if it is computer's turn, AND if both points arent empty
+            (it's not the beginning of the game-- only assuming each round there are "sub-rounds" where go is needed)*/
             if (((CribbageGameState) info).getHandSize(0) == 0
                     && ((CribbageGameState) info).getHandSize(1) == 0
+                    && ((CribbageGameState) info).getCribSize() == 4
+                    && ((CribbageGameState) info).getInPlaySize() == 8
                     && !((CribbageGameState) info).isDealer(this.playerNum)
                     && ((CribbageGameState) info).getPlayerTurn() == this.playerNum) {
 
                 CribSwitchDealerAction sda = new CribSwitchDealerAction(this);
                 game.sendAction(sda);
                 Log.d("ComputerPlayer", "CribSwitchAction");
-
-//                CribEndTurnAction eta = new CribEndTurnAction(this);
-//                game.sendAction(eta);
-                Log.d("ComputerPlayer", "has become dealer.");
                 Log.d("Dealer", " is player" + ((CribbageGameState) info).getPlayerTurn());
             }
 
@@ -97,7 +96,7 @@ public class CribComputerPlayer extends GameComputerPlayer {
             }
 
             //if computer's hand is 4 (both distributed to the crib and it's computer's turn)
-            else if (cribGameState.getHandSize(this.playerNum) <= 4) {
+            else if (cribGameState.getHandSize(this.playerNum) <= 4 && cribGameState.getHandSize(this.playerNum) != 0) {
                 //plays the first card in their hand at all times
                 for(int i = 0; i < cribGameState.getHandSize(this.playerNum); i++) {
                     if (cribGameState.isPlayable(cribGameState.getHandCard(this.playerNum, i))) {
@@ -119,7 +118,8 @@ public class CribComputerPlayer extends GameComputerPlayer {
                     game.sendAction(eta);
                     Log.d("ComputerPlayer", "says \"Go\".");
                 }
-                //if the other player called go first
+
+                // !!!! if the other player "said" go first, other should call it
                 else if (cribGameState.getPlayerSaidGoFirst() == 1-this.playerNum) {*/
                 CribGoAction ga = new CribGoAction(this);
                 game.sendAction(ga);
@@ -155,15 +155,10 @@ public class CribComputerPlayer extends GameComputerPlayer {
                     game.sendAction(cda);
                 }*/
 
+            //sometimes just ends turn without /doing/ anything (?)
             CribEndTurnAction eta = new CribEndTurnAction(this);
             game.sendAction(eta);
             Log.d("ComputerPlayer", "has ended turn completely.");
         }
     }
 }
-
-/*
- * To be implemented:
- * - add functonality for ending player phase when no cards left (for if cpu = dealer)
- * -
- */

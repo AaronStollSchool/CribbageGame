@@ -66,7 +66,7 @@ public class CribbageGameState extends GameState {
         inPlayCards = new ArrayList<Card>();
         crib = new ArrayList<Card>();
 
-        faceUpCard = cardDeck.nextCard();
+        faceUpCard = new Card(0,0,0);
 
         isHard = true;
 

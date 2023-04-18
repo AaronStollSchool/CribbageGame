@@ -35,16 +35,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/baloo_bhaina"
+            android:lineSpacingExtra="2sp"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/secondaryMessageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/baloo_bhaina"
+            android:lineSpacingExtra="2sp"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
@@ -60,7 +64,7 @@
 
                 <SurfaceView
                     android:id="@+id/pegBoardView"
-                    android:layout_width="870dp"
+                    android:layout_width="800dp"
                     android:layout_height="225dp"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:background="@drawable/pegboard" />
@@ -323,7 +327,7 @@
                         android:src="@drawable/back_of_card" />
 
                     <Space
-                        android:layout_width="10dp"
+                        android:layout_width="15dp"
                         android:layout_height="60dp"
                         android:layout_weight="1" />
 
@@ -562,7 +566,7 @@
         </TableLayout>
 
         <Space
-            android:layout_width="5dp"
+            android:layout_width="10dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
