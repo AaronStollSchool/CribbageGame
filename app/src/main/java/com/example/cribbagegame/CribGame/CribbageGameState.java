@@ -132,7 +132,8 @@ public class CribbageGameState extends GameState {
             p2Hand.add(c);
         }
         faceUpCard = cardDeck.nextCard();
-        if (faceUpCard.getCardScore() == 11) {
+        Log.d("FaceUpCard", "" + faceUpCard.toString());
+        if (faceUpCard.getCardValue() == 11) {
             if (playerID == 1) {
                 p2Points += 2;
             }
@@ -140,7 +141,13 @@ public class CribbageGameState extends GameState {
                 p1Points += 2;
             }
         }
-        return true;
+        if(getHandSize(1) == 6 && getHandSize(0) == 6) {
+            Log.d("CribGameState dealCards", "successful.");
+            return true;
+        } else {
+            Log.d("CribGameState dealCards", "not both 6 cards. ");
+            return false;
+        }
     }
 
     public boolean removeCards() {

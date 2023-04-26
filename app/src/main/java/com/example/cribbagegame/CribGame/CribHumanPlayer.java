@@ -163,7 +163,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
                 CribEndTurnAction eta = new CribEndTurnAction(this);
                 game.sendAction(eta);
-                messageView.setText("You have switched dealer to begin a new round. Opponent is dealer.");
+                messageView.setText("Dealer has been switched to begin a new round. Opponent is dealer.");
                 Log.d("HumanPlayer", "CribTallyAction, CribSwitchAction, CribEndTurnAction.");
                 Log.d("Dealer", "is Player" + ((CribbageGameState) info).getPlayerTurn());
 
@@ -187,7 +187,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
                 CribEndTurnAction eta = new CribEndTurnAction(this);
                 game.sendAction(eta);
-                messageView.setText("You have switched dealer to begin a new round. You are dealer.");
+                messageView.setText("Dealer has been switched to begin a new round. You are dealer.");
                 Log.d("HumanPlayer", "CribTallyAction, CribSwitchAction, CribEndTurnAction.");
                 Log.d("Dealer", "is Player" + ((CribbageGameState) info).getPlayerTurn());
 
@@ -239,8 +239,9 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
              * setImageResource for crib cards,
              * only when it's appropriate to show them in game
              */
+            Log.d("inCribSize", "" + inCrib);
             if(((CribbageGameState) info).getInPlaySize() != 8) {
-                for(int i = 0; i < inCrib; ++i) {
+                for(int i = 0; i < 4; ++i) {
                     inCribCards.get(i).setImageResource(R.drawable.back_of_card);
                 }
             } else {
@@ -251,7 +252,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     }
                 } catch (IndexOutOfBoundsException i) {
                     Log.d("inCribCards", "IndexOutOfBoundsException, caught.");
-                    for(int j = 0; j < inCrib; ++j) {
+                    for(int j = 0; j < 4; ++j) {
                         inCribCards.get(j).setImageResource(R.drawable.back_of_card);
                     }
                 }
@@ -265,14 +266,20 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
              * might want to change to divide the cards into "MY" cards and "THEIR" cards,
              * maybe to help visually and for scoring (?)
              */
+            Log.d("inPlaySize", "" + inPlay);
             for(int i = 0; i < 8; ++i) {
                 //reset them a lot just to make it cleaner - it doesn't listen to me when inPlay is cleared
                 inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
             }
-            for(int i = 0; i < inPlay; ++i) {
-                Log.d("inPlayCards", "drawing");
-                inPlayCards.get(i).setImageResource(x.getCardResID( ((CribbageGameState) info).getInPlayCard(i).getSuit(),
-                        ((CribbageGameState) info).getInPlayCard(i).getCardValue()) );
+            try {
+                for (int i = 0; i < inPlay; ++i) {
+                    Log.d("inPlayCards", "drawing");
+                    inPlayCards.get(i).setImageResource(x.getCardResID(((CribbageGameState) info).getInPlayCard(i).getSuit(),
+                            ((CribbageGameState) info).getInPlayCard(i).getCardValue()));
+                }
+            }
+            catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                Log.d("inPlayCards", "IndexOutOfBoundsException caught. ");
             }
 
             //check if GoAction is going to be needed
@@ -322,7 +329,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         helpButton = activity.findViewById(R.id.helpButton);
         endTurnButton = activity.findViewById(R.id.endTurnButton);
         shuffleAndDealButton = activity.findViewById(R.id.shuffleAndDeal);
-        exitRules = activity.findViewById(R.id.exitRules);
 
         //setting each card object to a card button on the screen
         this.cards.add(0, activity.findViewById(R.id.card1));
@@ -360,7 +366,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         helpButton.setOnClickListener(this);
         endTurnButton.setOnClickListener(this);
         shuffleAndDealButton.setOnClickListener(this);
-        //exitRules.setOnClickListener(this);
 
     }
 
@@ -439,7 +444,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                             if (sum == 1) c1 = hand.get(i);
                         }
                     }
-                    if ((sum == 1) && (roundScore + c1.getCardValue() <= 31)) {
+                    if ((sum == 1) && (roundScore + c1.getCardScore() <= 31)) {
                         messageView.setText("Card played: " + c1.toString());
                         CribPlayCardAction pa = new CribPlayCardAction(this, c1);
                         game.sendAction(pa);
@@ -487,9 +492,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     CribDealAction da = new CribDealAction(this);
                     game.sendAction(da);
                 }
-            } else if (button.equals(exitRules)) {
-                //may have to give up on this, it doesn't like buttons anywhere else
-                //activity.setContentView(R.layout.cribbage_main);
             }
 
         }
@@ -499,14 +501,5 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             flash(Color.RED, 50);
             Log.d("onClick", "failed");
         }*/
-    }
-
-    private void addInPlayCardView(Card c){
-        int width = 80;
-        int height = 140;
-
-        //ImageView cardView = new ImageView();
-
-        //inPlayLayout.addView(cardView);
     }
 }

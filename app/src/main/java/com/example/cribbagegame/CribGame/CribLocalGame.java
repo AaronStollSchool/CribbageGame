@@ -57,12 +57,14 @@ public class CribLocalGame extends LocalGame {
             Card[] cards = ((CribDiscardAction) action).getCards();
             cribGameState.discard(cards[0], pID);
             cribGameState.discard(cards[1], pID);
+            Log.d("CribDiscardAction", "Cards discarded: " + cards[0].toString() + " " + cards[1].toString());
             sendUpdatedStateTo(action.getPlayer());
             return true;
         }
         if(action instanceof CribPlayCardAction){
             Card playedCard = ((CribPlayCardAction) action).getPlayedCard();
             cribGameState.playCard(playedCard);
+            Log.d("CribPlayCardAction", "Card played: " + playedCard.toString());
             Log.d("CribPlayCardAction", "in play size: "+ cribGameState.getInPlaySize());
             return true;
         }
