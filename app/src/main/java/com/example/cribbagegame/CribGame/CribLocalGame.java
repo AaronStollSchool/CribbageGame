@@ -102,7 +102,7 @@ public class CribLocalGame extends LocalGame {
         if(action instanceof CribDealAction){
             //cribGameState.tallyScore();
             cribGameState.setRoundScore(0);
-            cribGameState.dealCards(pID);
+            cribGameState.dealCards();
             return true;
         }
         if(action instanceof CribTallyAction){
@@ -134,10 +134,10 @@ public class CribLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        if (cribGameState.getPlayer0Score() >= 31) {
+        if (cribGameState.getPlayer0Score() >= 61) {
             return "Game Over! " + this.playerNames[0] + " won!";
         }
-        else if (cribGameState.getPlayer1Score() >= 31) {
+        else if (cribGameState.getPlayer1Score() >= 61) {
             return "Game Over! " + this.playerNames[1] + " won!";
         }
         return null;

@@ -31,6 +31,11 @@ public class CribComputerPlayer extends GameComputerPlayer {
         if (info instanceof NotYourTurnInfo) {
             return;
         }
+
+        if (((CribbageGameState) info).getPlayer0Score() >= 61 || ((CribbageGameState) info).getPlayer1Score() >= 61) {
+            return;
+        }
+
         CribbageGameState cribGameState = (CribbageGameState) this.game.getGameState();//(CribbageGameState) info;
         if (cribGameState.getPlayerTurn() != this.playerNum){
             return;
@@ -39,9 +44,10 @@ public class CribComputerPlayer extends GameComputerPlayer {
             sleep(2);
             Random r = new Random();
 
-            /*if both hands are empty, if computer is IS dealer, if both the crib and inPlay size is full,
+            /*if both hands are empty, if computer IS dealer, if both the crib and inPlay size is full,
             if it is computer's turn, AND if both points arent empty
             (it's not the beginning of the game-- only assuming each round there are "sub-rounds" where go is needed)*/
+
             if (((CribbageGameState) info).getHandSize(0) == 0
                     && ((CribbageGameState) info).getHandSize(1) == 0
                     && ((CribbageGameState) info).getCribSize() == 4
@@ -54,6 +60,7 @@ public class CribComputerPlayer extends GameComputerPlayer {
                 CribSwitchDealerAction sda = new CribSwitchDealerAction(this);
                 game.sendAction(sda);
                 Log.d("ComputerPlayer", "CribSwitchDealerAction");
+
                 int dealer;
                 if(((CribbageGameState) info).getIsPlayer1Dealer()) {
                     dealer = 0;
@@ -131,7 +138,7 @@ public class CribComputerPlayer extends GameComputerPlayer {
             //if computer's hand is 4 (both distributed to the crib and it's computer's turn)
             else if (cribGameState.getHandSize(this.playerNum) <= 4 && cribGameState.getHandSize(this.playerNum) >= 1) {
                 //plays the first card in their hand at all times
-                for(int i = 0; i < cribGameState.getHandSize(this.playerNum); i++) {
+                for (int i = 0; i < cribGameState.getHandSize(this.playerNum); i++) {
                     if (cribGameState.isPlayable(cribGameState.getHandCard(this.playerNum, i))) {
                         Log.d("computer", "playing card " + i + " of " + cribGameState.getHandSize(this.playerNum) + "...");
 
@@ -145,21 +152,28 @@ public class CribComputerPlayer extends GameComputerPlayer {
                         return;
                     }
                 }
-               /* //if no one called go yet
-                if(cribGameState.getPlayerSaidGoFirst() == -1) {
+
+                //if no one called go yet
+                if (cribGameState.getPlayerSaidGoFirst() == -1) {
                     //computer has no playable cards, computer says "go"
                     // the go action WILL ENSUE once humans calls GO action.
-                    CribEndTurnAction eta = new CribEndTurnAction(this);
-                    game.sendAction(eta);
+                    CribGoAction ga = new CribGoAction(this);
+                    game.sendAction(ga);
+
+                    //CribEndTurnAction eta = new CribEndTurnAction(this);
+                    //game.sendAction(eta);
                     Log.d("ComputerPlayer", "says \"Go\".");
                 }
-
                 // !!!! if the other player "said" go first, other should call it
-                else if (cribGameState.getPlayerSaidGoFirst() == 1-this.playerNum) {*/
-                CribGoAction ga = new CribGoAction(this);
-                game.sendAction(ga);
-                Log.d("ComputerPlayer", "Cannot play any more cards and said \"GO\"");
-               //}
+                else if (cribGameState.getPlayerSaidGoFirst() == 1-this.playerNum) {
+                    CribGoAction ga = new CribGoAction(this);
+                    game.sendAction(ga);
+
+                    //temp - need to see if this fixes something
+                    //CribEndTurnAction eta = new CribEndTurnAction(this);
+                    //game.sendAction(eta);
+                    Log.d("ComputerPlayer", "Cannot play any more cards and said \"GO\"");
+                }
             }
 
             //other options
