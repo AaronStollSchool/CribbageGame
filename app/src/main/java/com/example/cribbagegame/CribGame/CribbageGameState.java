@@ -119,7 +119,7 @@ public class CribbageGameState extends GameState {
         this.gen = gameState.gen;
     }
 
-    public boolean dealCards(int playerID) {
+    public boolean dealCards() {
         cardDeck = new Deck();
         Card c = null;
         for (int i = 0; i < 6; i++){
@@ -133,14 +133,6 @@ public class CribbageGameState extends GameState {
         }
         faceUpCard = cardDeck.nextCard();
         Log.d("FaceUpCard", "" + faceUpCard.toString());
-        if (faceUpCard.getCardValue() == 11) {
-            if (playerID == 1) {
-                p2Points += 2;
-            }
-            else if (playerID == 0) {
-                p1Points += 2;
-            }
-        }
         if(getHandSize(1) == 6 && getHandSize(0) == 6) {
             return true;
         } else {
@@ -159,6 +151,25 @@ public class CribbageGameState extends GameState {
     public boolean setFaceUpCard() {
         faceUpCard = cardDeck.nextCard();
         return true;
+    }
+
+    public boolean isFaceUpCardJack() {
+        if(faceUpCard.getCardValue() == 11) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public boolean awardFaceUpPoints() {
+        if (isPlayer1Dealer) {
+            p2Points += 2;
+            return true;
+        }
+        else {
+            p1Points += 2;
+            return true;
+        }
     }
 
     public boolean setFaceUpCard(Card c) {
@@ -216,7 +227,7 @@ public class CribbageGameState extends GameState {
     }
 
     public boolean setUpBoard() {
-        dealCards(playerTurn);
+        dealCards();
         setFaceUpCard();
         setPlayerTurn(playerTurn);
         return true;

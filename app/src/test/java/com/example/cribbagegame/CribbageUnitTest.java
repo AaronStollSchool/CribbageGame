@@ -34,7 +34,7 @@ public class CribbageUnitTest {
     @Test
     public void removeCards() throws Exception{
         CribbageGameState state = new CribbageGameState();
-        state.dealCards(state.getPlayerTurn());
+        state.dealCards();
 
         state.discard(state.getHandCard(state.getPlayerTurn(), 0),state.getPlayerTurn());
         state.discard(state.getHandCard(state.getPlayerTurn(), 0),state.getPlayerTurn());
@@ -66,7 +66,7 @@ public class CribbageUnitTest {
     @Test
     public void dealCards() throws Exception{
         CribbageGameState state = new CribbageGameState();
-        state.dealCards(state.getPlayerTurn());
+        state.dealCards();
 
         assertEquals(state.getHandSize(0), 6);
         assertEquals(state.getHandSize(1), 6);
@@ -81,7 +81,7 @@ public class CribbageUnitTest {
     @Test
     public void returnCards() throws Exception{
         CribbageGameState state = new CribbageGameState();
-        state.dealCards(state.getPlayerTurn()); // setup
+        state.dealCards(); // setup
 
         state.discard(state.getHandCard(state.getPlayerTurn(), 0),state.getPlayerTurn()); // discards 2 cards
         state.discard(state.getHandCard(state.getPlayerTurn(), 0),state.getPlayerTurn());
