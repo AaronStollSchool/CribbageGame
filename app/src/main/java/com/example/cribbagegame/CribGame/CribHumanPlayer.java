@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.cribbagegame.GameFramework.GameMainActivity;
 import com.example.cribbagegame.GameFramework.infoMessage.GameInfo;
+import com.example.cribbagegame.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.cribbagegame.GameFramework.players.GameHumanPlayer;
 import com.example.cribbagegame.R;
 
@@ -72,6 +73,13 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
     @Override
     public void receiveInfo(GameInfo info) {
+        if (info instanceof NotYourTurnInfo) {
+            return;
+        }
+
+        if (((CribbageGameState) info).getPlayer0Score() >= 61 || ((CribbageGameState) info).getPlayer1Score() >= 61) {
+            return;
+        }
 
         if (info instanceof CribbageGameState) {
             cribGameState = (CribbageGameState) this.game.getGameState();
