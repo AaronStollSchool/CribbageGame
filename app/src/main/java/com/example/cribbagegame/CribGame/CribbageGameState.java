@@ -309,14 +309,14 @@ public class CribbageGameState extends GameState {
     public boolean hasAnyPlayableCard(int playerID) {
         boolean hasPlayable = false;
         if(playerID == 0) {
-            for(int i = 0; i < p1Hand.size(); ++i) {
+            for(int i = 0; i < p1Hand.size(); i++) {
                 if(isPlayable(p1Hand.get(i))) {
                     hasPlayable = true;
                 }
             }
         }
         if(playerID == 1) {
-            for(int i = 0; i < p2Hand.size(); ++i) {
+            for(int i = 0; i < p2Hand.size(); i++) {
                 if(isPlayable(p2Hand.get(i))) {
                     hasPlayable = true;
                 }
@@ -354,6 +354,10 @@ public class CribbageGameState extends GameState {
         else {
             playerTurn = 1;
         }
+
+        //patch fix for pc hand populating with 7 cards
+        while(p1Hand.size() > 6) p1Hand.remove(p1Hand.size() - 1);
+        while(p2Hand.size() > 6) p2Hand.remove(p2Hand.size() - 1);
         return true;
     }
 
@@ -381,7 +385,7 @@ public class CribbageGameState extends GameState {
         String[] hand = new String[c.size()];
         String hands = "";
 
-        for(int i = 0; i < c.size(); ++i) {
+        for(int i = 0; i < c.size(); i++) {
             hand[i] = c.get(i).toString();
             hands += hand[i] + ", ";
         }
@@ -461,7 +465,14 @@ public class CribbageGameState extends GameState {
         //checks for run of 3
         for(int i = 0; i < 13; i++)
         {
-            if(arr[i] > 0) runCount++;
+            if(arr[i] > 0)
+            {
+                runCount++;
+            }
+            else
+            {
+                runCount = 0;
+            }
             if(runCount == 3) tal += scoreRunsRecur(arr, 3); //checks for run of 4 if necessary
         }
 
@@ -476,7 +487,14 @@ public class CribbageGameState extends GameState {
         int runCount = 0;
         for(int i = 0; i < 13; i++)
         {
-            if(arr[i] > 0) runCount++;
+            if(arr[i] > 0)
+            {
+                runCount++;
+            }
+            else
+            {
+                runCount = 0;
+            }
             if(runCount == count+1) return scoreRunsRecur(arr, count+1);
         }
 
@@ -498,6 +516,22 @@ public class CribbageGameState extends GameState {
         //pair (2*1=2), 3 with triple (3*2=6), or 4 with quad (4*3=12))
         return inPlayCards.size() * (inPlayCards.size()-1);
     }
+    public int score15()
+    {
+        if(roundScore == 15) return 2;
+        else return 0;
+    }
+
+    public void scorePoints(int pID)
+    {
+        int score = score15() + scoreDoubles() + scoreRuns();
+        if (pID == 1) {
+                p2Points += score;
+        } else {
+                p1Points += score;
+        }
+    }
+
     public int tallyRuns(ArrayList<Card> hand)
     {
         //add all card values to an array
@@ -512,6 +546,7 @@ public class CribbageGameState extends GameState {
         for (int i = 4; i < 13; i++) {
             //check for a run of 5
             if (arr[i] >= 1 && arr[i-1] >= 1 && arr[i-2] >= 1 && arr[i-3] >= 1 && arr[i-4] >= 1) {
+                Log.d("Runs:", Integer.toString(5));
                 return 5;
             }
         }
@@ -521,8 +556,10 @@ public class CribbageGameState extends GameState {
             if (arr[j] >= 1 && arr[j-1] >= 1 && arr[j-2] >= 1 && arr[j-3] >= 1) {
                 //if there are 2 identical cards, count 2 separate runs of 4
                 if (arr[j] >= 2 || arr[j-1] >= 2 || arr[j-2] >= 2 || arr[j-3] >= 2) {
+                    Log.d("Runs:", Integer.toString(8));
                     return 4+4;
                 }
+                Log.d("Runs:", Integer.toString(4));
                 return 4;
             }
         }
@@ -532,12 +569,15 @@ public class CribbageGameState extends GameState {
             if (arr[k] >= 1 && arr[k-1] >= 1 && arr[k-2] >= 1) {
                 //if there are 3 identical cards of a value, count 3 separate runs of 3
                 if (arr[k] >= 3 || arr[k-1] >= 3 || arr[k-2] >= 3) {
+                    Log.d("Runs:", Integer.toString(9));
                     return 3+3+3;
                 }
                 //if there are 2 identical cards of a value, count 2 separate runs of 3
                 else if (arr[k] >= 2 || arr[k-1] >= 2 || arr[k-2] >= 2) {
+                    Log.d("Runs:", Integer.toString(6));
                     return 3+3;
                 }
+                Log.d("Runs:", Integer.toString(3));
                 return 3;
             }
         }
@@ -569,6 +609,7 @@ public class CribbageGameState extends GameState {
 
         //1, 2, 3, 4, 7 - should only count 1 run (of length 4), cannot split into 2 runs
 
+        Log.d("Runs:", Integer.toString(0));
         return 0;
     }
 
@@ -580,6 +621,7 @@ public class CribbageGameState extends GameState {
         {
             arr[c.getCardValue()-1]++;
         }
+        arr[faceUpCard.getCardValue()-1]++;
 
         //loop through array checking for values greater than 1
         int sum = 0;
@@ -600,6 +642,7 @@ public class CribbageGameState extends GameState {
                     break;
             }
         }
+        Log.d("Doubles:", Integer.toString(sum));
         return sum;
     }
     //https://stackoverflow.com/questions/4632322/finding-all-possible-combinations-of-numbers-to-reach-a-given-sum
@@ -630,11 +673,67 @@ public class CribbageGameState extends GameState {
         }
     }
 
+    public int tally15sNew(ArrayList<Card> hand)
+    {
+        Card cArr[] = new Card[5]; //temporary array of Cards
+        int tal = 0; //sum of points
+        int sum15 = 0;
+
+        for(int i = 0; i < 4; i++)
+        {
+            cArr[i] = hand.get(i); //adding all values in hand to array
+        }
+        cArr[4] = faceUpCard; //adding faceUpCard to array
+
+        for(int i = 0; i < cArr.length; i++)
+        {
+            hand.remove(cArr[i]);
+            tal += tally15sNewRecur(hand);
+            hand.add(cArr[i]);
+
+            sum15 += cArr[i].getCardScore();
+        }
+        if(sum15 == 15) tal += 2;
+        Log.d("15s:", Integer.toString(tal));
+        return tal;
+
+    }
+    public int tally15sNewRecur(ArrayList<Card> hand)
+    {
+        Card cArr[] = new Card[hand.size()]; //temporary array of Cards
+        int tal = 0; //sum of points
+        int sum15 = 0;
+
+        for(int i = 0; i < hand.size(); i++)
+        {
+            cArr[i] = hand.get(i); //adding all values in hand to array
+        }
+
+        if(hand.size() == 2)
+        {
+            sum15 = cArr[0].getCardScore() + cArr[1].getCardScore();
+
+            if(sum15 == 15) return 2;
+            else return 0;
+        }
+
+        for(int i = 0; i < cArr.length; i++)
+        {
+            hand.remove(cArr[i]);
+            tal += tally15sNewRecur(hand);
+            hand.add(cArr[i]);
+
+            sum15 += cArr[i].getCardScore();
+        }
+        if(sum15 == 15) tal += 2;
+        return tal;
+    }
+
     public int tallyFlush(ArrayList<Card> hand)
     {
         return 0;
     }
-    public int tallyNobs(ArrayList<Card> hand)
+    public int tallyHeels(ArrayList<Card> hand)
     {
         return 0;
     }
@@ -666,17 +765,35 @@ public class CribbageGameState extends GameState {
             {
                 case 0:
                     h = p1Hand;
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyNobs(h);
+                    for(int j = 0; j < h.size(); j++)
+                    {
+                        Log.d("Player 1's Cards: ", h.get(j).toString());
+                    }
+                    Log.d("Face Up Card: ", faceUpCard.toString());
+
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15sNew(h) + tallyFlush(h) + tallyHeels(h);
                     p1Points += sum;
                     break;
                 case 1:
                     h = p2Hand;
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyNobs(h);
+                    for(int j = 0; j < h.size(); j++)
+                    {
+                        Log.d("Player 2's Cards: ", h.get(j).toString());
+                    }
+                    Log.d("Face Up Card: ", faceUpCard.toString());
+
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15sNew(h) + tallyFlush(h) + tallyHeels(h);
                     p2Points += sum;
                     break;
                 case 2:
                     h = crib;
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyNobs(h);
+                    for(int j = 0; j < h.size(); j++)
+                    {
+                        Log.d("Crib Cards: ", h.get(j).toString());
+                    }
+                    Log.d("Face Up Card: ", faceUpCard.toString());
+
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15sNew(h) + tallyFlush(h) + tallyHeels(h);
                     if(isPlayer1Dealer)
                     {
                         p1Points += sum;

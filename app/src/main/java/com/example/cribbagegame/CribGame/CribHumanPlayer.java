@@ -139,7 +139,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
             //copy down the card's for later use (onClick)
             if (this.hand == null || this.hand.isEmpty()) {
-                for (int i = 0; i < ((CribbageGameState) info).getHandSize(this.playerNum); ++i) {
+                for (int i = 0; i < ((CribbageGameState) info).getHandSize(this.playerNum); i++) {
                     this.hand.add(i, ((CribbageGameState) info).getHandCard(this.playerNum, i));
                 }
             }
@@ -244,20 +244,13 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
              */
             Log.d("inCribSize", "" + inCrib);
             if(((CribbageGameState) info).getInPlaySize() != 8) {
-                for(int i = 0; i < 4; ++i) {
+                for(int i = 0; i < inCribCards.size(); i++) {
                     inCribCards.get(i).setImageResource(R.drawable.back_of_card);
                 }
             } else {
-                try {
-                    for (int i = 0; i < inCrib; i++) { //has had IndexOutOfBounds problems, check on that
-                        inCribCards.get(i).setImageResource(x.getCardResID(((CribbageGameState) info).getCribCard(i).getSuit(),
-                                ((CribbageGameState) info).getCribCard(i).getSuit()));
-                    }
-                } catch (IndexOutOfBoundsException i) {
-                    Log.d("inCribCards", "IndexOutOfBoundsException, caught.");
-                    for(int j = 0; j < 4; ++j) {
-                        inCribCards.get(j).setImageResource(R.drawable.back_of_card);
-                    }
+                for (int i = 0; i < inCribCards.size(); i++) { //has had IndexOutOfBounds problems, check on that
+                    inCribCards.get(i).setImageResource(x.getCardResID( ((CribbageGameState) info).getCribCard(i).getSuit(),
+                            ((CribbageGameState) info).getCribCard(i).getSuit()) );
                 }
             }
 
@@ -270,13 +263,18 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
              * maybe to help visually and for scoring (?)
              */
             Log.d("inPlaySize", "" + inPlay);
-            for(int i = 0; i < 8; ++i) {
+            for(int i = 0; i < 8; i++) {
                 //reset them a lot just to make it cleaner - it doesn't listen to me when inPlay is cleared
                 inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
             }
             try {
                 Log.d("inPlayCards", "drawing");
-                for (int i = 0; i < inPlay; ++i) {
+                for (int i = 0; i < inPlay; i++) {
+                    inPlayCards.get(i).setImageResource(x.getCardResID(((CribbageGameState) info).getInPlayCard(i).getSuit(),
+                            ((CribbageGameState) info).getInPlayCard(i).getCardValue()));
+                }
+                for(int i = 0; i < inPlay; i++) {
+                    Log.d("inPlayCards", "drawing");
                     inPlayCards.get(i).setImageResource(x.getCardResID(((CribbageGameState) info).getInPlayCard(i).getSuit(),
                             ((CribbageGameState) info).getInPlayCard(i).getCardValue()));
                 }
@@ -319,7 +317,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
     @Override
     public void setAsGui(GameMainActivity activity) {
-;        this.activity = activity;
+        this.activity = activity;
 
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.cribbage_main);
@@ -481,19 +479,21 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 //no way to go back, but that's not important yet i guess
                 activity.setContentView(R.layout.cribbage_rules);
             } else if (button.equals(exitButton)) {
+                //you don't have to exit the screen it's totally fine.
                 messageView.setText("Game is over.");
                 gameIsOver("Player " + this.playerNum + " has exited the game. Game is over.");
                 //only so CribbageGameState knows.
+                // ---- this should also maybe make it so no buttons are able to be pressed and stuff
                 CribExitGameAction ega = new CribExitGameAction(this);
                 game.sendAction(ega);
             } else if (button.equals(shuffleAndDealButton)) {
 
                 if(cribGameState.getHandSize(this.playerNum) == 0) {
                     //reset all cards so they disappear
-                    for (int i = 0; i < inCribCards.size(); ++i) {
+                    for(int i = 0; i < inCribCards.size(); i++) {
                         inCribCards.get(i).setImageResource(R.drawable.back_of_card);
                     }
-                    for (int i = 0; i < inPlayCards.size(); ++i) {
+                    for(int i = 0; i < inPlayCards.size(); i++) {
                         inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
                     }
                     //tally points if not tallied yet
