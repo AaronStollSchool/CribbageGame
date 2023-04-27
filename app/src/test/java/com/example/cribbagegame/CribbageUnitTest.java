@@ -310,7 +310,7 @@ public class CribbageUnitTest {
         hand1.add(new Card(4, 1, 0));
         hand1.add(new Card(11, 1, 0));
 
-        assertEquals(2, cgs.tally15s(hand1));
+        assertEquals(4, cgs.tally15s(hand1));
 
         ArrayList<Card> hand2 = new ArrayList<>();
         hand2.add(new Card(1, 1, 0));
@@ -318,7 +318,7 @@ public class CribbageUnitTest {
         hand2.add(new Card(10, 1, 0));
         hand2.add(new Card(11, 1, 0));
 
-        assertEquals(2, cgs.tally15s(hand2));
+        assertEquals(4, cgs.tally15s(hand2));
 
         ArrayList<Card> hand3 = new ArrayList<>();
         hand3.add(new Card(5, 1, 0));
@@ -326,6 +326,30 @@ public class CribbageUnitTest {
         hand3.add(new Card(5, 1, 0));
         hand3.add(new Card(10, 1, 0));
 
-        assertEquals(4, cgs.tally15s(hand3));
+        assertEquals(8, cgs.tally15s(hand3));
+    }
+
+    @Test
+    public void tallyScore() {
+        CribbageGameState cgs = new CribbageGameState();
+
+        ArrayList<Card> h = new ArrayList<>();
+        h.add(new Card(5, 2, 0));
+        h.add(new Card(5, 2, 0));
+        h.add(new Card(5, 2, 0));
+        h.add(new Card(11, 1, 0));
+        cgs.setFaceUpCard(new Card(5, 1, 0));
+
+        int sum = 0;
+        sum = cgs.tallyRuns(h) + cgs.tallyDoubles(h) + cgs.tally15s(h) + cgs.tallyFlush(h, false) + cgs.tallyHeels(h);
+
+        assertEquals(0, cgs.tallyRuns(h));
+        assertEquals(12, cgs.tallyDoubles(h));
+        assertEquals(16, cgs.tally15s(h));
+        assertEquals(0, cgs.tallyFlush(h, false));
+        assertEquals(1, cgs.tallyHeels(h));
+
+        //test for a perfect hand of 29
+        assertEquals(29, sum);
     }
 }
