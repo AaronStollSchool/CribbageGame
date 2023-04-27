@@ -62,6 +62,7 @@ public class CribLocalGame extends LocalGame {
             return true;
         }
         if(action instanceof CribPlayCardAction){
+            cribGameState.setPlayerSaidGoFirst(-1);
             Card playedCard = ((CribPlayCardAction) action).getPlayedCard();
             cribGameState.playCard(playedCard);
             cribGameState.scorePoints(pID);//score points in play
