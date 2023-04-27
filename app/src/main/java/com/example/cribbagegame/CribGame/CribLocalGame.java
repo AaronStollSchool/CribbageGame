@@ -64,6 +64,7 @@ public class CribLocalGame extends LocalGame {
         if(action instanceof CribPlayCardAction){
             Card playedCard = ((CribPlayCardAction) action).getPlayedCard();
             cribGameState.playCard(playedCard);
+            cribGameState.scorePoints(pID);//score points in play
             Log.d("CribPlayCardAction", "Card played: " + playedCard.toString());
             Log.d("CribPlayCardAction", "in play size: "+ cribGameState.getInPlaySize());
             return true;
@@ -74,7 +75,15 @@ public class CribLocalGame extends LocalGame {
                 cribGameState.setPlayerSaidGoFirst(pID);
             }
             else if(cribGameState.getPlayerSaidGoFirst() != pID) {
-                cribGameState.go(1-cribGameState.getPlayerSaidGoFirst());
+                if(cribGameState.getPlayerSaidGoFirst() == 0)
+                {
+                    cribGameState.go(1);
+                }
+                else
+                {
+                    cribGameState.go(0);
+                }
+                //cribGameState.go(1-cribGameState.getPlayerSaidGoFirst());
                 cribGameState.setPlayerSaidGoFirst(-1);
             }
             return true;

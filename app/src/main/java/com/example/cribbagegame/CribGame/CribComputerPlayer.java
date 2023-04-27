@@ -72,6 +72,8 @@ public class CribComputerPlayer extends GameComputerPlayer {
                     && ((CribbageGameState) info).getHandSize(1) == 0
                     && ((CribbageGameState) info).isDealer(this.playerNum)) {
 
+                Log.d("computer", "dealing and discarding...");
+
                 CribDealAction da = new CribDealAction(this);
                 game.sendAction(da);
 
@@ -96,6 +98,12 @@ public class CribComputerPlayer extends GameComputerPlayer {
                 return;
             }
 
+            else if (cribGameState.getHandSize(this.playerNum) == 0) {
+                CribGoAction ga = new CribGoAction(this);
+                game.sendAction(ga);
+                Log.d("ComputerPlayer", "Hand is empty, said \"GO\"");
+            }
+
             //if computer's hand is 6 (human dealt)
             else if (cribGameState.getHandSize(this.playerNum) == 6) {
 
@@ -104,6 +112,8 @@ public class CribComputerPlayer extends GameComputerPlayer {
                 while (num1 == num2) {
                     num2 = r.nextInt(cribGameState.getHandSize(this.playerNum));
                 }
+
+                Log.d("computer", "discarding...");
 
                 CribDiscardAction da = new CribDiscardAction(this,
                         cribGameState.getHandCard(this.playerNum, num1),
@@ -119,10 +129,12 @@ public class CribComputerPlayer extends GameComputerPlayer {
             }
 
             //if computer's hand is 4 (both distributed to the crib and it's computer's turn)
-            else if (cribGameState.getHandSize(this.playerNum) <= 4 && cribGameState.getHandSize(this.playerNum) != 0) {
+            else if (cribGameState.getHandSize(this.playerNum) <= 4 && cribGameState.getHandSize(this.playerNum) >= 1) {
                 //plays the first card in their hand at all times
                 for(int i = 0; i < cribGameState.getHandSize(this.playerNum); i++) {
                     if (cribGameState.isPlayable(cribGameState.getHandCard(this.playerNum, i))) {
+                        Log.d("computer", "playing card " + i + " of " + cribGameState.getHandSize(this.playerNum) + "...");
+
                         CribPlayCardAction pca = new CribPlayCardAction(this,
                                 cribGameState.getHandCard(this.playerNum, i));
                         game.sendAction(pca);
