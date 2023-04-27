@@ -634,7 +634,7 @@ public class CribbageGameState extends GameState {
     {
         return 0;
     }
-    public int tallyHeels(ArrayList<Card> hand)
+    public int tallyNobs(ArrayList<Card> hand)
     {
         return 0;
     }
@@ -666,17 +666,17 @@ public class CribbageGameState extends GameState {
             {
                 case 0:
                     h = p1Hand;
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyNobs(h);
                     p1Points += sum;
                     break;
                 case 1:
                     h = p2Hand;
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyNobs(h);
                     p2Points += sum;
                     break;
                 case 2:
                     h = crib;
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyNobs(h);
                     if(isPlayer1Dealer)
                     {
                         p1Points += sum;

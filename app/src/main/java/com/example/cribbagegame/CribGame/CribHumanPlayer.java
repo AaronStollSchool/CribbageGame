@@ -53,6 +53,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     private int inCrib;
     private int roundScore;
     private int gamePhase; //for later
+    private int flashHelper = 0;
     private CribbageGameState cribGameState;
 
     /**
@@ -248,7 +249,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 }
             } else {
                 try {
-                    for (int i = 0; i < inCrib; ++i) { //has had IndexOutOfBounds problems, check on that
+                    for (int i = 0; i < inCrib; i++) { //has had IndexOutOfBounds problems, check on that
                         inCribCards.get(i).setImageResource(x.getCardResID(((CribbageGameState) info).getCribCard(i).getSuit(),
                                 ((CribbageGameState) info).getCribCard(i).getSuit()));
                     }
@@ -305,8 +306,14 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 }*/
             }
         } else {
-            flash(Color.RED, 50);
-            Log.wtf("receiveInfo", "failed with Info: " + info.getClass().getSimpleName());
+            if (flashHelper == 0) {
+                flashHelper++;
+                flash(Color.RED, 50);
+                Log.wtf("receiveInfo", "failed with Info: " + info.getClass().getSimpleName());
+            }
+            else {
+                flashHelper = 0;
+            }
         }
     }//receiveInfo
 
@@ -388,7 +395,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         //if it's an ImageButton... decide PlayCardAction or DiscardAction
         if (button instanceof ImageButton) {
 
-            for (int i = 0; i < cards.size(); ++i) {
+            for (int i = 0; i < cards.size(); i++) {
                 //if button is this thing that you clicked on screen
                 if (button.equals(cards.get(i))) {
                     int index;
@@ -457,7 +464,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         game.sendAction(eta);
                     } else {
                         boolean hasPlayableCard = cribGameState.hasAnyPlayableCard(this.playerNum);
-                        if (!hasPlayableCard && cribGameState.getHandSize(this.playerNum) != 0) {
+                        if (!hasPlayableCard) {
                             messageView.setText("You have said \"Go\".");
                             CribGoAction ga = new CribGoAction(this);
                             game.sendAction(ga);
@@ -504,6 +511,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     messageView.setText("You're not supposed to deal right now. ");
                 }
             }
+
         }
 
         //may not be needed, helpful to have just in case i miss something
