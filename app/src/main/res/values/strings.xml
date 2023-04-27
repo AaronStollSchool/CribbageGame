@@ -1,17 +1,19 @@
 <resources>
     <string name="app_name">CribbageGame</string>
-    <string name="discard">     Dealer \(switches off\) deals 6 cards to each player.
-        Dealer then cuts deck, and non-dealer flips over top card.
-        \(One point goes to the non-dealer if the card flipped over is a Jack.\)
-        Each player discards two cards from their hand to the \'crib\'.</string>
-    <string name="duel">        Non-dealer lays a card face up, followed by dealer and alternating.
-        Ranks of cards are summed. Points are gained by owner of last card played if\:
+    <string name="discard">     One player is assigned dealer at the beginning of each round and switches off every round. Dealer deals 6 cards to each player.
+        Dealer then cuts deck, and non-dealer flips over top card (this is done for you in our game).
+        One point goes to the non-dealer if the card flipped over is a Jack.
+        Each player discards two cards from their hand to the \'crib\'. That crib now belongs to the dealer for later. </string>
+    <string name="duel">        Non-dealer lays a card on the table faced up, followed by dealer and alternating until both have emptied their hands.
+        Ranks of cards are summed as they are placed on the table. Points are gained by the owner of last card played if\:
             1\) Total = 15 \(\+2 pts\),
             2\) Previous card\(s\) have same rank as placed card (+2 pts per pair),
             3\) Any permutation of 3 or more straight cards forms a run (+n pts)
-        The Total is capped at 31. If player has no valid cards, say \"Go\". Opponent must play cards until no valid move.
-        Gains 2 pts for total \= 31, 1 pt otherwise. Sum resets, play continues with next player\'s card until no cards remain. </string>
-    <string name="count">        Each player recollects their cards into their hand.
+        The total of that sum is always capped at 31. If player has no cards that keep the sum below or at 31, the player should say \"Go\".
+        Opponent then must play cards until no valid moves are available. Opponent to the player who said \"Go\" gains 2 pts for if the total reaches exactly 31, and 1 pt otherwise.
+        After the opponent is appropriately awarded \"Go\" points, the round score resets, and play continues with next player\'s card until no cards remain. </string>
+    <string name="count">        The round ends when both players have no cards in their hands, the crib is full, and presumably the table is full of cards.
+        Each player recollects their cards into their hand, and dealer claims the crib.
         Non-dealer tallies up points within hand and flipped card\:
             \+2 pts for any combination of cards totaling 15
             \+2 pts for any pair \(thus +6 pts for triple and +12 pts for quadruple\)

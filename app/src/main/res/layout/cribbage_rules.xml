@@ -35,7 +35,7 @@
             android:fontFamily="@font/bebas_neue"
             android:shadowColor="#FF5722"
             android:shadowRadius="15"
-            android:text="Main Goal: Be the first to score 121 points!"
+            android:text="Main Goal: Be the first to score 31 points!"
             android:textColor="#FFC107"
             android:textSize="48sp"
             android:textStyle="bold" />
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="@string/discard"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold|italic" />
 
         <Space
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:text="@string/duel"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold|italic" />
 
         <Space
@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:text="@string/count"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold|italic" />
 
         <Space
@@ -114,12 +114,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="@dimen/config_horiz_margin"
-            android:layout_marginBottom="@dimen/config_horiz_margin"
-            android:layout_weight="1"
             android:fontFamily="@font/bebas_neue"
             android:text="Exit"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="24sp" />
 
     </LinearLayout>
