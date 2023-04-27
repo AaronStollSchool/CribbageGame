@@ -28,6 +28,7 @@ public class CribbageGameState extends GameState {
     private ArrayList<Card> inPlayCards;
     private ArrayList<Card> crib;
     private int inPlay = 0;
+    private int inPlayScoreIndex = 0;
     private Card faceUpCard;
 
     private boolean isHard;
@@ -300,6 +301,7 @@ public class CribbageGameState extends GameState {
                 p1Points++;
             }
             roundScore = 0;
+            inPlayScoreIndex = inPlayCards.size();
             return true;
         }
         else if(playerID == 1){
@@ -312,6 +314,7 @@ public class CribbageGameState extends GameState {
                 p2Points++;
             }
             roundScore = 0;
+            inPlayScoreIndex = inPlayCards.size();
             return true;
         }
         return false;
@@ -511,21 +514,63 @@ public class CribbageGameState extends GameState {
 
         return count;
     }
+
+    public int scoreRunsNew()
+    {
+        if((inPlayCards.size()-inPlayScoreIndex) < 3) return 0;
+
+        for(int i = inPlayCards.size()-inPlayScoreIndex; i > 2; i--)
+        {
+            int arr[] = new int[13];
+            //populates array with values from inPlayCards
+            for(int j = 0; j < i; j++)
+            {
+                //increment arr at index of the "ith card from last"'s card value (minus 1 to shift values from 1-13 to 0-12)
+                arr[inPlayCards.get(inPlayCards.size()-1-j).getCardValue()-1]++;
+            }
+
+            int runCount = 0;
+            for(int j = 0; j < 13; j++)
+            {
+                if(arr[j] == 1)
+                {
+                    runCount++;
+                    if(runCount == i)
+                    {
+                        //Log.d("Run Score:",Integer.toString(i));
+                        return i;
+                    }
+                }
+                else if(arr[j] > 1)
+                {
+                    break;
+                }
+                else
+                {
+                    if(runCount > 0) break;
+                }
+            }
+        }
+        //Log.d("Run Score:",Integer.toString(0));
+        return 0;
+    }
     public int scoreDoubles()
     {
         //continue to check for consec doubles until no more cards remain
-        for(int i = 0; i<(inPlayCards.size()-1); i++)
+        for(int i = 0; i<(inPlayCards.size()-1-inPlayScoreIndex); i++)
         {
             if(inPlayCards.get(inPlayCards.size()-1-i).getCardValue() != inPlayCards.get(inPlayCards.size()-1-(i+1)).getCardValue())
             {
                 //first non pair found ends loop (i=0 means no pairs, i=1 means pair, i=2 means triple,
                 //i=3 means quad)
+                //Log.d("Double Score:",Integer.toString((i*(i+1))));
                 return i * (i+1);
             }
         }
         //runs if loop ends before finding a non pair (i.e. either size is 1 with no pairs (1*0=0), 2 with
         //pair (2*1=2), 3 with triple (3*2=6), or 4 with quad (4*3=12))
-        return inPlayCards.size() * (inPlayCards.size()-1);
+        //Log.d("Double Score:",Integer.toString((inPlayCards.size()-inPlayScoreIndex) * (inPlayCards.size()-1-inPlayScoreIndex)));
+        return (inPlayCards.size()-inPlayScoreIndex) * (inPlayCards.size()-1-inPlayScoreIndex);
     }
     public int score15()
     {
@@ -535,7 +580,7 @@ public class CribbageGameState extends GameState {
 
     public void scorePoints(int pID)
     {
-        int score = score15() + scoreDoubles() + scoreRuns();
+        int score = score15() + scoreDoubles() + scoreRunsNew();
         if (pID == 1) {
                 p2Points += score;
         } else {

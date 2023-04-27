@@ -352,4 +352,34 @@ public class CribbageUnitTest {
         //test for a perfect hand of 29
         assertEquals(29, sum);
     }
+
+    // Tests commented out, as running them requires making certain private variables public
+    /*@Test
+    public void scorePoints()
+    {
+        CribbageGameState cgs = new CribbageGameState();
+
+        cgs.inPlayCards.add(new Card(2, 2, 0));
+        cgs.inPlayCards.add(new Card(9, 2, 0));
+        cgs.inPlayCards.add(new Card(3, 2, 0));
+        cgs.inPlayCards.add(new Card(5, 1, 0));
+        cgs.inPlayCards.add(new Card(4, 1, 0));
+        cgs.inPlayScoreIndex = 0;
+        cgs.scorePoints(0);
+        assertEquals(3,cgs.getPlayer0Score());
+    }
+    @Test
+    public void scoreDoubles()
+    {
+        CribbageGameState cgs = new CribbageGameState();
+
+        cgs.inPlayCards.add(new Card(5, 2, 0));
+        cgs.inPlayCards.add(new Card(4, 2, 0));
+        cgs.inPlayCards.add(new Card(3, 2, 0));
+        cgs.inPlayCards.add(new Card(3, 1, 0));
+        cgs.inPlayCards.add(new Card(3, 1, 0));
+        cgs.inPlayScoreIndex = 3;
+        int sum = cgs.scoreDoubles();
+        assertEquals(2,sum);
+    }*/
 }
