@@ -652,15 +652,17 @@ public class CribbageGameState extends GameState {
         ArrayList<Integer> partial = new ArrayList<Integer>();
         ArrayList<Integer> numbers = new ArrayList<Integer>();
         for (int i = 0; i < hand.size(); i++){
-            numbers.add(hand.get(i).getCardValue());
+            numbers.add(hand.get(i).getCardScore());
         }
+        numbers.add(faceUpCard.getCardScore());
         tally15Recur(numbers,target,partial);
+        Log.d("15s:", Integer.toString(tally));
         return tally;
     }
     public void tally15Recur(ArrayList<Integer> N, int target, ArrayList<Integer> partial){
         int sum = 0;
         for (int x:partial){sum += x;}
-        if(sum == target){tally += 1;}
+        if(sum == target){tally += 2;}
         if(sum > target){return;}
         for(int i = 0; i < N.size(); i++){
             ArrayList<Integer> remaining = new ArrayList<Integer>();
@@ -693,9 +695,9 @@ public class CribbageGameState extends GameState {
 
             sum15 += cArr[i].getCardScore();
         }
-        if(sum15 == 15) tal += 2;
+        if(sum15 == 15) tal += 2 * 6;
         Log.d("15s:", Integer.toString(tal));
-        return tal;
+        return tal / 6;
 
     }
     public int tally15sNewRecur(ArrayList<Card> hand)
@@ -703,6 +705,7 @@ public class CribbageGameState extends GameState {
         Card cArr[] = new Card[hand.size()]; //temporary array of Cards
         int tal = 0; //sum of points
         int sum15 = 0;
+        int mult = 6 / (5 - hand.size());
 
         for(int i = 0; i < hand.size(); i++)
         {
@@ -726,7 +729,7 @@ public class CribbageGameState extends GameState {
             sum15 += cArr[i].getCardScore();
         }
         if(sum15 == 15) tal += 2;
-        return tal;
+        return tal * mult;
     }
 
     public int tallyFlush(ArrayList<Card> hand)
@@ -771,7 +774,7 @@ public class CribbageGameState extends GameState {
                     }
                     Log.d("Face Up Card: ", faceUpCard.toString());
 
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15sNew(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
                     p1Points += sum;
                     break;
                 case 1:
@@ -782,7 +785,7 @@ public class CribbageGameState extends GameState {
                     }
                     Log.d("Face Up Card: ", faceUpCard.toString());
 
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15sNew(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
                     p2Points += sum;
                     break;
                 case 2:
@@ -793,7 +796,7 @@ public class CribbageGameState extends GameState {
                     }
                     Log.d("Face Up Card: ", faceUpCard.toString());
 
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15sNew(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
                     if(isPlayer1Dealer)
                     {
                         p1Points += sum;
