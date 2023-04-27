@@ -51,7 +51,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
     private int inPlay;
     private int inCrib;
-    private boolean isPlayer1Dealer;
     private int roundScore;
     private int gamePhase; //for later
     private CribbageGameState cribGameState;
@@ -111,13 +110,19 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     cribTextView.setText("Their Crib:");
                 }
             }
-            Log.d("Player Turn", "" + ((CribbageGameState) info).getPlayerTurn() );
+            //for more aesthetic/readability during gameplay
+            if(((CribbageGameState) info).isDealer(this.playerNum)
+                    && ((CribbageGameState) info).getHandSize(this.playerNum) == 0
+                    && ((CribbageGameState) info).getHandSize(1-this.playerNum) == 0) {
+                messageView.setText("Please deal cards to begin play. ");
+            }
 
             //to monitor and spy
-            for(int i = 0; i < ((CribbageGameState) info).getHandSize(((CribbageGameState) info).getPlayerTurn()); ++i) {
+            Log.d("Player Turn", "" + ((CribbageGameState) info).getPlayerTurn() );
+            /*for(int i = 0; i < ((CribbageGameState) info).getHandSize(this.playerNum); ++i) {
                 Log.d("Player" + ((CribbageGameState) info).getPlayerTurn() + "'s cards",
                         " " + ((CribbageGameState) info).getHandCard(((CribbageGameState) info).getPlayerTurn(), i).toString());
-            }
+            }*/
 
             //this may change frequently because of the various scoring that happens
             //in different components of each round
@@ -142,7 +147,6 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             this.gamePhase = ((CribbageGameState) info).getGamePhase();
             this.inCrib = ((CribbageGameState) info).getCribSize();
             this.inPlay = ((CribbageGameState) info).getInPlaySize();
-            this.isPlayer1Dealer = ((CribbageGameState) info).getDealer();
 
             //if both hands are empty, human is IS dealer,
             //if both crib and inPlay cards are full (been played)
@@ -161,17 +165,20 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 CribSwitchDealerAction sda = new CribSwitchDealerAction(this);
                 game.sendAction(sda);
 
+                if(((CribbageGameState) info).getIsPlayer1Dealer()) {
+                    messageView.setText("Dealer has been switched to begin a new round. Player 0 is dealer.");
+                } else {
+                    messageView.setText("Dealer has been switched to begin a new round. Player 1 is dealer.");
+                }
+
                 CribEndTurnAction eta = new CribEndTurnAction(this);
                 game.sendAction(eta);
-                messageView.setText("Dealer has been switched to begin a new round. Opponent is dealer.");
-                Log.d("HumanPlayer", "CribTallyAction, CribSwitchAction, CribEndTurnAction.");
-                Log.d("Dealer", "is Player" + ((CribbageGameState) info).getPlayerTurn());
-
+                Log.d("HumanPlayer", "CribTallyAction, CribSwitchDealerAction");
+                Log.d("HumanPlayer, Dealer is Player", "" + ((CribbageGameState) info).getIsPlayer1Dealer());
             }
-            //if both hands are empty, human is NOT dealer,
-            //if both crib and inPlay cards are full (been played)
-            // and it's COMPUTER'S turn (if the round is over-)
-            else if (((CribbageGameState) info).getHandSize(0) == 0
+
+            //for when it needs to switch back to human dealer
+            /*else if (((CribbageGameState) info).getHandSize(0) == 0
                     && ((CribbageGameState) info).getHandSize(1) == 0
                     && ((CribbageGameState) info).getCribSize() == 4
                     && ((CribbageGameState) info).getInPlaySize() == 8
@@ -185,23 +192,18 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 CribSwitchDealerAction sda = new CribSwitchDealerAction(this);
                 game.sendAction(sda);
 
+                if(((CribbageGameState) info).getIsPlayer1Dealer()) {
+                    messageView.setText("Dealer has been switched to begin a new round. Player 0 is dealer.");
+                }
+                else {
+                    messageView.setText("Dealer has been switched to begin a new round. Player 1 is dealer.");
+                }
+
                 CribEndTurnAction eta = new CribEndTurnAction(this);
                 game.sendAction(eta);
-                messageView.setText("Dealer has been switched to begin a new round. You are dealer.");
-                Log.d("HumanPlayer", "CribTallyAction, CribSwitchAction, CribEndTurnAction.");
-                Log.d("Dealer", "is Player" + ((CribbageGameState) info).getPlayerTurn());
-
-
-                //to make sure to reset the card faces
-                for (int i = 0; i < inPlay; ++i) {
-                    inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
-                    Log.w("inPlayCards", "reset");
-                }
-                for (int i = 0; i < inCrib; ++i) {
-                    inCribCards.get(i).setImageResource(R.drawable.back_of_card);
-                    Log.w("inCribCards", "reset");
-                }
-            }
+                Log.d("HumanPlayer", "CribTallyAction, CribSwitchDealerAction");
+                Log.d("HumanPlayer, Dealer is Player", "" + ((CribbageGameState) info).getIsPlayer1Dealer());
+            }*/
 
 
             /*
@@ -272,8 +274,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
             }
             try {
+                Log.d("inPlayCards", "drawing");
                 for (int i = 0; i < inPlay; ++i) {
-                    Log.d("inPlayCards", "drawing");
                     inPlayCards.get(i).setImageResource(x.getCardResID(((CribbageGameState) info).getInPlayCard(i).getSuit(),
                             ((CribbageGameState) info).getInPlayCard(i).getCardValue()));
                 }
@@ -310,7 +312,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
     @Override
     public void setAsGui(GameMainActivity activity) {
-        this.activity = activity;
+;        this.activity = activity;
 
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.cribbage_main);
@@ -472,28 +474,36 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 //no way to go back, but that's not important yet i guess
                 activity.setContentView(R.layout.cribbage_rules);
             } else if (button.equals(exitButton)) {
-                //you don't have to exit the screen it's totally fine.
                 messageView.setText("Game is over.");
                 gameIsOver("Player " + this.playerNum + " has exited the game. Game is over.");
                 //only so CribbageGameState knows.
-                // ---- this should also maybe make it so no buttons are able to be pressed and stuff
                 CribExitGameAction ega = new CribExitGameAction(this);
                 game.sendAction(ega);
             } else if (button.equals(shuffleAndDealButton)) {
-                if(hand.size() == 0) {
+
+                if(cribGameState.getHandSize(this.playerNum) == 0) {
                     //reset all cards so they disappear
-                    for(int i = 0; i < inCribCards.size(); ++i) {
+                    for (int i = 0; i < inCribCards.size(); ++i) {
                         inCribCards.get(i).setImageResource(R.drawable.back_of_card);
                     }
-                    for(int i = 0; i < inPlayCards.size(); ++i) {
+                    for (int i = 0; i < inPlayCards.size(); ++i) {
                         inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
+                    }
+                    //tally points if not tallied yet
+                    if(cribGameState.getCribSize() == 4 && cribGameState.getInPlaySize() == 8) {
+                        CribTallyAction ta = new CribTallyAction(this);
+                        game.sendAction(ta);
+                        Log.d("HumanPlayer", "CribTallyAction - onClick");
                     }
 
                     CribDealAction da = new CribDealAction(this);
                     game.sendAction(da);
+                    messageView.setText("You have dealt cards to all players.");
+                }
+                else {
+                    messageView.setText("You're not supposed to deal right now. ");
                 }
             }
-
         }
 
         //may not be needed, helpful to have just in case i miss something

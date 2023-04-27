@@ -38,7 +38,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/exitGameButton"
@@ -47,11 +47,7 @@
                     android:fontFamily="@font/bebas_neue"
                     android:text="Exit Game"
                     android:textAllCaps="false"
-                    android:textSize="24sp" />
-
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content" />
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/helpButton"
@@ -59,19 +55,23 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bebas_neue"
                     android:text="❓"
-                    android:textSize="24sp" />
-
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/secondaryMessageText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/baloo_bhaina"
+                    android:lineSpacingExtra="2sp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/messageText"
@@ -83,15 +83,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/secondaryMessageText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/baloo_bhaina"
-                    android:lineSpacingExtra="2sp"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
@@ -109,7 +100,7 @@
 
                 <SurfaceView
                     android:id="@+id/pegBoardView"
-                    android:layout_width="800dp"
+                    android:layout_width="500dp"
                     android:layout_height="225dp"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:background="@drawable/pegboard" />
@@ -570,9 +561,6 @@
                 </LinearLayout>
             </TableRow>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
         </TableLayout>
 
         <Space

@@ -31,15 +31,11 @@ public class CribComputerPlayer extends GameComputerPlayer {
         if (info instanceof NotYourTurnInfo) {
             return;
         }
-
         CribbageGameState cribGameState = (CribbageGameState) this.game.getGameState();//(CribbageGameState) info;
-
         if (cribGameState.getPlayerTurn() != this.playerNum){
-            Log.d("ComputerPlayer", "it's not my turn!");
             return;
-        }
-        else {
-            Log.d("ComputerPlayer", "playing... " + cribGameState.getHandSize(this.playerNum));
+        } else {
+            Log.d("ComputerPlayer", "playing... (Hand size: " + cribGameState.getHandSize(this.playerNum) + ")");
             sleep(2);
             Random r = new Random();
 
@@ -52,12 +48,20 @@ public class CribComputerPlayer extends GameComputerPlayer {
                     && ((CribbageGameState) info).getInPlaySize() == 8
                     && ((CribbageGameState) info).isDealer(this.playerNum)
                     && ((CribbageGameState) info).getPlayerTurn() == this.playerNum) {
+                CribTallyAction ta = new CribTallyAction(this);
+                game.sendAction(ta);
 
                 CribSwitchDealerAction sda = new CribSwitchDealerAction(this);
                 game.sendAction(sda);
-                Log.d("ComputerPlayer", "CribSwitchAction");
-                Log.d("Dealer", " is player" + ((CribbageGameState) info).getPlayerTurn());
-
+                Log.d("ComputerPlayer", "CribSwitchDealerAction");
+                int dealer;
+                if(((CribbageGameState) info).getIsPlayer1Dealer()) {
+                    dealer = 0;
+                }
+                else {
+                    dealer = 1;
+                }
+                Log.d("ComputerPlayer, Dealer", " is player " + dealer);
                 CribEndTurnAction eta = new CribEndTurnAction(this);
                 game.sendAction(eta);
                 return;
@@ -71,8 +75,9 @@ public class CribComputerPlayer extends GameComputerPlayer {
                 CribDealAction da = new CribDealAction(this);
                 game.sendAction(da);
 
-                sleep(10); //so that it looks like it's thinking lol
+                sleep(0.3); //so that it looks like it's thinking lol
 
+                //so it doesn't generate the same number card and input two of the same card
                 int num1 = r.nextInt(cribGameState.getHandSize(this.playerNum));
                 int num2 = r.nextInt(cribGameState.getHandSize(this.playerNum));
                 while (num1 == num2) {
@@ -143,6 +148,17 @@ public class CribComputerPlayer extends GameComputerPlayer {
                 game.sendAction(ga);
                 Log.d("ComputerPlayer", "Cannot play any more cards and said \"GO\"");
                //}
+            }
+
+            //other options
+            else if (cribGameState.getHandSize(this.playerNum) == 0) {
+                //if other player "said" go,
+                // and needs computer to call go action for them, but computer has no cards
+                if (cribGameState.getPlayerSaidGoFirst() != -1) {
+                    CribGoAction ga = new CribGoAction(this);
+                    game.sendAction(ga);
+                    Log.d("ComputerPlayer", "Cannot play any more cards and said \"GO\"");
+                }
             }
 
             //sometimes just ends turn without /doing/ anything (?)

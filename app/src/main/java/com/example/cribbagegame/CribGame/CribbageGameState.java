@@ -84,39 +84,39 @@ public class CribbageGameState extends GameState {
     /**
      * Copy constructor for class CribbageGameState
      *
-     * @param gamestate
+     * @param gameState
      * 		the CribbageGameState object that we want to clone
      */
-    public CribbageGameState(CribbageGameState gamestate) {
-        this.p1Points = gamestate.p1Points;
-        this.p2Points = gamestate.p2Points;
+    public CribbageGameState(CribbageGameState gameState) {
+        this.p1Points = gameState.p1Points;
+        this.p2Points = gameState.p2Points;
 
         this.p1Hand = new ArrayList<Card>();
-        this.p1Hand.addAll(gamestate.p1Hand);
+        this.p1Hand.addAll(gameState.p1Hand);
         this.p2Hand = new ArrayList<Card>();
-        this.p2Hand.addAll(gamestate.p2Hand);
+        this.p2Hand.addAll(gameState.p2Hand);
 
         this.inPlayCards = new ArrayList<Card>();
-        this.inPlayCards.addAll(gamestate.inPlayCards);
+        this.inPlayCards.addAll(gameState.inPlayCards);
         this.crib = new ArrayList<Card>();
-        this.crib.addAll(gamestate.crib);
+        this.crib.addAll(gameState.crib);
 
-        this.faceUpCard = new Card(gamestate.faceUpCard.getCardValue(), gamestate.faceUpCard.getSuit(), gamestate.faceUpCard.getCardID());
+        this.faceUpCard = new Card(gameState.faceUpCard.getCardValue(), gameState.faceUpCard.getSuit(), gameState.faceUpCard.getCardID());
 
-        this.playerTurn = gamestate.playerTurn;
+        this.playerTurn = gameState.playerTurn;
 
-        this.isHard = gamestate.isHard;
+        this.isHard = gameState.isHard;
 
-        this.isPlayer1Dealer = gamestate.isPlayer1Dealer;
+        this.isPlayer1Dealer = gameState.isPlayer1Dealer;
 
         //need to set up GamePhase
-        this.phase = gamestate.phase;
+        this.phase = gameState.phase;
 
-        this.p1RoundScore = gamestate.p1RoundScore;
-        this.p2RoundScore = gamestate.p2RoundScore;
-        this.roundScore = gamestate.roundScore;
+        this.p1RoundScore = gameState.p1RoundScore;
+        this.p2RoundScore = gameState.p2RoundScore;
+        this.roundScore = gameState.roundScore;
 
-        this.gen = gamestate.gen;
+        this.gen = gameState.gen;
     }
 
     public boolean dealCards(int playerID) {
@@ -142,10 +142,8 @@ public class CribbageGameState extends GameState {
             }
         }
         if(getHandSize(1) == 6 && getHandSize(0) == 6) {
-            Log.d("CribGameState dealCards", "successful.");
             return true;
         } else {
-            Log.d("CribGameState dealCards", "not both 6 cards. ");
             return false;
         }
     }
@@ -195,11 +193,15 @@ public class CribbageGameState extends GameState {
     public boolean switchDealer() {
         if(isPlayer1Dealer) {
             isPlayer1Dealer = false;
+            return true;
+        }
+        else if (isPlayer1Dealer == false) {
+            isPlayer1Dealer = true;
+            return true;
         }
         else {
-            isPlayer1Dealer = true;
+            return false;
         }
-        return true;
     }
 
     public boolean exitGame(int playerID){
@@ -229,18 +231,18 @@ public class CribbageGameState extends GameState {
         }
     }
 
-    //not to be confused with getDealer() -- for different things
+    //is 'playerID' dealer
     public boolean isDealer(int playerID) {
-        if(playerID == 0 && isPlayer1Dealer == false) {
+        if(playerID == 0 && !isPlayer1Dealer) {
             return true;
         }
-        else if (playerID == 1 && isPlayer1Dealer == false) {
+        else if (playerID == 1 && !isPlayer1Dealer) {
             return false;
         }
-        else if (playerID == 0 && isPlayer1Dealer == true) {
+        else if (playerID == 0 && isPlayer1Dealer) {
             return false;
         }
-        else if (playerID == 1 && isPlayer1Dealer == true) {
+        else if (playerID == 1 && isPlayer1Dealer) {
             return true;
         }
         else {
@@ -422,14 +424,13 @@ public class CribbageGameState extends GameState {
     public int getPlayer0Score() { return p1Points; }
     public int getPlayer1Score() { return p2Points; }
     public int getGamePhase() { return phase; }
-    public boolean getDealer() { return isPlayer1Dealer; }
-    public Card getLastPlayed(){return inPlayCards.get(inPlayCards.size()-1);}
+    public boolean getIsPlayer1Dealer() { return isPlayer1Dealer; }
     public Card getCribCard(int index){return crib.get(index);}
     public Card getFaceUpCard() {return faceUpCard;}
     public int getPlayerTurn() {return playerTurn;}
     public int getCribSize() {return crib.size();}
     public Card getInPlayCard(int index) {return inPlayCards.get(index);}
-    public boolean getDealer(int pID){
+    /*public boolean getDealer(int pID){
         if(pID == 0 && isPlayer1Dealer){ // Player1 passed in & Player1 is Dealer  ---> TRUE
             return true;
         }
@@ -439,7 +440,7 @@ public class CribbageGameState extends GameState {
         else{
             return false; // Else ---> FALSE
         }
-    }
+    }*/
 
     //IMPORTANT: method does not return card at index! It returns the card (index) back from the last card.
     public Card getPlayedCard(int index) { return inPlayCards.get(inPlayCards.size()-1-index); }

@@ -86,6 +86,7 @@ public class CribLocalGame extends LocalGame {
         }
         if(action instanceof CribSwitchDealerAction) {
             cribGameState.switchDealer();
+            Log.d("CribLocalGame: CribSwitchAction", "Dealer is Player " + cribGameState.getIsPlayer1Dealer());
             return true;
         }
         if(action instanceof CribDealAction){

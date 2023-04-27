@@ -50,7 +50,7 @@ public class CribSmartComputerPlayer extends GameComputerPlayer {
             }
             else if (cribGameState.getHandSize(this.playerNum) == 6) { /* DISCARD ACTION */
                 Card[] discardChoice;
-                if(cribGameState.getDealer(this.playerNum)){ // SmartComp is Dealer
+                if(cribGameState.isDealer(this.playerNum)){ // SmartComp is Dealer
                     discardChoice = discardOdds(cribGameState.getHand(this.playerNum), true);
                 }
                 else{ // Human Player is Dealer
