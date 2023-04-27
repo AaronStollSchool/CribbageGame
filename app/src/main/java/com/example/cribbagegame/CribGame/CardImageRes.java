@@ -2,9 +2,18 @@ package com.example.cribbagegame.CribGame;
 
 import com.example.cribbagegame.R;
 
+/**
+ * CardImageRes
+ * To make our lives much easier when drawing the faces of cards.
+ * All images were found online at <>https://opengameart.org/content/playing-cards-vector-png</>
+ *
+ * Author: Aaron
+ * Version: March 2023
+ */
 public class CardImageRes {
     private int[][] resources = new int[5][14];
     // [suit] [value]
+
 
     public CardImageRes(){
         resources[0][0] = R.drawable.back_of_card;

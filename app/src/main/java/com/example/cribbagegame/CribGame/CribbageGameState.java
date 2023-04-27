@@ -163,14 +163,14 @@ public class CribbageGameState extends GameState {
         }
     }
     public boolean awardFaceUpPoints() {
+        //points awarded to non-dealer
         if (isPlayer1Dealer) {
-            p2Points += 2;
-            return true;
+            p1Points += 2;
         }
         else {
-            p1Points += 2;
-            return true;
+            p2Points += 2;
         }
+        return true;
     }
 
     public boolean setFaceUpCard(Card c) {
