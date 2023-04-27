@@ -506,10 +506,6 @@ public abstract class GameMainActivity extends Activity implements
         v.setOnClickListener(this);
         v = findViewById(R.id.debugLogging);
         v.setOnClickListener(this);
-        //my addition: rules button
-        v = findViewById((R.id.rulesButton));
-        v.setOnClickListener(this);
-
 
         String ipCode = IPCoder.encodeLocalIP();
         String ipAddress = IPCoder.getLocalIpAddress();
@@ -627,12 +623,6 @@ public abstract class GameMainActivity extends Activity implements
             }else{
                 Logger.setDebugValue(false);
             }
-        }
-
-        //Rules Screen
-        else if(button.getId() == R.id.rulesButton) {
-            setContentView(R.layout.cribbage_rules);
-
         }
 
 

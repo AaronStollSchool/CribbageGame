@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/fascinate_inline0"
-            android:shadowColor="#FFD500"
+            android:shadowColor="@color/orange"
             android:shadowRadius="30"
             android:text="Cribbage!"
             android:textAlignment="center"
