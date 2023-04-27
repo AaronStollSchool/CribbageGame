@@ -732,12 +732,45 @@ public class CribbageGameState extends GameState {
         return tal * mult;
     }
 
-    public int tallyFlush(ArrayList<Card> hand)
+    public int tallyFlush(ArrayList<Card> hand, boolean isCrib)
     {
-        return 0;
+        for(int i = 0; i < 3; i++)
+        {
+            if(hand.get(i).getSuit() != hand.get(i+1).getSuit())
+            {
+                Log.d("Flush:", Integer.toString(0));
+                return 0;
+            }
+        }
+
+        if(hand.get(0).getSuit() != faceUpCard.getSuit())
+        {
+            if(isCrib)
+            {
+                Log.d("Flush:", Integer.toString(0));
+                return 0;
+            }
+            else
+            {
+                Log.d("Flush:", Integer.toString(4));
+                return 4;
+            }
+        }
+
+        Log.d("Flush:", Integer.toString(5));
+        return 5;
     }
     public int tallyHeels(ArrayList<Card> hand)
     {
+        for(int i = 0; i < 4; i++)
+        {
+            if(hand.get(i).getCardValue() == 11 && hand.get(i).getSuit() == faceUpCard.getSuit())
+            {
+                Log.d("Heels:", Integer.toString(1));
+                return 1;
+            }
+        }
+        Log.d("Heels:", Integer.toString(0));
         return 0;
     }
 
@@ -774,7 +807,7 @@ public class CribbageGameState extends GameState {
                     }
                     Log.d("Face Up Card: ", faceUpCard.toString());
 
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h, false) + tallyHeels(h);
                     p1Points += sum;
                     break;
                 case 1:
@@ -785,7 +818,7 @@ public class CribbageGameState extends GameState {
                     }
                     Log.d("Face Up Card: ", faceUpCard.toString());
 
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h, false) + tallyHeels(h);
                     p2Points += sum;
                     break;
                 case 2:
@@ -796,7 +829,7 @@ public class CribbageGameState extends GameState {
                     }
                     Log.d("Face Up Card: ", faceUpCard.toString());
 
-                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h) + tallyHeels(h);
+                    sum = tallyRuns(h) + tallyDoubles(h) + tally15s(h) + tallyFlush(h, true) + tallyHeels(h);
                     if(isPlayer1Dealer)
                     {
                         p1Points += sum;
