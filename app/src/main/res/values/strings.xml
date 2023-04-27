@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">CribbageGame</string>
+    <string name="mainGoal">Main Goal: Be the first to score 61 points! </string>
     <string name="discard">     One player is assigned dealer at the beginning of each round and switches off every round. Dealer deals 6 cards to each player.
         Dealer then cuts deck, and non-dealer flips over top card (this is done for you in our game).
-        One point goes to the non-dealer if the card flipped over is a Jack.
+        Two points go to the non-dealer if the card flipped over is a Jack.
         Each player discards two cards from their hand to the \'crib\'. That crib now belongs to the dealer for later. </string>
     <string name="duel">        Non-dealer lays a card on the table faced up, followed by dealer and alternating until both have emptied their hands.
         Ranks of cards are summed as they are placed on the table. Points are gained by the owner of last card played if\:
@@ -19,6 +20,6 @@
             \+2 pts for any combination of cards totaling 15
             \+2 pts for any pair \(thus +6 pts for triple and +12 pts for quadruple\)
             \+n pts for a run of n \(must be 3 or more\)
-            \+1 pt if hand contains jack of the same suit as flipped card
+            \+1 pt if hand contains Jack of the same suit as flipped card
         Process repeats with dealer\'s hand, then with \"crib\" \(points go to dealer\)</string>
 </resources>
