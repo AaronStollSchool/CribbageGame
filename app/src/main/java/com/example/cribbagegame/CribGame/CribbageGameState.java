@@ -537,7 +537,7 @@ public class CribbageGameState extends GameState {
                     runCount++;
                     if(runCount == i)
                     {
-                        //Log.d("Run Score:",Integer.toString(i));
+                        Log.d("Run Score:",Integer.toString(i));
                         return i;
                     }
                 }
@@ -551,7 +551,7 @@ public class CribbageGameState extends GameState {
                 }
             }
         }
-        //Log.d("Run Score:",Integer.toString(0));
+        Log.d("Run Score:",Integer.toString(0));
         return 0;
     }
     public int scoreDoubles()
@@ -563,13 +563,13 @@ public class CribbageGameState extends GameState {
             {
                 //first non pair found ends loop (i=0 means no pairs, i=1 means pair, i=2 means triple,
                 //i=3 means quad)
-                //Log.d("Double Score:",Integer.toString((i*(i+1))));
+                Log.d("Double Score:",Integer.toString((i*(i+1))));
                 return i * (i+1);
             }
         }
         //runs if loop ends before finding a non pair (i.e. either size is 1 with no pairs (1*0=0), 2 with
         //pair (2*1=2), 3 with triple (3*2=6), or 4 with quad (4*3=12))
-        //Log.d("Double Score:",Integer.toString((inPlayCards.size()-inPlayScoreIndex) * (inPlayCards.size()-1-inPlayScoreIndex)));
+        Log.d("Double Score:",Integer.toString((inPlayCards.size()-inPlayScoreIndex) * (inPlayCards.size()-1-inPlayScoreIndex)));
         return (inPlayCards.size()-inPlayScoreIndex) * (inPlayCards.size()-1-inPlayScoreIndex);
     }
     public int score15()
@@ -582,10 +582,22 @@ public class CribbageGameState extends GameState {
     {
         int score = score15() + scoreDoubles() + scoreRunsNew();
         if (pID == 1) {
-                p2Points += score;
+            Log.d("Total Score:", Integer.toString(score));
+            p2Points += score;
         } else {
-                p1Points += score;
+            Log.d("Total Score:", Integer.toString(score));
+            p1Points += score;
         }
+    }
+
+    public int scorePredict(Card c)
+    {
+        int predict;
+        inPlayCards.add(c);
+        predict = scoreDoubles() + scoreRunsNew();
+        if(roundScore + c.getCardScore() == 15) predict += 2;
+        inPlayCards.remove(c);
+        return predict;
     }
 
     public int tallyRuns(ArrayList<Card> hand)
@@ -898,6 +910,8 @@ public class CribbageGameState extends GameState {
                 default:
                     break;
             }
+            inPlay = 0;
+            inPlayScoreIndex = 0;
         }
     }
 

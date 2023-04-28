@@ -52,12 +52,14 @@ public class CribbageMainActivity extends GameMainActivity {
                 return new CribHumanPlayer(name);
             }});
         playerTypes.add(new GamePlayerType("Computer Player") {
-            public GamePlayer createPlayer(String name) {
-                return new CribComputerPlayer(name);
-            }});
+            public GamePlayer createPlayer(String name) { return new CribComputerPlayer(name); }});
         playerTypes.add(new GamePlayerType("Smart Computer Player") {
             public GamePlayer createPlayer(String name) {
                 return new CribSmartComputerPlayer(name);
+            }});
+        playerTypes.add(new GamePlayerType("Alt Computer Player") {
+            public GamePlayer createPlayer(String name) {
+                return new CribAltComputerPlayer(name);
             }});
 
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Cribbage", PORT_NUMBER);
