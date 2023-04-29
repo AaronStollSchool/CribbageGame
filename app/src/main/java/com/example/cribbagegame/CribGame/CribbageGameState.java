@@ -73,6 +73,7 @@ public class CribbageGameState extends GameState {
 
         playerTurn = 0; // TBI: change value to show no player turn has been set yet
         isPlayer1Dealer = false;
+        randomizeDealer();
 
         phase = 0;
         p1RoundScore = 0;
@@ -255,6 +256,24 @@ public class CribbageGameState extends GameState {
             return false;
         }
         else if (playerID == 1 && isPlayer1Dealer) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean randomizeDealer() {
+        Random r = new Random();
+        int dealer = r.nextInt(2);
+        if (dealer == 0) {
+            isPlayer1Dealer = false;
+            playerTurn = 0;
+            return true;
+        }
+        else if (dealer == 1) {
+            isPlayer1Dealer = true;
+            playerTurn = 1;
             return true;
         }
         else {
@@ -448,17 +467,6 @@ public class CribbageGameState extends GameState {
     public int getPlayerTurn() {return playerTurn;}
     public int getCribSize() {return crib.size();}
     public Card getInPlayCard(int index) {return inPlayCards.get(index);}
-    /*public boolean getDealer(int pID){
-        if(pID == 0 && isPlayer1Dealer){ // Player1 passed in & Player1 is Dealer  ---> TRUE
-            return true;
-        }
-        else if(pID == 1 && !isPlayer1Dealer){ // Player2 passed in & Player2 is Dealer ---> TRUE
-            return true;
-        }
-        else{
-            return false; // Else ---> FALSE
-        }
-    }*/
 
     //IMPORTANT: method does not return card at index! It returns the card (index) back from the last card.
     public Card getPlayedCard(int index) { return inPlayCards.get(inPlayCards.size()-1-index); }
@@ -650,33 +658,6 @@ public class CribbageGameState extends GameState {
             }
         }
 
-        //4, 6, 7, 7, 8 - ideally should count 2 runs (of length 4)
-        /*
-         * arr[3] = 1
-         * arr[5] = 1
-         * arr[6] = 2
-         * arr[7] = 1
-         */
-
-        //1, 2, 2, 2, 3 - ideally should count 3 runs (of length 3)
-        /*
-         * arr[0] = 1
-         * arr[1] = 3
-         * arr[2] = 1
-         */
-
-        //3, 4, 4, 5, 6 - ideally should count 2 runs (of length 4)
-        /*
-         * arr[2] = 1
-         * arr[3] = 2
-         * arr[4] = 1
-         * arr[5] = 1
-         */
-
-        //1, 2, 3, 5, 6 - no matter what, there can only be 1 valid run per hand if theres no duplicates
-
-        //1, 2, 3, 4, 7 - should only count 1 run (of length 4), cannot split into 2 runs
-
         Log.d("Runs:", Integer.toString(0));
         return 0;
     }
@@ -841,22 +822,6 @@ public class CribbageGameState extends GameState {
         Log.d("Heels:", Integer.toString(0));
         return 0;
     }
-
-    /* TO DO
-        - ScoreRuns for during play
-            - must be sequential? loop through inPlayCards?
-        - ScoreDoubles for during play
-            - if card played is the same rank as the previous card played, score 2 points
-            - if card played is the same rank as the previous 2 cards played, score 6 points
-            - if card played is the same rank as the previous 3 cards played, score 12 points
-        - Score15s for during play
-            - if card played makes the current running total 15, score 2 points
-            - if card played makes the current running total 31, score 2 points
-        - tallyFlush (only at end of play)
-            - loop through hand and check if all cards are the same suit, score 4 points
-        - tallyHeels (otherwise known as nob)
-            - if hand/crib contains a jack of the same suit as the faceUpCard, score 1 point
-     */
 
     public void tallyScore()
     {
