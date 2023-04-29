@@ -451,15 +451,16 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         }
                     }
                 }
-            } else if (button.equals(helpButton)) {
+            } else if (button.equals(helpButton)) { // HELP SCREEN
                 //no way to go back, but that's not important yet i guess
                 activity.setContentView(R.layout.cribbage_rules);
-            } else if (button.equals(exitButton)) {
+            } else if (button.equals(exitButton)) { // EXITING GAME
                 messageView.setText("Game is over.");
                 gameIsOver("Player " + this.playerNum + " has exited the game. Game is over.");
                 //only so CribbageGameState knows.
                 CribExitGameAction ega = new CribExitGameAction(this);
                 game.sendAction(ega);
+                activity.setGameOver(true);
             } else if (button.equals(shuffleAndDealButton)) {
 
                 if(cribGameState.getHandSize(this.playerNum) == 0) {

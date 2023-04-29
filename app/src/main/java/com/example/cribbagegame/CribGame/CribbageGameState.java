@@ -725,62 +725,6 @@ public class CribbageGameState extends GameState {
         }
     }
 
-    public int tally15sNew(ArrayList<Card> hand)
-    {
-        Card cArr[] = new Card[5]; //temporary array of Cards
-        int tal = 0; //sum of points
-        int sum15 = 0;
-
-        for(int i = 0; i < 4; i++)
-        {
-            cArr[i] = hand.get(i); //adding all values in hand to array
-        }
-        cArr[4] = faceUpCard; //adding faceUpCard to array
-
-        for(int i = 0; i < cArr.length; i++)
-        {
-            hand.remove(cArr[i]);
-            tal += tally15sNewRecur(hand);
-            hand.add(cArr[i]);
-
-            sum15 += cArr[i].getCardScore();
-        }
-        if(sum15 == 15) tal += 2 * 6;
-        Log.d("15s:", Integer.toString(tal));
-        return tal / 6;
-
-    }
-    public int tally15sNewRecur(ArrayList<Card> hand)
-    {
-        Card cArr[] = new Card[hand.size()]; //temporary array of Cards
-        int tal = 0; //sum of points
-        int sum15 = 0;
-        int mult = 6 / (5 - hand.size());
-
-        for(int i = 0; i < hand.size(); i++)
-        {
-            cArr[i] = hand.get(i); //adding all values in hand to array
-        }
-
-        if(hand.size() == 2)
-        {
-            sum15 = cArr[0].getCardScore() + cArr[1].getCardScore();
-
-            if(sum15 == 15) return 2;
-            else return 0;
-        }
-
-        for(int i = 0; i < cArr.length; i++)
-        {
-            hand.remove(cArr[i]);
-            tal += tally15sNewRecur(hand);
-            hand.add(cArr[i]);
-
-            sum15 += cArr[i].getCardScore();
-        }
-        if(sum15 == 15) tal += 2;
-        return tal * mult;
-    }
 
     public int tallyFlush(ArrayList<Card> hand, boolean isCrib)
     {
@@ -879,17 +823,5 @@ public class CribbageGameState extends GameState {
             inPlay = 0;
             inPlayScoreIndex = 0;
         }
-    }
-
-    @Override
-    public String toString() {
-
-        String p1Vals = "Player 0 Points: " + String.valueOf(p1Points) +
-                " Player 0 Hand: " + String.valueOf(stringHands(p1Hand)) + " Player 0 Round Score: " + p1RoundScore;
-        String p2Vals = " Player 1 Points: " + String.valueOf(p2Points) +
-                " Player 1 Hand: " +  String.valueOf(stringHands(p2Hand)) + " Player 1 Round Score: " + p2RoundScore +
-                " Round total score: " + roundScore + " Cards in play: " + String.valueOf(inPlay);
-
-        return p1Vals + p2Vals;
     }
 }

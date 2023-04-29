@@ -95,4 +95,9 @@ public class CribbageMainActivity extends GameMainActivity {
         Logger.log(TAG, "Loading: " + gameName);
         return (GameState) new CribbageGameState((CribbageGameState) Saving.readFromFile(appName, this.getApplicationContext()));
     }
+
+    public void exitApp(){
+        this.finish();
+        System.exit(0);
+    }
 }
