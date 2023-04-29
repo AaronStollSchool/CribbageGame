@@ -79,13 +79,16 @@ public class CribLocalGame extends LocalGame {
                 if(cribGameState.getPlayerSaidGoFirst() == 0)
                 {
                     cribGameState.go(1);
+                    Log.d("Player 1 called go. ", "");
                 }
                 else
                 {
                     cribGameState.go(0);
+                    Log.d("Player 0 called go.", "");
                 }
                 //cribGameState.go(1-cribGameState.getPlayerSaidGoFirst());
                 cribGameState.setPlayerSaidGoFirst(-1);
+                Log.d("PlayerSaidGoFirst", "set to -1");
             }
             return true;
         }

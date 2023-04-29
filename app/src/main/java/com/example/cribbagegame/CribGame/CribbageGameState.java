@@ -396,7 +396,7 @@ public class CribbageGameState extends GameState {
 
     public boolean discard(Card c, int playerID) { //discard TO CRIB
         if(playerTurn == 0) {
-            if(isPlayable(c) == true) {
+            if(isPlayable(c)) {
                 crib.add(c);
                 p1Hand.remove(c);
                 p1Hand.trimToSize();
@@ -404,7 +404,7 @@ public class CribbageGameState extends GameState {
             }
         }
         else if(playerTurn == 1){
-            if(isPlayable(c) == true) {
+            if(isPlayable(c)) {
                 crib.add(c);
                 p2Hand.remove(c);
                 p2Hand.trimToSize();
@@ -457,6 +457,7 @@ public class CribbageGameState extends GameState {
     }
     public void setRoundScore(int score) {roundScore = score;}
     public void setPlayerSaidGoFirst(int playerNum) { this.playerSaidGoFirst = playerNum; }
+    public Card getLastPlayedCard() {return inPlayCards.get(inPlayCards.size() -1); }
     public int getPlayerSaidGoFirst() { return playerSaidGoFirst; }
     public int getPlayer0Score() { return p1Points; }
     public int getPlayer1Score() { return p2Points; }
