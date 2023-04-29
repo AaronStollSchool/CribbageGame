@@ -386,7 +386,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
         //unless it isn't a card you're clicking but a button you pressed
         else if (button instanceof Button) {
 
-            if (button.equals(endTurnButton)) {
+            if (button.equals(endTurnButton)) { /****************** END TURN BUTTON  */
                 //check if discard or play
                 if(hand.size() == 6) {
                     //check if valid discard, get values of relevant cards
@@ -451,17 +451,22 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         }
                     }
                 }
-            } else if (button.equals(helpButton)) { // HELP SCREEN
+
+            } else if (button.equals(helpButton)) { /****************** HELP BUTTON  */
                 //no way to go back, but that's not important yet i guess
                 activity.setContentView(R.layout.cribbage_rules);
-            } else if (button.equals(exitButton)) { // EXITING GAME
+
+            } else if (button.equals(exitButton)) { /***************************** EXIT BUTTON  */
                 messageView.setText("Game is over.");
                 gameIsOver("Player " + this.playerNum + " has exited the game. Game is over.");
                 //only so CribbageGameState knows.
                 CribExitGameAction ega = new CribExitGameAction(this);
                 game.sendAction(ega);
                 activity.setGameOver(true);
-            } else if (button.equals(shuffleAndDealButton)) {
+                activity.finish();
+                System.exit(0);
+
+            } else if (button.equals(shuffleAndDealButton)) { /****************** SHUFFLE AND DEAL BUTTON  */
 
                 if(cribGameState.getHandSize(this.playerNum) == 0) {
                     //reset all cards so they disappear
@@ -481,6 +486,7 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     CribDealAction da = new CribDealAction(this);
                     game.sendAction(da);
                     messageView.setText("You have dealt cards to all players.");
+
                 }
                 else {
                     messageView.setText("You're not supposed to deal right now. ");
@@ -488,6 +494,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             }
 
         }
+
+        //public void reInitGUI(){}
 
         //may not be needed, helpful to have just in case i miss something
         /*else {

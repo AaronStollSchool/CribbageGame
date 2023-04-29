@@ -94,7 +94,7 @@ public class CribbageMainActivity extends GameMainActivity {
     }
 
     public void exitApp(){
-        this.finish();
+        finish();
         System.exit(0);
     }
 }
