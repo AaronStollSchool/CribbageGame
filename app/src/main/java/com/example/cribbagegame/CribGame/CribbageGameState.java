@@ -31,8 +31,6 @@ public class CribbageGameState extends GameState {
     private int inPlayScoreIndex = 0;
     private Card faceUpCard;
 
-    private boolean isHard;
-
     private int playerTurn;
     //player 1 turn: 0
     //player 2 turn: 1
@@ -69,8 +67,6 @@ public class CribbageGameState extends GameState {
 
         faceUpCard = new Card(0,0,0);
 
-        isHard = true;
-
         playerTurn = 0; // TBI: change value to show no player turn has been set yet
         isPlayer1Dealer = false;
         randomizeDealer();
@@ -106,8 +102,6 @@ public class CribbageGameState extends GameState {
         this.faceUpCard = new Card(gameState.faceUpCard.getCardValue(), gameState.faceUpCard.getSuit(), gameState.faceUpCard.getCardID());
 
         this.playerTurn = gameState.playerTurn;
-
-        this.isHard = gameState.isHard;
 
         this.isPlayer1Dealer = gameState.isPlayer1Dealer;
 

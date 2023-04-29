@@ -28,14 +28,23 @@ import java.util.ArrayList;
  */
 public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
     private TextView playerScoreTextValue = null;
+    private String playerScore;
     private TextView oppScoreTextValue = null;
+    private String oppScore;
     private TextView playerScoreTextView = null;
+    private String playerScoreText;
     private TextView oppScoreTextView = null;
+    private String oppScoreText;
     private TextView roundTotalScoreView = null;
+    private String roundScoreText;
     private TextView cribTextView = null;
+    private String cribOwnerText;
     private TextView messageView = null;
     private TextView secondaryMessage = null;
+    private String primaryText;
+    private String secondaryText;
     private ImageView faceUpCard = null;
+    private int faceUpID = (R.drawable.back_of_card);
 
     private GameMainActivity activity;
 
@@ -48,11 +57,15 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     private ArrayList<ImageButton> cards = new ArrayList<>();
     private ArrayList<Card> hand = new ArrayList<>();
     private ArrayList<ImageView> inPlayCards = new ArrayList<>();
+    private int[] inPlayRes = new int[8];
+
     private ArrayList<ImageView> inCribCards = new ArrayList<>();
+    private int[] inCribRes = new int[8];
 
     private int inPlay;
     private int inCrib;
     private int roundScore;
+    private int handSize;
     private int flashHelper = 0;
     private CribbageGameState cribGameState;
 
@@ -85,44 +98,54 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
             //display each player's names and their points as game goes on
             if (this.playerNum == 1) {
-                playerScoreTextView.setText(this.name + "'s Score: ");
-                oppScoreTextView.setText(this.allPlayerNames[0] + "'s Score: ");
-                playerScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer1Score());
-                oppScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer0Score());
+                playerScoreText = this.name + "'s Score: ";
+                oppScoreText = this.allPlayerNames[0] + "'s Score: ";
+                playerScore = "" + ((CribbageGameState) info).getPlayer1Score();
+                oppScore = "" + ((CribbageGameState) info).getPlayer0Score();
+
             } else if (this.playerNum == 0) {
-                playerScoreTextView.setText(this.name + "'s Score: ");
-                oppScoreTextView.setText(this.allPlayerNames[1] + "'s Score: ");
-                playerScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer0Score());
-                oppScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer1Score());
+                playerScoreText = this.name + "'s Score: ";
+                oppScoreText = this.allPlayerNames[1] + "'s Score: ";
+                playerScore = "" + ((CribbageGameState) info).getPlayer0Score();
+                oppScore = "" + ((CribbageGameState) info).getPlayer1Score();
             }
+            playerScoreTextView.setText(playerScoreText);
+            oppScoreTextView.setText(oppScoreText);
+            playerScoreTextValue.setText(playerScore);
+            oppScoreTextValue.setText(oppScore);
 
             //logging each player's turn
             if (((CribbageGameState) info).getPlayerTurn() != this.playerNum) {
-                secondaryMessage.setText("It's Opponent's turn. ");
+                secondaryText = "It's Opponent's turn. ";
                 if (((CribbageGameState) info).isDealer(this.playerNum)) {
-                    secondaryMessage.append("You are the dealer.");
-                    cribTextView.setText("Your Crib:");
+                    secondaryText.concat("You are the dealer.");
+                    cribOwnerText = "Your Crib:";
                 }
                 else {
-                    secondaryMessage.append("Opponent is the dealer.");
-                    cribTextView.setText("Their Crib:");
+                    secondaryText.concat("Opponent is the dealer.");
+                    cribOwnerText = "Their Crib:";
                 }
+                secondaryMessage.setText(secondaryText);
+                cribTextView.setText(cribOwnerText);
             } else if (((CribbageGameState) info).getPlayerTurn() == this.playerNum) {
-                secondaryMessage.setText("It's Your turn. ");
+                secondaryText = "It's Your turn. ";
                 if (((CribbageGameState) info).isDealer(this.playerNum)) {
-                    secondaryMessage.append("You are the dealer.");
-                    cribTextView.setText("Your Crib:");
+                    secondaryText.concat("You are the dealer.");
+                    cribOwnerText = "Your Crib:";
                 }
                 else {
-                    secondaryMessage.append("Opponent is the dealer.");
-                    cribTextView.setText("Their Crib:");
+                    secondaryText.concat("Opponent is the dealer.");
+                    cribOwnerText = "Their Crib:";
                 }
+                secondaryMessage.setText(secondaryText);
+                cribTextView.setText(cribOwnerText);
             }
             //for more aesthetic/readability during gameplay
             if(((CribbageGameState) info).isDealer(this.playerNum)
                     && ((CribbageGameState) info).getHandSize(this.playerNum) == 0
                     && ((CribbageGameState) info).getHandSize(1-this.playerNum) == 0) {
-                messageView.setText("Please deal cards to begin play. ");
+                primaryText = "Please deal cards to begin play. ";
+                messageView.setText(primaryText);
             }
 
             //to monitor and spy
@@ -135,7 +158,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             //this may change frequently because of the various scoring that happens
             //in different components of each round
             roundScore = ((CribbageGameState) info).getRoundScore(this.playerNum);
-            roundTotalScoreView.setText("" + roundScore);
+            roundScoreText = "" + roundScore;
+            roundTotalScoreView.setText(roundScoreText);
 
             //resets highlighted cards
             hand.clear();
@@ -173,9 +197,11 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 game.sendAction(sda);
 
                 if (((CribbageGameState) info).getIsPlayer1Dealer()) {
-                    messageView.setText("Dealer has been switched to begin a new round. Player 0 is dealer.");
+                    primaryText = "Dealer has been switched to begin a new round. Player 0 is dealer.";
+                    messageView.setText(primaryText);
                 } else {
-                    messageView.setText("Dealer has been switched to begin a new round. Player 1 is dealer.");
+                    primaryText = "Dealer has been switched to begin a new round. Player 1 is dealer.";
+                    messageView.setText(primaryText);
                 }
                 Log.d("HumanPlayer, Dealer is Player", "" + ((CribbageGameState) info).getIsPlayer1Dealer());
                 CribEndTurnAction eta = new CribEndTurnAction(this);
@@ -188,7 +214,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
              */
             CardImageRes x = new CardImageRes();
             int k;
-            for (k = 0; k < ((CribbageGameState) info).getHandSize(this.playerNum); k++) {
+            handSize = ((CribbageGameState) info).getHandSize(this.playerNum);
+            for (k = 0; k < handSize; k++) {
                 cards.get(k).setClickable(true);
                 cards.get(k).setImageResource(x.getCardResID(hand.get(k).getSuit(), hand.get(k).getCardValue()));
             }
@@ -208,18 +235,21 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 faceUpCard.setImageResource(R.drawable.back_of_card);
             }
             else {
-                faceUpCard.setImageResource(x.getCardResID( ((CribbageGameState) info).getFaceUpCard().getSuit(),
-                        ((CribbageGameState) info).getFaceUpCard().getCardValue()) );
+                faceUpID = x.getCardResID( ((CribbageGameState) info).getFaceUpCard().getSuit(),
+                        ((CribbageGameState) info).getFaceUpCard().getCardValue());
+                faceUpCard.setImageResource(faceUpID);
 
                 if(((CribbageGameState) info).isFaceUpCardJack()) {
                     ((CribbageGameState) info).awardFaceUpPoints();
                     if(this.playerNum == 0) {
-                        playerScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer0Score());
-                        oppScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer1Score());
+                        playerScore = "" + ((CribbageGameState) info).getPlayer0Score();
+                        oppScore = "" + ((CribbageGameState) info).getPlayer1Score();
                     } else {
-                        playerScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer1Score());
-                        oppScoreTextValue.setText("" + ((CribbageGameState) info).getPlayer0Score());
+                        playerScore = "" + ((CribbageGameState) info).getPlayer1Score();
+                        oppScore = "" + ((CribbageGameState) info).getPlayer0Score();
                     }
+                    playerScoreTextValue.setText(playerScore);
+                    oppScoreTextValue.setText(oppScore);
                 }
             }
 
@@ -231,12 +261,14 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             Log.d("inCribSize", "" + inCrib);
             if(((CribbageGameState) info).getInPlaySize() != 8) {
                 for(int i = 0; i < inCribCards.size(); i++) {
+                    inCribRes[i] = R.drawable.back_of_card;
                     inCribCards.get(i).setImageResource(R.drawable.back_of_card);
                 }
             } else {
                 for (int i = 0; i < inCribCards.size(); i++) { //has had IndexOutOfBounds problems, check on that
-                    inCribCards.get(i).setImageResource(x.getCardResID( ((CribbageGameState) info).getCribCard(i).getSuit(),
-                            ((CribbageGameState) info).getCribCard(i).getSuit()) );
+                    inCribRes[i] = x.getCardResID( ((CribbageGameState) info).getCribCard(i).getSuit(),
+                            ((CribbageGameState) info).getCribCard(i).getSuit());
+                    inCribCards.get(i).setImageResource(inCribRes[i]);
                 }
             }
 
@@ -251,18 +283,21 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             Log.d("inPlaySize", "" + inPlay);
             for(int i = 0; i < 8; i++) {
                 //reset them a lot just to make it cleaner - it doesn't listen to me when inPlay is cleared
+                inPlayRes[i] = R.drawable.back_of_card;
                 inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
             }
             try {
                 Log.d("inPlayCards", "drawing");
                 for (int i = 0; i < inPlay; i++) {
-                    inPlayCards.get(i).setImageResource(x.getCardResID(((CribbageGameState) info).getInPlayCard(i).getSuit(),
-                            ((CribbageGameState) info).getInPlayCard(i).getCardValue()));
+                    inPlayRes[i] = x.getCardResID(((CribbageGameState) info).getInPlayCard(i).getSuit(),
+                            ((CribbageGameState) info).getInPlayCard(i).getCardValue());
+                    inPlayCards.get(i).setImageResource(inPlayRes[i]);
                 }
                 for(int i = 0; i < inPlay; i++) {
                     Log.d("inPlayCards", "drawing");
-                    inPlayCards.get(i).setImageResource(x.getCardResID(((CribbageGameState) info).getInPlayCard(i).getSuit(),
-                            ((CribbageGameState) info).getInPlayCard(i).getCardValue()));
+                    inPlayRes[i] = x.getCardResID(((CribbageGameState) info).getInPlayCard(i).getSuit(),
+                            ((CribbageGameState) info).getInPlayCard(i).getCardValue());
+                    inPlayCards.get(i).setImageResource(inPlayRes[i]);
                 }
             }
             catch (IndexOutOfBoundsException indexOutOfBoundsException) {
@@ -276,7 +311,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 //if my hand doesn't have any playable cards, prompt to end turn to ENSUE GO ACTION
                 boolean hasPlayableCard = ((CribbageGameState) info).hasAnyPlayableCard(this.playerNum);
                 if(!hasPlayableCard) {
-                    messageView.setText("You should say \"Go\". Press \"End Turn\". ");
+                    primaryText = "You should say \"Go\". Press \"End Turn\". ";
+                    messageView.setText(primaryText);
                 }
             }
         } else {
@@ -356,18 +392,20 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
     @Override //because it belongs to GameHumanPlayer as an empty method!
     public void initAfterReady() {
         //allPlayerNames can be null so after Ready, we can initialize the now non-null array
-        playerScoreTextView.setText(this.name + "'s Score: ");
+        playerScoreText = this.name + "'s Score: ";
+        playerScoreTextView.setText(playerScoreText);
         if (this.playerNum == 1) {
-            oppScoreTextView.setText(this.allPlayerNames[0] + "'s Score: ");
+            oppScoreText = this.allPlayerNames[0] + "'s Score: ";
         } else {
-            oppScoreTextView.setText(this.allPlayerNames[1] + "'s Score: ");
+            oppScoreText = this.allPlayerNames[1] + "'s Score: ";
         }
+        oppScoreTextView.setText(oppScoreText);
     }
 
     @Override
     public void onClick(View button) {
         //if it's an ImageButton... decide PlayCardAction or DiscardAction
-        if (button instanceof ImageButton) {
+        if (button instanceof ImageButton) {  /****************** CARD BUTTON  */
 
             for (int i = 0; i < cards.size(); i++) {
                 //if button is this thing that you clicked on screen
@@ -404,7 +442,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
                     if(sum == 2) {
                         //send discard action
-                        messageView.setText("Cards discarded: " + c1.toString() + " and " + c2.toString());
+                        primaryText = "Cards discarded: " + c1.toString() + " and " + c2.toString();
+                        messageView.setText(primaryText);
                         CribDiscardAction da = new CribDiscardAction(this, c1, c2);
                         game.sendAction(da);
                         for(int i = 0; i < cards.size(); i++) {
@@ -414,7 +453,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         game.sendAction(eta);
                     } else {
                         //error message
-                        messageView.setText("Please select exactly 2 cards to discard to the crib.");
+                        primaryText = "Please select exactly 2 cards to discard to the crib.";
+                        messageView.setText(primaryText);
                     }
                 } else {
                     //check if valid play
@@ -428,7 +468,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                         }
                     }
                     if ((sum == 1) && (roundScore + c1.getCardScore() <= 31)) {
-                        messageView.setText("Card played: " + c1.toString());
+                        primaryText = "Card played: " + c1.toString();
+                        messageView.setText(primaryText);
                         CribPlayCardAction pa = new CribPlayCardAction(this, c1);
                         game.sendAction(pa);
                         for (int i = 0; i < cards.size(); i++) {
@@ -439,7 +480,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                     } else {
                         boolean hasPlayableCard = cribGameState.hasAnyPlayableCard(this.playerNum);
                         if (!hasPlayableCard) {
-                            messageView.setText("You have said \"Go\".");
+                            primaryText = "You have said \"Go\".";
+                            messageView.setText(primaryText);
                             CribGoAction ga = new CribGoAction(this);
                             game.sendAction(ga);
 
@@ -447,7 +489,8 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                             game.sendAction(eta);
                             Log.d("HumanPlayer", "has no playable cards, so Go action is called.");
                         } else {
-                            messageView.setText("Please select exactly 1 card to play.");
+                            primaryText = "Please select exactly 1 card to play.";
+                            messageView.setText(primaryText);
                         }
                     }
                 }
@@ -455,9 +498,15 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
             } else if (button.equals(helpButton)) { /****************** HELP BUTTON  */
                 //no way to go back, but that's not important yet i guess
                 activity.setContentView(R.layout.cribbage_rules);
+                exitRules = activity.findViewById(R.id.exitRules);
+                exitRules.setOnClickListener(this);
 
-            } else if (button.equals(exitButton)) { /***************************** EXIT BUTTON  */
-                messageView.setText("Game is over.");
+            } else if(button.equals(exitRules)) {  /****************** EXIT RULES BUTTON  */
+                reInitGui();
+
+            }else if (button.equals(exitButton)) { /***************************** EXIT GAME BUTTON  */
+                primaryText = "Game is over.";
+                messageView.setText(primaryText);
                 gameIsOver("Player " + this.playerNum + " has exited the game. Game is over.");
                 //only so CribbageGameState knows.
                 CribExitGameAction ega = new CribExitGameAction(this);
@@ -471,10 +520,12 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
                 if(cribGameState.getHandSize(this.playerNum) == 0) {
                     //reset all cards so they disappear
                     for(int i = 0; i < inCribCards.size(); i++) {
+                        inCribRes[i] = R.drawable.back_of_card;
                         inCribCards.get(i).setImageResource(R.drawable.back_of_card);
                     }
                     for(int i = 0; i < inPlayCards.size(); i++) {
-                        inPlayCards.get(i).setImageResource(R.drawable.back_of_card);
+                        inPlayRes[i] = R.drawable.back_of_card;
+                        inPlayCards.get(i).setImageResource(inPlayRes[i]);
                     }
                     //tally points if not tallied yet
                     if(cribGameState.getCribSize() == 4 && cribGameState.getInPlaySize() == 8) {
@@ -485,22 +536,57 @@ public class CribHumanPlayer extends GameHumanPlayer implements View.OnClickList
 
                     CribDealAction da = new CribDealAction(this);
                     game.sendAction(da);
-                    messageView.setText("You have dealt cards to all players.");
+                    primaryText = "You have dealt cards to all players.";
+                    messageView.setText(primaryText);
 
                 }
                 else {
-                    messageView.setText("You're not supposed to deal right now. ");
+                    primaryText = "You're not supposed to deal right now. ";
+                    messageView.setText(primaryText);
                 }
             }
 
         }
-
-        //public void reInitGUI(){}
 
         //may not be needed, helpful to have just in case i miss something
         /*else {
             flash(Color.RED, 50);
             Log.d("onClick", "failed");
         }*/
+    }
+
+    // Method to reinitialize all of the GUI and buttons to current proper values after switching out of help screen
+    private void reInitGui() {
+        setAsGui(activity);
+
+        cribTextView.setText(cribOwnerText); // Reset the message textviews to what they were before
+        messageView.setText(primaryText);
+        secondaryMessage.setText(secondaryText);
+
+        playerScoreTextView.setText(playerScoreText); // reset Score Text Views
+        oppScoreTextView.setText(oppScoreText);
+        playerScoreTextValue.setText(playerScore);
+        oppScoreTextValue.setText(oppScore);
+        roundTotalScoreView.setText(roundScoreText);
+
+        faceUpCard.setImageResource(faceUpID); // reset Card Image Resources
+        for(int i = 0; i < 8; i++){
+            inPlayCards.get(i).setImageResource(inPlayRes[i]);
+        }
+        for(int i = 0; i < 4; i++){
+            inCribCards.get(i).setImageResource(inCribRes[i]);
+        }
+        int k;
+        CardImageRes x = new CardImageRes();
+        for (k = 0; k < handSize; k++) {
+            cards.get(k).setClickable(true);
+            cards.get(k).setImageResource(x.getCardResID(hand.get(k).getSuit(), hand.get(k).getCardValue()));
+        }
+        //set any unused cards to be gone
+        for(; k < 6; k++) {
+            cards.get(k).setImageResource(R.drawable.back_of_card);
+            cards.get(k).setClickable(false);
+        }
+
     }
 }
